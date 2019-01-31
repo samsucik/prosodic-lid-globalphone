@@ -192,8 +192,6 @@ if [ $stage -le 2 ]; then
 
 fi
 
-exit 1
-
 # At this stage we'll have created the ranges files that define how many egs
 # there are and where they come from.  If this is your first time running this
 # script, you might decide to put an exit 1 command here, and inspect the
