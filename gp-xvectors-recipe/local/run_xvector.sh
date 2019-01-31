@@ -52,8 +52,10 @@ num_pdfs=$(awk '{print $2}' $data/utt2spk | sort | uniq -c | wc -l)
 # the number of archives and increases the number of examples per archive.
 # Decreasing this value increases the number of archives, while decreasing the
 # number of examples per archive.
-echo "$data"
-echo $egs_dir
+
+echo "Taking data from: $data"
+echo "Storing training examples in: $egs_dir"
+echo "Storing TDNN in: $nnet_dir"
 
 if [ $stage -le 4 ]; then
   echo "#### STAGE 4: Getting NN training egs. ####";
@@ -72,8 +74,6 @@ if [ $stage -le 4 ]; then
     "$data" \
     $egs_dir
 fi
-
-exit 0
 
 if [ $stage -le 5 ]; then
   echo  "#### STAGE 5: Creating NN configs using the xconfig parser. ####";
