@@ -139,11 +139,14 @@ enroll_data=$home_prefix/enroll
 eval_data=$home_prefix/eval
 test_data=$home_prefix/test
 log_dir=$home_prefix/log
-mfcc_dir=$home_prefix/mfcc
-mfcc_sdc_dir=$home_prefix/mfcc_sdc
-sdc_dir=$home_prefix/mfcc_sdc
-mfcc_deltas_dir=$home_prefix/mfcc_deltas
-vaddir=$home_prefix/vad
+
+mfcc_dir=$home_prefix/mfcc                 # vanilla MFCC
+mfcc_sdc_dir=$home_prefix/mfcc_sdc         # MFCC for SDC (7D)
+sdc_dir=$home_prefix/mfcc_sdc              # SDC
+mfcc_deltas_dir=$home_prefix/mfcc_deltas   # MFCC+deltas
+pitch_energy_dir=$home_prefix/pitch_energy # Kaldi pitch + energy
+vaddir=$home_prefix/vad                    # any feature type ultimatelly run through VAD
+
 feat_dir=$home_prefix/x_vector_features
 nnet_train_data=$home_prefix/nnet_train_data
 nnet_dir=$home_prefix/nnet
@@ -313,6 +316,20 @@ if [ $stage -eq 2 ]; then
         $DATADIR/${data_subset} \
         $log_dir/make_sdc \
         $sdc_dir
+    elif [ "$feature_type" == "pitch_energy" ]; then
+      echo "Creating 5D KaldiPitch + energy features."
+      steps/make_mfcc_pitch.sh \
+        --write-utt2num-frames false \
+        --mfcc-config conf/mfcc_energy.conf \
+        --pitch-config conf/kaldi_pitch.conf \
+        --pitch-postprocess-config conf/kaldi_pitch_process.conf \
+        --paste-length-tolerance 2 \
+        --nj $num_jobs \
+        --cmd "$preprocess_cmd" \
+        --compress true \
+        $DATADIR/${data_subset} \
+        $log_dir/make_pitch_energy \
+        $pitch_energy_dir
     fi
 
     echo "Computing utt2num_frames and fixing the directory."
