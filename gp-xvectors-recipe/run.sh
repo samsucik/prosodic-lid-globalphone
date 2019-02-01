@@ -367,14 +367,16 @@ if [ $stage -eq 2 ]; then
     utils/data/get_utt2num_frames.sh $DATADIR/${data_subset}
     utils/fix_data_dir.sh $DATADIR/${data_subset}
 
-    ./local/compute_vad_decision.sh \
-      --nj $num_jobs \
-      --cmd "$preprocess_cmd" \
-      $DATADIR/${data_subset} \
-      $log_dir/make_vad \
-      $vaddir
+    if [ "$feature_type" == "mfcc" ] || [ "$feature_type" == "mfcc_deltas" ] || [ "$feature_type" == "sdc" ]; then
+      ./local/compute_vad_decision.sh \
+        --nj $num_jobs \
+        --cmd "$preprocess_cmd" \
+        $DATADIR/${data_subset} \
+        $log_dir/make_vad \
+        $vaddir
 
-    utils/fix_data_dir.sh $DATADIR/${data_subset}
+      utils/fix_data_dir.sh $DATADIR/${data_subset}
+    fi
     ) > $log_dir/${feature_type}_${data_subset}
   done
 
