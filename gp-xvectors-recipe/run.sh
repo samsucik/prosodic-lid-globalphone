@@ -196,7 +196,7 @@ fi
 # Preparing lists of utterances (and a couple other auxiliary lists) based
 # on the train/enroll/eval/test splitting. The lists refer to the WAVs
 # generated in the previous stage.
-# Runtime: Under 5 mins
+# Runtime: Under 2 mins
 if [ $stage -eq 1 ]; then
   # NOTE: The wav-dir as it is right now only works in the cluster!
   echo "#### STAGE 1: Organising speakers into sets. ####"
@@ -245,9 +245,9 @@ if [ $stage -eq 1 ]; then
 fi
 
 # Make features and compute the energy-based VAD for each dataset
-# Runtime: ~12 mins
+# Runtime: variable
 if [ $stage -eq 2 ]; then
-  echo "#### STAGE 2: features (MFCC, SDC, etc) and VAD. ####"
+  echo "#### STAGE 2: features (MFCC, SDC, pitch, energy, etc) and VAD. ####"
   
   for data_subset in train enroll eval test; do
     (
@@ -258,6 +258,7 @@ if [ $stage -eq 2 ]; then
       num_jobs=$num_speakers
     fi
 
+    # Runtime: ~12 mins
     if [ "$feature_type" == "mfcc" ]; then
       echo "Creating 23D MFCC features."
       steps/make_mfcc.sh \
@@ -269,6 +270,7 @@ if [ $stage -eq 2 ]; then
         $DATADIR/${data_subset} \
         $log_dir/make_mfcc \
         $mfcc_dir
+    # Runtime: > 12 minutes
     elif [ "$feature_type" == "mfcc_deltas" ]; then
       echo "Creating 23D MFCC features for MFCC-delta features."
       steps/make_mfcc.sh \
@@ -292,6 +294,7 @@ if [ $stage -eq 2 ]; then
         $DATADIR/${data_subset} \
         $log_dir/make_deltas \
         $mfcc_deltas_dir
+    # Runtime: ??
     elif [ "$feature_type" == "sdc" ]; then
       echo "Creating 7D MFCC features for SDC features."
       steps/make_mfcc.sh \
@@ -316,6 +319,7 @@ if [ $stage -eq 2 ]; then
         $DATADIR/${data_subset} \
         $log_dir/make_sdc \
         $sdc_dir
+    # Runtime: ~17 minutes
     elif [ "$feature_type" == "pitch_energy" ]; then
       echo "Creating 5D KaldiPitch + energy features."
       steps/make_mfcc_pitch.sh \
