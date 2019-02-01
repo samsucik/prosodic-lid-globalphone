@@ -145,6 +145,7 @@ mfcc_sdc_dir=$home_prefix/mfcc_sdc         # MFCC for SDC (7D)
 sdc_dir=$home_prefix/mfcc_sdc              # SDC
 mfcc_deltas_dir=$home_prefix/mfcc_deltas   # MFCC+deltas
 pitch_energy_dir=$home_prefix/pitch_energy # Kaldi pitch + energy
+energy_dir=$home_prefix/energy             # Raw energy
 vaddir=$home_prefix/vad                    # any feature type ultimatelly run through VAD
 
 feat_dir=$home_prefix/x_vector_features
@@ -334,6 +335,17 @@ if [ $stage -eq 2 ]; then
         $DATADIR/${data_subset} \
         $log_dir/make_pitch_energy \
         $pitch_energy_dir
+    elif [ "$feature_type" == "energy" ]; then
+      echo "Creating 1D raw energy features."
+      steps/make_mfcc.sh \
+        --write-utt2num-frames false \
+        --mfcc-config conf/mfcc_energy.conf \
+        --nj $num_jobs \
+        --cmd "$preprocess_cmd" \
+        --compress true \
+        $DATADIR/${data_subset} \
+        $log_dir/make_energy \
+        $energy_dir
     fi
 
     echo "Computing utt2num_frames and fixing the directory."
@@ -400,7 +412,7 @@ if [ $stage -eq 3 ]; then
 fi
 
 # NOTE main things we need to work on are the num-repeats and num-jobs parameters
-# Runtime: ~8.5 hours
+# Runtime: ~19.5 hours
 # TO-DO: Find out the runtime without using GPUs.
 if [ $stage -eq 4 ]; then
   echo "#### STAGE 4: Training the X-vector DNN. ####"
