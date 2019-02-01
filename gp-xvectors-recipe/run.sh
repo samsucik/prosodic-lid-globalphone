@@ -145,6 +145,7 @@ mfcc_sdc_dir=$home_prefix/mfcc_sdc         # MFCC for SDC (7D)
 sdc_dir=$home_prefix/mfcc_sdc              # SDC
 mfcc_deltas_dir=$home_prefix/mfcc_deltas   # MFCC+deltas
 pitch_energy_dir=$home_prefix/pitch_energy # Kaldi pitch + energy
+pitch_dir=$home_prefix/pitch               # Kaldi pitch
 energy_dir=$home_prefix/energy             # Raw energy
 vaddir=$home_prefix/vad                    # any feature type ultimatelly run through VAD
 
@@ -346,6 +347,18 @@ if [ $stage -eq 2 ]; then
         $DATADIR/${data_subset} \
         $log_dir/make_energy \
         $energy_dir
+    elif [ "$feature_type" == "pitch" ]; then
+      echo "Creating 4D KaldiPitch features."
+      ./local/make_pitch.sh \
+        --write-utt2num-frames false \
+        --pitch-config conf/kaldi_pitch.conf \
+        --pitch-postprocess-config conf/kaldi_pitch_process.conf \
+        --nj $num_jobs \
+        --cmd "$preprocess_cmd" \
+        --compress true \
+        $DATADIR/${data_subset} \
+        $log_dir/make_pitch \
+        $pitch_dir
     fi
 
     echo "Computing utt2num_frames and fixing the directory."
