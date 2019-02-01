@@ -106,7 +106,7 @@ if [ -f $data/segments ]; then
   rm $logdir/.error 2>/dev/null
 
   $cmd JOB=1:$nj $logdir/make_pitch_${name}.JOB.log \
-    ark,s,cs:extract-segments scp,p:$scp $logdir/segments.JOB ark:- \| \
+    extract-segments scp,p:$scp $logdir/segments.JOB ark:- \| \
     compute-kaldi-pitch-feats --verbose=2 --config=$pitch_config ark:- ark:- \| \
     process-kaldi-pitch-feats $postprocess_config_opt ark:- ark:- \| \
     copy-feats --compress=$compress $write_num_frames_opt ark:- \
@@ -123,7 +123,7 @@ else
   utils/split_scp.pl $scp $split_scps || exit 1;
 
   $cmd JOB=1:$nj $logdir/make_pitch_${name}.JOB.log \
-    ark,s,cs:compute-kaldi-pitch-feats --verbose=2 --config=$pitch_config scp,p:$logdir/wav_${name}.JOB.scp ark:- \| \
+    compute-kaldi-pitch-feats --verbose=2 --config=$pitch_config scp,p:$logdir/wav_${name}.JOB.scp ark:- \| \
     process-kaldi-pitch-feats $postprocess_config_opt ark:- ark:- \| \
     copy-feats --compress=$compress $write_num_frames_opt ark:- \
       ark,scp:$pitch_dir/raw_pitch_$name.JOB.ark,$pitch_dir/raw_pitch_$name.JOB.scp \
