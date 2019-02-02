@@ -179,8 +179,13 @@ echo "The experiment directory is: $DATADIR"
 
 # Set the languages that will actually be processed
 GP_LANGUAGES="AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN"
-
 echo "Running with languages: ${GP_LANGUAGES}"
+
+if [ "$feature_type" == "mfcc" ] || [ "$feature_type" == "mfcc_deltas" ] || [ "$feature_type" == "sdc" ]; then
+  use_vad=true
+else
+  use_vad=false
+fi
 
 # The most time-consuming stage: Converting SHNs to WAVs. Should be done only once;
 # then, this script can be run from stage 0 onwards.
@@ -321,7 +326,7 @@ if [ $stage -eq 2 ]; then
         $DATADIR/${data_subset} \
         $log_dir/make_sdc \
         $sdc_dir
-    # Runtime: ~17 minutes
+    # Runtime: ~20 minutes
     elif [ "$feature_type" == "pitch_energy" ]; then
       echo "Creating 5D KaldiPitch + energy features."
       steps/make_mfcc_pitch.sh \
@@ -336,6 +341,7 @@ if [ $stage -eq 2 ]; then
         $DATADIR/${data_subset} \
         $log_dir/make_pitch_energy \
         $pitch_energy_dir
+    # Runtime: ~10 minutes
     elif [ "$feature_type" == "energy" ]; then
       echo "Creating 1D raw energy features."
       steps/make_mfcc.sh \
@@ -347,7 +353,7 @@ if [ $stage -eq 2 ]; then
         $DATADIR/${data_subset} \
         $log_dir/make_energy \
         $energy_dir
-    # Runtime: ~4 minutes
+    # Runtime: ~14 minutes
     elif [ "$feature_type" == "pitch" ]; then
       echo "Creating 4D KaldiPitch features."
       ./local/make_pitch.sh \
@@ -368,7 +374,7 @@ if [ $stage -eq 2 ]; then
     utils/data/get_utt2num_frames.sh $DATADIR/${data_subset}
     utils/fix_data_dir.sh $DATADIR/${data_subset}
 
-    if [ "$feature_type" == "mfcc" ] || [ "$feature_type" == "mfcc_deltas" ] || [ "$feature_type" == "sdc" ]; then
+    if [ "$use_vad" = true ]; then
       ./local/compute_vad_decision.sh \
         --nj $num_jobs \
         --cmd "$preprocess_cmd" \
@@ -399,11 +405,7 @@ if [ $stage -eq 3 ]; then
   # This script applies CMVN and removes nonspeech frames.  Note that this is somewhat
   # wasteful, as it roughly doubles the amount of training data on disk.  After
   # creating training examples, this can be removed.
-  if [ "$feature_type" == "mfcc" ] || [ "$feature_type" == "mfcc_deltas" ] || [ "$feature_type" == "sdc" ]; then
-    remove_nonspeech=true
-  else
-    remove_nonspeech=false
-  fi
+  remove_nonspeech="$use_vad"
   ./local/prepare_feats_for_egs.sh \
     --nj $MAXNUMJOBS \
     --cmd "$preprocess_cmd" \
@@ -477,6 +479,7 @@ if [ $stage -eq 7 ]; then
   else
     use_gpu=false
   fi
+  remove_nonspeech="$use_vad"
 
   # X-vectors for training the classifier
   ./local/extract_xvectors.sh \
@@ -484,6 +487,7 @@ if [ $stage -eq 7 ]; then
     --use-gpu $use_gpu \
     --nj $MAXNUMJOBS \
     --stage 0 \
+    --remove-nonspeech "$remove_nonspeech" \
     $nnet_dir \
     $enroll_data \
     $exp_dir/xvectors_enroll &
@@ -494,6 +498,7 @@ if [ $stage -eq 7 ]; then
     --use-gpu $use_gpu \
     --nj $MAXNUMJOBS \
     --stage 0 \
+    --remove-nonspeech "$remove_nonspeech" \
     $nnet_dir \
     $eval_data \
     $exp_dir/xvectors_eval &
@@ -504,6 +509,7 @@ if [ $stage -eq 7 ]; then
 #    --use-gpu $use_gpu \
 #    --nj $MAXNUMJOBS \
 #    --stage 0 \
+#    --remove-nonspeech "$remove_nonspeech" \
 #    $nnet_dir \
 #    $test_data \
 #    $exp_dir/xvectors_test &

@@ -21,6 +21,7 @@ chunk_size=-1     # The chunk size over which the embedding is extracted.
                   # directory.
 use_gpu=false
 stage=0
+remove_nonspeech=false
 
 echo "$0 $@"  # Print the command line for logging
 
@@ -39,6 +40,7 @@ if [ $# != 3 ]; then
   echo "  --cache-capacity <n|64>                          # To speed-up xvector extraction"
   echo "  --chunk-size <n|-1>                              # If provided, extracts embeddings with specified"
   echo "                                                   # chunk size, and averages to produce final embedding"
+  echo "  --remove-nonspeech <true|false>                  # If true, removes non-speech frames (requires vad.scp)"
 fi
 
 srcdir=$1
@@ -73,7 +75,11 @@ echo "$0: extracting xvectors for $data"
 sdata=$data/split$nj/JOB
 
 # Set up the features
-feat="ark:apply-cmvn-sliding --norm-vars=false --center=true --cmn-window=300 scp:${sdata}/feats.scp ark:- | select-voiced-frames ark:- scp,s,cs:${sdata}/vad.scp ark:- |"
+if [ "$remove_nonspeech" = true ]; then
+  feat="ark:apply-cmvn-sliding --norm-vars=false --center=true --cmn-window=300 scp:${sdata}/feats.scp ark:- | select-voiced-frames ark:- scp,s,cs:${sdata}/vad.scp ark:- |"
+else
+  feat="ark:apply-cmvn-sliding --norm-vars=false --center=true --cmn-window=300 scp:${sdata}/feats.scp ark:- |"
+fi
 
 if [ $stage -le 0 ]; then
   echo "$0: extracting xvectors from nnet"
