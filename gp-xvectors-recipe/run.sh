@@ -347,6 +347,7 @@ if [ $stage -eq 2 ]; then
         $DATADIR/${data_subset} \
         $log_dir/make_energy \
         $energy_dir
+    # Runtime: ~4 minutes
     elif [ "$feature_type" == "pitch" ]; then
       echo "Creating 4D KaldiPitch features."
       ./local/make_pitch.sh \
@@ -394,12 +395,19 @@ fi
 if [ $stage -eq 3 ]; then
   # NOTE silence not being removed
   echo "#### STAGE 3: Preprocessing for X-vector training examples. ####"
+  
   # This script applies CMVN and removes nonspeech frames.  Note that this is somewhat
   # wasteful, as it roughly doubles the amount of training data on disk.  After
   # creating training examples, this can be removed.
+  if [ "$feature_type" == "mfcc" ] || [ "$feature_type" == "mfcc_deltas" ] || [ "$feature_type" == "sdc" ]; then
+    remove_nonspeech=true
+  else
+    remove_nonspeech=false
+  fi
   ./local/prepare_feats_for_egs.sh \
     --nj $MAXNUMJOBS \
     --cmd "$preprocess_cmd" \
+    --remove-nonspeech "$remove_nonspeech" \
     $train_data \
     $nnet_train_data \
     $feat_dir

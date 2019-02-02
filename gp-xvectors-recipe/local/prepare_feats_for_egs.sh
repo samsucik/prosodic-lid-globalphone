@@ -13,6 +13,7 @@ norm_vars=false
 center=true
 compress=true
 cmn_window=300
+remove_nonspeech=true
 
 echo "$0 $@"  # Print the command line for logging
 
@@ -25,6 +26,7 @@ if [ $# != 3 ]; then
   echo "  --nj <nj>                                        # number of parallel jobs"
   echo "  --cmd (utils/run.pl|utils/queue.pl <queue opts>) # how to run jobs."
   echo "  --norm-vars <true|false>                         # If true, normalize variances in the sliding window cmvn"
+  echo "  --remove-nonspeech <true|false>                  # If true, removes non-speech frames (requires vad.scp)"
   exit 1;
 fi
 
@@ -34,9 +36,13 @@ dir=$3
 
 name=`basename $data_in`
 
-for f in $data_in/feats.scp $data_in/vad.scp ; do
+for f in $data_in/feats.scp ; do
   [ ! -f $f ] && echo "$0: No such file $f" && exit 1;
 done
+
+if [ "$remove_nonspeech" = true ]; then
+  [ ! -f $data_in/vad.scp ] && echo "$0: No such file $data_in/vad.scp" && exit 1;
+fi
 
 # Set various variables.
 mkdir -p $dir/log
@@ -60,12 +66,21 @@ write_num_frames_opt="--write-num-frames=ark,t:$featdir/log/utt2num_frames.JOB"
 sdata_in=$data_in/split$nj;
 utils/split_data.sh $data_in $nj || exit 1;
 
-$cmd JOB=1:$nj $dir/log/create_xvector_feats_${name}.JOB.log \
-  apply-cmvn-sliding --norm-vars=false --center=true --cmn-window=$cmn_window \
-  scp:${sdata_in}/JOB/feats.scp ark:- \| \
-  select-voiced-frames ark:- scp,s,cs:${sdata_in}/JOB/vad.scp ark:- \| \
-  copy-feats --compress=$compress $write_num_frames_opt ark:-\
-  ark,scp:$featdir/xvector_feats_${name}.JOB.ark,$featdir/xvector_feats_${name}.JOB.scp || exit 1;
+if [ "$remove_nonspeech" = true ]; then
+  $cmd JOB=1:$nj $dir/log/create_xvector_feats_${name}.JOB.log \
+    apply-cmvn-sliding --norm-vars=false --center=true --cmn-window=$cmn_window \
+    scp:${sdata_in}/JOB/feats.scp ark:- \| \
+    select-voiced-frames ark:- scp,s,cs:${sdata_in}/JOB/vad.scp ark:- \| \
+    copy-feats --compress=$compress $write_num_frames_opt ark:-\
+    ark,scp:$featdir/xvector_feats_${name}.JOB.ark,$featdir/xvector_feats_${name}.JOB.scp || exit 1;
+else
+  $cmd JOB=1:$nj $dir/log/create_xvector_feats_${name}.JOB.log \
+    apply-cmvn-sliding --norm-vars=false --center=true --cmn-window=$cmn_window \
+    scp:${sdata_in}/JOB/feats.scp ark:- \| \
+    copy-feats --compress=$compress $write_num_frames_opt ark:-\
+    ark,scp:$featdir/xvector_feats_${name}.JOB.ark,$featdir/xvector_feats_${name}.JOB.scp || exit 1;
+fi
+
 
 # Replaced line 70 - originally was:
 # copy-feats --compress=$compress $write_num_frames_opt ark:- \
