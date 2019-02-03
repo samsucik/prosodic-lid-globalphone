@@ -47,9 +47,13 @@ srcdir=$1
 data=$2
 dir=$3
 
-for f in $srcdir/final.raw $srcdir/min_chunk_size $srcdir/max_chunk_size $data/feats.scp $data/vad.scp ; do
+for f in $srcdir/final.raw $srcdir/min_chunk_size $srcdir/max_chunk_size $data/feats.scp; do
   [ ! -f $f ] && echo "No such file $f" && exit 1;
 done
+
+if [ "$remove_nonspeech" = true ]; then
+  [ ! -f $data/vad.scp ] && echo "$0: No such file $data/vad.scp" && exit 1;
+fi
 
 min_chunk_size=`cat $srcdir/min_chunk_size 2>/dev/null`
 max_chunk_size=`cat $srcdir/max_chunk_size 2>/dev/null`
