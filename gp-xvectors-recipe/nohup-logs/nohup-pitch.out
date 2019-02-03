@@ -284,51 +284,6 @@ steps/nnet3/train_raw_dnn.py --stage=-1 --cmd=slurm.pl --trainer.optimization.pr
 ['steps/nnet3/train_raw_dnn.py', '--stage=-1', '--cmd=slurm.pl', '--trainer.optimization.proportional-shrink', '10', '--trainer.optimization.momentum=0.5', '--trainer.optimization.num-jobs-initial=3', '--trainer.optimization.num-jobs-final=3', '--trainer.optimization.initial-effective-lrate=0.001', '--trainer.optimization.final-effective-lrate=0.0001', '--trainer.optimization.minibatch-size=64', '--trainer.srand=123', '--trainer.max-param-change=2', '--trainer.num-epochs=7', '--trainer.dropout-schedule=0,0@0.20,0.1@0.50,0', '--trainer.shuffle-buffer-size=1000', '--egs.frames-per-eg=1', '--egs.dir=/home/s1513472/lid/pitch/nnet/egs', '--cleanup.remove-egs', 'false', '--cleanup.preserve-model-interval=10', '--use-gpu=true', '--dir=/home/s1513472/lid/pitch/nnet']
 Finished stage 4.
 #### STAGE 7: Extracting X-vectors from the trained DNN. ####
-./local/extract_xvectors.sh --cmd slurm.pl --mem 6G --use-gpu true --nj 32 --stage 0 /home/s1513472/lid/pitch/nnet /home/s1513472/lid/pitch/enroll /home/s1513472/lid/pitch/exp/xvectors_enroll
-./local/extract_xvectors.sh --cmd slurm.pl --mem 6G --use-gpu true --nj 32 --stage 0 /home/s1513472/lid/pitch/nnet /home/s1513472/lid/pitch/eval /home/s1513472/lid/pitch/exp/xvectors_eval
-Conda environment 'lid' active.
-Conda environment 'lid' active.
-No such file /home/s1513472/lid/pitch/enroll/vad.scp
-No such file /home/s1513472/lid/pitch/eval/vad.scp
-Finished stage 7.
-#### STAGE 8: Training logistic regression classifier and classifying test utterances. ####
-Could not open id-list file /home/s1513472/lid/pitch/exp/xvectors_enroll/xvector.scp at utils/filter_scp.pl line 57.
-Finished stage 8.
-#### STAGE 9: Calculating results. ####
-Finished stage 9.
-Obtaining renewable credentials, you will be asked to type in your password
-Password for s1513472@INF.ED.AC.UK: 
-Running job "./run.sh --exp-config=conf/exp_configs/pitch.conf --stage=7 --run-all=true" for maximum of 28 days in background
-Waiting for job to start...
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 	 This shell script runs the GlobalPhone+X-vectors recipe.
- 	 Use like this: ./run.sh <options>
- 	 --stage=INT		Stage from which to start
- 	 --run-all=(false|true)	Whether to run all stages
- 	 			or just the specified one
- 	 --experiment=STR	Experiment name (also name of directory 
- 	 			where all files will be stored).
- 	 			Default: 'baseline'.
- 	 --exp-config=FILE	Config file with all kinds of options,
- 	 			see conf/exp_default.conf for an example.
- 	 			NOTE: Where arguments are passed on the command line,
- 	 			the values overwrite those found in the config file.
-
- 	 If no stage number is provided, either all stages
- 	 will be run (--run-all=true) or no stages at all.
- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Overwriting the experiment config value of run_all=false using the value 'true' passed as a command-line argument.
-Overwriting the experiment config value of stage=1 using the value '7' passed as a command-line argument.
-Running experiment: 'pitch'
-Running all stages starting with 7.
-Running on the cluster.
-Conda environment not activated, sourcing ~/.bashrc and activating the 'lid' env.
-Using shorten (v3.6.1) from ~/language-ident-from-speech/gp-xvectors-recipe/tools/shorten-3.6.1/bin/shorten
-Using sox (v14.3.2) from ~/language-ident-from-speech/gp-xvectors-recipe/tools/sox-14.3.2/bin/sox
-Conda environment not activated, sourcing ~/.bashrc and activating the 'lid' env.
-The experiment directory is: /home/s1513472/lid/pitch
-Running with languages: AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN
-#### STAGE 7: Extracting X-vectors from the trained DNN. ####
 ./local/extract_xvectors.sh --cmd slurm.pl --mem 6G --use-gpu true --nj 32 --stage 0 --remove-nonspeech false /home/s1513472/lid/pitch/nnet /home/s1513472/lid/pitch/enroll /home/s1513472/lid/pitch/exp/xvectors_enroll
 ./local/extract_xvectors.sh --cmd slurm.pl --mem 6G --use-gpu true --nj 32 --stage 0 --remove-nonspeech false /home/s1513472/lid/pitch/nnet /home/s1513472/lid/pitch/eval /home/s1513472/lid/pitch/exp/xvectors_eval
 Conda environment 'lid' active.
