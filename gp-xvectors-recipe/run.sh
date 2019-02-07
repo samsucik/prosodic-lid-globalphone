@@ -140,14 +140,21 @@ eval_data=$home_prefix/eval
 test_data=$home_prefix/test
 log_dir=$home_prefix/log
 
-mfcc_dir=$home_prefix/mfcc                 # vanilla MFCC
-mfcc_sdc_dir=$home_prefix/mfcc_sdc         # MFCC for SDC (7D)
-sdc_dir=$home_prefix/mfcc_sdc              # SDC
-mfcc_deltas_dir=$home_prefix/mfcc_deltas   # MFCC+deltas
-pitch_energy_dir=$home_prefix/pitch_energy # Kaldi pitch + energy
-pitch_dir=$home_prefix/pitch               # Kaldi pitch
-energy_dir=$home_prefix/energy             # Raw energy
-vaddir=$home_prefix/vad                    # any feature type ultimatelly run through VAD
+mfcc_dir=$home_prefix/mfcc                   # vanilla MFCC
+mfcc_sdc_dir=$home_prefix/mfcc_sdc           # MFCC for SDC (7D)
+sdc_dir=$home_prefix/mfcc_sdc                # SDC
+
+# Only if not specified this in the config
+if [ -z "$mfcc_deltas_dir" ]; then
+  mfcc_deltas_dir=$home_prefix/mfcc_deltas   # MFCC+deltas
+fi
+if [ -z "$pitch_energy_dir" ]; then
+  pitch_energy_dir=$home_prefix/pitch_energy # Kaldi pitch + energy
+fi
+pitch_dir=$home_prefix/pitch                 # Kaldi pitch
+energy_dir=$home_prefix/energy               # Raw energy
+vaddir=$home_prefix/vad                      # any feature type ultimatelly run through VAD
+mfcc_deltas_pitch_energy_dir=$home_prefix/mfcc_deltas_pitch_energy
 
 feat_dir=$home_prefix/x_vector_features
 nnet_train_data=$home_prefix/nnet_train_data
@@ -181,7 +188,7 @@ echo "The experiment directory is: $DATADIR"
 GP_LANGUAGES="AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN"
 echo "Running with languages: ${GP_LANGUAGES}"
 
-if [ "$feature_type" == "mfcc" ] || [ "$feature_type" == "mfcc_deltas" ] || [ "$feature_type" == "sdc" ]; then
+if [[ $feature_type == mfcc* ]] || [[ $feature_type == sdc* ]]; then
   use_vad=true
 else
   use_vad=false
@@ -366,6 +373,15 @@ if [ $stage -eq 2 ]; then
         $DATADIR/${data_subset} \
         $log_dir/make_pitch \
         $pitch_dir
+    elif [ "$feature_type" == "mfcc_deltas_pitch_energy" ]; then
+      echo "Creating 74D MFCC+deltas+delta-deltas+KaldiPitch+energy features."
+      ./local/combine_feats.sh \
+        --feature-name $feature_type \
+        --paste-length-tolerance 2 \
+        --cmd "$preprocess_cmd" \
+        $mfcc_deltas_dir \
+        $pitch_energy_dir \
+        $mfcc_deltas_pitch_energy_dir
     fi
 
     echo "Computing utt2num_frames and fixing the directory."
