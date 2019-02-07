@@ -265,7 +265,12 @@ if [ $stage -eq 2 ]; then
   
   for data_subset in train enroll eval test; do
     (
-    num_speakers=$(cat $DATADIR/${data_subset}/spk2utt | wc -l)
+    if [ "$feature_type" == "mfcc_deltas_pitch_energy" ]; then
+      num_speakers=$(cat $mfcc_deltas_dir/${data_subset}/spk2utt | wc -l)
+    else
+      num_speakers=$(cat $DATADIR/${data_subset}/spk2utt | wc -l)
+    fi    
+
     if [ "$num_speakers" -gt "$MAXNUMJOBS" ]; then
       num_jobs=$MAXNUMJOBS
     else
@@ -381,7 +386,7 @@ if [ $stage -eq 2 ]; then
         --cmd "$preprocess_cmd" \
         $mfcc_deltas_dir/${data_subset} \
         $pitch_energy_dir/${data_subset} \
-        $mfcc_deltas_pitch_energy_dir
+        $DATADIR/${data_subset}
     fi
 
     echo "Computing utt2num_frames and fixing the directory."
@@ -400,7 +405,7 @@ if [ $stage -eq 2 ]; then
 
       utils/fix_data_dir.sh $DATADIR/${data_subset}
     fi
-    ) > $log_dir/${feature_type}_${data_subset}
+    ) &> $log_dir/${feature_type}_${data_subset}
   done
 
   echo "Finished stage 2."
@@ -568,7 +573,7 @@ if [ $stage -eq 8 ]; then
     --train-utt2lang $enroll_data/utt2lang \
     --test-utt2lang $eval_data/utt2lang \
     --languages conf/test_languages.list \
-    > $exp_dir/classifier/logistic-regression.log
+    &> $exp_dir/classifier/logistic-regression.log
 
   echo "Finished stage 8."
 
@@ -587,7 +592,7 @@ if [ $stage -eq 9 ]; then
     --classification-file $exp_dir/results/classification \
     --output-file $exp_dir/results/results \
     --language-list "$GP_LANGUAGES" \
-    2>$exp_dir/results/compute_results.log
+    &>$exp_dir/results/compute_results.log
 
   echo "Finished stage 9."
 fi
