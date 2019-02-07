@@ -379,8 +379,8 @@ if [ $stage -eq 2 ]; then
         --feature-name $feature_type \
         --paste-length-tolerance 2 \
         --cmd "$preprocess_cmd" \
-        $mfcc_deltas_dir \
-        $pitch_energy_dir \
+        $mfcc_deltas_dir/${data_subset} \
+        $pitch_energy_dir/${data_subset} \
         $mfcc_deltas_pitch_energy_dir
     fi
 
