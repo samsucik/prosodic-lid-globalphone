@@ -94,6 +94,9 @@ trap 'rm -rf "$tmpdir"' EXIT
 
 # Create directories to contain files needed in training and testing:
 echo "datadir is: $datadir"
+
+bad_utts=(PO021_171)
+
 for L in $LANGUAGES; do
   (
   mkdir $tmpdir/$L
@@ -126,6 +129,23 @@ for L in $LANGUAGES; do
       grep -h "$spk" $WAVDIR/$L/lists/utt2spk >> $datadir/$L/$x/utt2spk
       grep -h "$spk" $WAVDIR/$L/lists/utt2len >> $datadir/$L/$x/utt2len
     done
+
+    for bad_utt in "${bad_utts[@]}"; do
+      echo "Removing bad utt: ${bad_utt}"
+      for f in utt2spk utt2len wav.scp; do
+        f_path=$datadir/$L/$x/$f
+        if [ -f $f_path ]; then
+          sed -nE "/^${bad_utt}\s/!p" $f_path > temp_f; mv temp_f $f_path
+        fi
+      done
+      for f in spk2utt; do
+        f_path=$datadir/$L/$x/$f
+        if [ -f $f_path ]; then
+          sed -nE "/^${bad_utt}/!p" $f_path > temp_f; mv temp_f $f_path
+        fi
+      done
+    done
+    
   done
   ) &
 done
