@@ -261,7 +261,7 @@ fi
 if [ $stage -eq 2 ]; then
   echo "#### STAGE 2: features (MFCC, SDC, pitch, energy, etc) and VAD. ####"
   
-  for data_subset in train enroll eval test; do
+  for data_subset in train; do # enroll eval test; do
     (
     if [ "$feature_type" == "mfcc_deltas_pitch_energy" ]; then
       num_speakers=$(cat $mfcc_deltas_dir/${data_subset}/spk2utt | wc -l)
