@@ -52,6 +52,7 @@ run_all=false
 exp_config=NONE
 num_epochs=3
 feature_type=mfcc
+use_vad=true
 
 while [ $# -gt 0 ];
 do
@@ -153,7 +154,9 @@ if [ -z "$pitch_energy_dir" ]; then
 fi
 pitch_dir=$home_prefix/pitch                 # Kaldi pitch
 energy_dir=$home_prefix/energy               # Raw energy
-vaddir=$home_prefix/vad                      # any feature type ultimatelly run through VAD
+vaddir=$home_prefix/vad                      # any feature type ultimately run through VAD
+vad_file_dir=$DATADIR/mfcc                   # The directory from which to take vad.scp (so 
+                                             # the same VAD filtering can be done on any features)
 mfcc_deltas_pitch_energy_dir=$home_prefix/mfcc_deltas_pitch_energy
 
 feat_dir=$home_prefix/x_vector_features
@@ -187,12 +190,6 @@ echo "The experiment directory is: $DATADIR"
 # Set the languages that will actually be processed
 GP_LANGUAGES="AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN"
 echo "Running with languages: ${GP_LANGUAGES}"
-
-if [[ $feature_type == mfcc* ]] || [[ $feature_type == sdc* ]]; then
-  use_vad=true
-else
-  use_vad=false
-fi
 
 # The most time-consuming stage: Converting SHNs to WAVs. Should be done only once;
 # then, this script can be run from stage 0 onwards.
@@ -378,6 +375,7 @@ if [ $stage -eq 2 ]; then
         $DATADIR/${data_subset} \
         $log_dir/make_pitch \
         $pitch_dir
+    # Runtime: ~40 minutes
     elif [ "$feature_type" == "mfcc_deltas_pitch_energy" ]; then
       echo "Creating 74D MFCC+deltas+delta-deltas+KaldiPitch+energy features."
       ./local/combine_feats.sh \
@@ -395,7 +393,8 @@ if [ $stage -eq 2 ]; then
     utils/data/get_utt2num_frames.sh $DATADIR/${data_subset}
     utils/fix_data_dir.sh $DATADIR/${data_subset}
 
-    if [ "$use_vad" = true ]; then
+    if [[ $recompute_vad == true ]] || [ -z "$vad_file_dir" ] ; then
+      echo "Re-computing VAD."
       ./local/compute_vad_decision.sh \
         --nj $num_jobs \
         --cmd "$preprocess_cmd" \
@@ -404,7 +403,17 @@ if [ $stage -eq 2 ]; then
         $vaddir
 
       utils/fix_data_dir.sh $DATADIR/${data_subset}
+    else
+      vad_file=$vad_file_dir/${data_subset}/vad.scp
+      if [ ! -f "$vad_file" ]; then
+        echo "Couldn't find existing VAD file: '${vad_file}'. Make sure it exists."
+        exit 1
+      else
+        echo "Using existing VAD file: ${vad_file}"
+        cp $vad_file $DATADIR/${data_subset}
+      fi        
     fi
+
     ) &> $log_dir/${feature_type}_${data_subset}
   done
 
@@ -491,7 +500,7 @@ if [ $stage -eq 4 ]; then
   fi
 fi
 
-# Runtime: ~1:05h
+# Runtime: ~1:05h. ~45min for MFCC+deltas+pitch+energy (because less data)
 if [ $stage -eq 7 ]; then
   echo "#### STAGE 7: Extracting X-vectors from the trained DNN. ####"
 

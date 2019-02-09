@@ -12,7 +12,7 @@ HA	BROKEN				X		X		X		all files seem to be corrupt (shorten: 'No magic number').
 JA	OK	13067/13067		144		X		X
 KO	OK	8107/8107		100		10		10
 PL	OK	10130/10130		99		10		10
-PO	OK	11243/10417		100		10		8		broken speakers 015, 136 (DON'T USE), <= 3 SHNs bad for speakers 014 017 021 022 024 026 031 036 058 139 (SAFE TO USE)
+PO	OK	11243/10417		100		10		8		broken speakers 015, 136 (DON'T USE), <= 3 SHNs bad for speakers 014 017 021 022 024 026 031 036 058 139 (SAFE TO USE), bad utterances (detected by compute-vad throwing "Empty feature matrix for utterance PO058_16"): PO058_16, PO058_18
 RU	OK	13155/12204		115		10		10		bad utterance 087_102
 SA	BROKEN				X		X		X		all files lack .shn suffix AND seem to be corrupt (shorten: 'No magic number')
 SP	OK	6898/6898		100		10		8
