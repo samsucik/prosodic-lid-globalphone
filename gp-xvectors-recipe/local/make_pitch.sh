@@ -7,6 +7,7 @@ nj=4
 cmd=run.pl
 pitch_config=conf/pitch.conf
 pitch_postprocess_config=
+config=conf/kaldi_pitch_compute_process.conf
 compress=true
 write_utt2num_frames=false  # if true writes utt2num_frames
 # End configuration section.
@@ -23,6 +24,7 @@ if [ $# -lt 1 ] || [ $# -gt 3 ]; then
    echo "Options: "
    echo "  --pitch-config             <pitch-config-file>       # config passed to compute-kaldi-pitch-feats "
    echo "  --pitch-postprocess-config <postprocess-config-file> # config passed to process-kaldi-pitch-feats "
+   echo "  --config <compute-and-postprocess-config-file>       # config passed to compute-and-process-kaldi-pitch-feats "
    echo "  --nj                       <nj>                      # number of parallel jobs"
    echo "  --cmd (utils/run.pl|utils/queue.pl <queue opts>)     # how to run jobs."
    echo "  --write-utt2num-frames <true|false>     # If true, write utt2num_frames file."
@@ -122,13 +124,18 @@ else
 
   utils/split_scp.pl $scp $split_scps || exit 1;
 
+  # $cmd JOB=1:$nj $logdir/make_pitch_${name}.JOB.log \
+  #   compute-kaldi-pitch-feats --verbose=2 --config=$pitch_config scp,p:$logdir/wav_${name}.JOB.scp ark:- \| \
+  #   process-kaldi-pitch-feats $postprocess_config_opt ark:- ark:- \| \
+  #   copy-feats --compress=$compress $write_num_frames_opt ark:- \
+  #     ark,scp:$pitch_dir/raw_pitch_$name.JOB.ark,$pitch_dir/raw_pitch_$name.JOB.scp \
+  #     || exit 1;
+
   $cmd JOB=1:$nj $logdir/make_pitch_${name}.JOB.log \
-    compute-kaldi-pitch-feats --verbose=2 --config=$pitch_config scp,p:$logdir/wav_${name}.JOB.scp ark:- \| \
-    process-kaldi-pitch-feats $postprocess_config_opt ark:- ark:- \| \
+    compute-and-process-kaldi-pitch-feats --verbose=2 --config=$config scp,p:$logdir/wav_${name}.JOB.scp ark:- \| \
     copy-feats --compress=$compress $write_num_frames_opt ark:- \
       ark,scp:$pitch_dir/raw_pitch_$name.JOB.ark,$pitch_dir/raw_pitch_$name.JOB.scp \
       || exit 1;
-
 fi
 
 

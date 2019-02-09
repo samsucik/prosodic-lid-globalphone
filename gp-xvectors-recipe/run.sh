@@ -370,6 +370,7 @@ if [ $stage -eq 2 ]; then
         --write-utt2num-frames false \
         --pitch-config conf/kaldi_pitch.conf \
         --pitch-postprocess-config conf/kaldi_pitch_process.conf \
+        --config conf/kaldi_pitch_compute_process.conf \
         --nj $num_jobs \
         --cmd "$preprocess_cmd" \
         --compress true \
