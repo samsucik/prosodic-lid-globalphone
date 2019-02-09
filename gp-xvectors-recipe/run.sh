@@ -53,6 +53,7 @@ exp_config=NONE
 num_epochs=3
 feature_type=mfcc
 use_vad=true
+recompute_vad=false
 
 while [ $# -gt 0 ];
 do
@@ -273,7 +274,7 @@ if [ $stage -eq 2 ]; then
     else
       num_jobs=$num_speakers
     fi
-
+# : <<'END_COMMENT'
     # Runtime: ~12 mins
     if [ "$feature_type" == "mfcc" ]; then
       echo "Creating 23D MFCC features."
@@ -386,6 +387,7 @@ if [ $stage -eq 2 ]; then
         $pitch_energy_dir/${data_subset} \
         $DATADIR/${data_subset}
     fi
+# END_COMMENT
 
     echo "Computing utt2num_frames and fixing the directory."
     
