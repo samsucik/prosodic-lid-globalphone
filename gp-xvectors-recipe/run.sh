@@ -189,7 +189,7 @@ mkdir -p $DATADIR/log
 echo "The experiment directory is: $DATADIR"
 
 # Set the languages that will actually be processed
-GP_LANGUAGES="AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN"
+GP_LANGUAGES="PO" # AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN"
 echo "Running with languages: ${GP_LANGUAGES}"
 
 # The most time-consuming stage: Converting SHNs to WAVs. Should be done only once;

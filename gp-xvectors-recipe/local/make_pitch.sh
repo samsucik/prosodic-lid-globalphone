@@ -163,7 +163,7 @@ if $write_utt2num_frames; then
   rm $logdir/utt2num_frames.*
 fi
 
-rm $logdir/wav_${name}.*.scp  $logdir/segments.* 2>/dev/null
+# rm $logdir/wav_${name}.*.scp  $logdir/segments.* 2>/dev/null
 
 nf=`cat $data/feats.scp | wc -l`
 nu=`cat $data/utt2spk | wc -l`
