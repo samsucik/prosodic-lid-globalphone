@@ -132,10 +132,16 @@ else
   #     || exit 1;
 
   $cmd JOB=1:$nj $logdir/make_pitch_${name}.JOB.log \
-    compute-and-process-kaldi-pitch-feats --verbose=2 --config=$config scp,p:$logdir/wav_${name}.JOB.scp ark:- \| \
+    compute-kaldi-pitch-feats --verbose=2 --config=$pitch_config scp,p:$logdir/wav_${name}.JOB.scp ark:- \| \
     copy-feats --compress=$compress $write_num_frames_opt ark:- \
       ark,scp:$pitch_dir/raw_pitch_$name.JOB.ark,$pitch_dir/raw_pitch_$name.JOB.scp \
       || exit 1;
+
+  # $cmd JOB=1:$nj $logdir/make_pitch_${name}.JOB.log \
+  #   compute-and-process-kaldi-pitch-feats --verbose=2 --config=$config scp,p:$logdir/wav_${name}.JOB.scp ark:- \| \
+  #   copy-feats --compress=$compress $write_num_frames_opt ark:- \
+  #     ark,scp:$pitch_dir/raw_pitch_$name.JOB.ark,$pitch_dir/raw_pitch_$name.JOB.scp \
+  #     || exit 1;
 fi
 
 
