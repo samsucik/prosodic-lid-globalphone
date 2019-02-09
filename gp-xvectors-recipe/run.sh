@@ -261,6 +261,23 @@ fi
 if [ $stage -eq 2 ]; then
   echo "#### STAGE 2: features (MFCC, SDC, pitch, energy, etc) and VAD. ####"
   
+  bad_utts=(PO021_171)
+  for bad_utt in "${bad_utts[@]}"; do
+    echo "removing bad utt: ${bad_utt}"
+    for f in utt2spk feats.scp utt2lang utt2len utt2num_frames vad.scp wav.scp; do
+      f_path=$DATADIR/${data_subset}/$f
+      if [ -f $f_path ]; then
+        sed -nE "/^${bad_utt}\s/!p" $f_path > temp_f; mv temp_f $f_path
+      fi
+    done
+    for f in lang2utt spk2utt; do
+      f_path=$DATADIR/${data_subset}/$f
+      if [ -f $f_path ]; then
+        sed -nE "/^${bad_utt}/!p" $f_path > temp_f; mv temp_f $f_path
+      fi
+    done
+  done
+         
   for data_subset in train enroll eval test; do
     (
     if [ "$feature_type" == "mfcc_deltas_pitch_energy" ]; then
@@ -416,6 +433,22 @@ if [ $stage -eq 2 ]; then
         cp $vad_file $DATADIR/${data_subset}
       fi        
     fi
+
+    for bad_utt in "${bad_utts[@]}"; do
+      echo "removing bad utt: ${bad_utt}"
+      for f in utt2spk feats.scp utt2lang utt2len utt2num_frames vad.scp wav.scp; do
+        f_path=$DATADIR/${data_subset}/$f
+        if [ -f $f_path ]; then
+          sed -nE "/^${bad_utt}\s/!p" $f_path > temp_f; mv temp_f $f_path
+        fi
+      done
+      for f in lang2utt spk2utt; do
+        f_path=$DATADIR/${data_subset}/$f
+        if [ -f $f_path ]; then
+          sed -nE "/^${bad_utt}/!p" $f_path > temp_f; mv temp_f $f_path
+        fi
+      done
+    done
 
     ) &> $log_dir/${feature_type}_${data_subset}
   done
