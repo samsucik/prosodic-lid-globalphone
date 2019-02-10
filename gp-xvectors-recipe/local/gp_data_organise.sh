@@ -137,22 +137,6 @@ for L in $LANGUAGES; do
     utils/filter_scp.pl $datadir/$L/$x/utt2len $datadir/$L/$x/utt2spk > $datadir/$L/$x/utt2spk.new
     mv $datadir/$L/$x/utt2spk.new $datadir/$L/$x/utt2spk
     utils/fix_data_dir.sh $datadir/$L/$x
-
-    # for bad_utt in "${bad_utts[@]}"; do
-    #   # echo "Removing bad utt: ${bad_utt}"
-    #   for f in utt2spk utt2len wav.scp; do
-    #     f_path=$datadir/$L/$x/$f
-    #     if [ -f $f_path ]; then
-    #       sed -nE "/^${bad_utt}\s/!p" $f_path > temp_${L}_${x}_${f}; mv temp_${L}_${x}_${f} $f_path
-    #     fi
-    #   done
-    #   for f in spk2utt; do
-    #     f_path=$datadir/$L/$x/$f
-    #     if [ -f $f_path ]; then
-    #       sed -nE "/^${bad_utt}/!p" $f_path > temp_${L}_${x}_${f}; mv temp_${L}_${x}_${f} $f_path
-    #     fi
-    #   done
-    # done
     
   done
   ) &
