@@ -1,18 +1,19 @@
-#!/bin/bash
+#!/bin/bash -u
 
-# Copies samples (one speaker per language) from /group/corpora/public/...
-# to current directory. Skips languages Chinese-Shanghai, Tamil and Hausa
+# Copies samples (N speakers per language) from /group/corpora/public/...
+# to specified directory. Skips languages Chinese-Shanghai, Tamil and Hausa
 # because the file structure of these is not the standard one (as for other
 # languages).
 
 num_speakers_per_language=3
 
-if [ $# != 1 ]; then
+if [ $# != 2 ]; then
   echo "Usage: $0 <target-dir> <#speakers-per-language>"
   echo " e.g.: $0 ~/global_phone"
   exit 0
 else
   target_dir=$1/
+  num_speakers_per_language=$2
 fi
 
 gpPath=/group/corpora/public/global_phone
@@ -46,8 +47,3 @@ done
 
 echo "Now copying the dictionaries"
 rsync -av --exclude='*.pdf' --exclude='*.dict' --exclude='*.trl' --no-perms --omit-dir-times $gpPath/Dictionaries $target_dir
-
-# rsync -av --no-perms --omit-dir-times /afs/inf.ed.ac.uk/user/s15/s1513472/lid/global_phone /disk/scratch/lid/global_phone
-# rsync -av --no-perms --omit-dir-times French ~/lid/global_phone/French
-
-# rsync -av --no-perms --omit-dir-times French/ ~/lid/global_phone/French

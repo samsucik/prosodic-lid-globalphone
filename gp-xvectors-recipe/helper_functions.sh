@@ -1,3 +1,5 @@
+#!/bin/bash -u
+
 whichMachine() {
 	if [[ `echo ~` = "/home/samo" ]]; then
 		echo "sam"

@@ -1,9 +1,9 @@
-#!/bin/bash
-# Assuming Kaldi is installed in the home directory
-#export KALDI_ROOT=~/kaldi
+#!/bin/bash -u
 
 # This contains the locations of the tools and data required for running
 # the GlobalPhone experiments.
+
+
 source ./helper_functions.sh
 
 [ -f conf/user_specific_config.sh ] && source ./conf/user_specific_config.sh \
@@ -44,13 +44,6 @@ elif [[ $(whichMachine) == cluster* ]]; then
 else
 	echo "NOT IMPLEMENTED: setting GlobalPhone directory."
 fi
-
-# TO-DO: Remember to make sure that env.sh has the right order of adding to PATH
-# (by default, it does $PATH:$TOOLPATH, which prefers existing binaries (not good!))
-# TO-DO: When installing SRILM, remember to store the downloaded tar.gz archive as
-# simply 'srilm.tgz'.
-#[ -f $KALDI_ROOT/tools/env.sh ] && source $KALDI_ROOT/tools/env.sh \
-#  || echo "env.sh not found or not working. Important tools won't be available."
 
 if [ -z ${CONDA_DEFAULT_ENV+x} ]; then
   if [[ $(whichMachine) == cluster* ]]; then

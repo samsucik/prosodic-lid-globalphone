@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/bash -u
 
 # Use to investigae values for logistic regression.
-# Stores results in /expname/results
+# Stores results in expname/results
 
 GP_LANGUAGES="AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN"
 
-source ./path.sh
+source ../path.sh
 
 declare -a max_steps_vals=(20 40 60 80 100 120 140 160 180 200)
 declare -a normalizer_vals=(0 0.00001 0.0001 0.001 0.01)
@@ -19,7 +19,7 @@ i=0
 for l in "${langs[@]}"; do
   echo $l $i
   i=$(expr $i + 1)
-done > conf/test_languages.list
+done > ../conf/test_languages.list
 
 log_dir=$DATADIR/logreg_tuning
 mkdir -p $log_dir
@@ -41,7 +41,7 @@ for max_steps in ${max_steps_vals[@]}; do
       
       (
       # Training the log reg model and classifying test set samples
-      ./local/run_logistic_regression.sh \
+      ./run_logistic_regression.sh \
         --prior-scale 0.70 \
         --conf $test_dir/logistic-regression.conf \
         --train-dir $exp_dir/xvectors_enroll \
@@ -50,10 +50,10 @@ for max_steps in ${max_steps_vals[@]}; do
         --classification-file $test_dir/results/classification \
         --train-utt2lang $DATADIR/enroll/utt2lang \
         --test-utt2lang $DATADIR/eval/utt2lang \
-        --languages conf/test_languages.list \
+        --languages ../conf/test_languages.list \
         > $test_dir/classifier/logistic-regression.log
 
-      ./local/compute_results.py \
+      ./compute_results.py \
         --classification-file $test_dir/results/classification \
         --output-file $test_dir/results/results \
         --language-list "$GP_LANGUAGES" \
@@ -81,48 +81,3 @@ for max_steps in ${max_steps_vals[@]}; do
   done
 done
 #TEMP
-
-<<TEMP
-for mix_up in ${mix_up_vals[@]}; do
-    EXPNAME="explore_log_mix-up=${mix_up}"
-    test_dir=$DATADIR/find_log_values/$EXPNAME
-    echo "#### Training logistic regression classifier and classifying test utterances. ####"
-    echo "#Mixture models = $mix_up"
-    mkdir -p $test_dir/results
-    mkdir -p $test_dir/classifier
-
-    logistic_regression_conf_text="--max-steps=70\n--normalizer=0.0005\n--mix-up=$mix_up\n--power=0.15"
-    echo -e $logistic_regression_conf_text > conf/logistic-regression-new.conf
-
-    # Training the log reg model and classifying test set samples
-    ./local/run_logistic_regression.sh \
-      --prior-scale 0.70 \
-      --conf conf/logistic-regression-new.conf \
-      --train-dir $exp_dir/xvectors_enroll \
-      --test-dir $exp_dir/xvectors_eval \
-      --model-dir $test_dir/classifier \
-      --classification-file $test_dir/results/classification \
-      --train-utt2lang $DATADIR/enroll/utt2lang \
-      --test-utt2lang $DATADIR/eval/utt2lang \
-      --languages conf/test_languages.list \
-      > $test_dir/classifier/logistic-regression.log
-
-    echo "#### Calculating results. ####"
-
-    python ./local/compute_results.py \
-      --classification-file $test_dir/results/classification \
-      --output-file $test_dir/results/results \
-      --language-list "$GP_LANGUAGES" \
-      2>$test_dir/results/compute_results.log
-done
-#TEMP
-
-echo "Results" > $log_dir/results2.log
-for mix_up in ${mix_up_vals[@]}; do
-    EXPNAME="explore_log_mix-up=${mix_up}"
-    test_dir=$DATADIR/find_log_values/$EXPNAME
-    echo "#Mixture models = $mix_up" >> $log_dir/results2.log
-    cat $test_dir/results/results | grep --regexp="Accuracy: 0.[0-9]*" >> $log_dir/results2.log
-    cat $test_dir/results/results | grep --regexp="C_primary" >> $log_dir/results2.log
-done
-TEMP
