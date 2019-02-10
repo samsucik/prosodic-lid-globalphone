@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -u
 
 # This config contains options that can be set automatically depending on the
 # identified context (i.e. machine, for example Sam's DICE or a cluster node).
