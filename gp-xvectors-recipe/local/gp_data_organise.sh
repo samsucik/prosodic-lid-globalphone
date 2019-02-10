@@ -136,7 +136,7 @@ for L in $LANGUAGES; do
     awk -v min_len=${min_len} '$2 > min_len {print $1, $2}' $datadir/$L/$x/utt2len.bak > $datadir/$L/$x/utt2len
     utils/filter_scp.pl $datadir/$L/$x/utt2len $datadir/$L/$x/utt2spk > $datadir/$L/$x/utt2spk.new
     mv $datadir/$L/$x/utt2spk.new $datadir/$L/$x/utt2spk
-    utils/fix_data_dir.sh $datadir/$L/$x/
+    utils/fix_data_dir.sh $datadir/$L/$x
 
     # for bad_utt in "${bad_utts[@]}"; do
     #   # echo "Removing bad utt: ${bad_utt}"

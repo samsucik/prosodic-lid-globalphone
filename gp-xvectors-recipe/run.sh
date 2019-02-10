@@ -147,10 +147,10 @@ mfcc_sdc_dir=$home_prefix/mfcc_sdc           # MFCC for SDC (7D)
 sdc_dir=$home_prefix/mfcc_sdc                # SDC
 
 # Only if not specified this in the config
-if [ -z "$mfcc_deltas_dir" ]; then
+if [ -z ${mfcc_deltas_dir+x} ]; then
   mfcc_deltas_dir=$home_prefix/mfcc_deltas   # MFCC+deltas
 fi
-if [ -z "$pitch_energy_dir" ]; then
+if [ -z ${pitch_energy_dir+x} ]; then
   pitch_energy_dir=$home_prefix/pitch_energy # Kaldi pitch + energy
 fi
 pitch_dir=$home_prefix/pitch                 # Kaldi pitch
@@ -189,7 +189,7 @@ mkdir -p $DATADIR/log
 echo "The experiment directory is: $DATADIR"
 
 # Set the languages that will actually be processed
-GP_LANGUAGES="PO" # AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN"
+GP_LANGUAGES="AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN"
 echo "Running with languages: ${GP_LANGUAGES}"
 
 # The most time-consuming stage: Converting SHNs to WAVs. Should be done only once;
@@ -261,7 +261,7 @@ fi
 if [ $stage -eq 2 ]; then
   echo "#### STAGE 2: features (MFCC, SDC, pitch, energy, etc) and VAD. ####"
 
-  for data_subset in train; do # enroll eval test; do
+  for data_subset in train enroll eval test; do
   (         
     if [ "$feature_type" == "mfcc_deltas_pitch_energy" ]; then
       num_speakers=$(cat $mfcc_deltas_dir/${data_subset}/spk2utt | wc -l)
@@ -274,7 +274,7 @@ if [ $stage -eq 2 ]; then
     else
       num_jobs=$num_speakers
     fi
-# : <<'END_COMMENT'
+
     # Runtime: ~12 mins
     if [ "$feature_type" == "mfcc" ]; then
       echo "Creating 23D MFCC features."
@@ -388,7 +388,6 @@ if [ $stage -eq 2 ]; then
         $pitch_energy_dir/${data_subset} \
         $DATADIR/${data_subset}
     fi
-# END_COMMENT
 
     echo "Computing utt2num_frames and fixing the directory."
     
