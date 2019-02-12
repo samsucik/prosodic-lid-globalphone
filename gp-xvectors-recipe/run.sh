@@ -143,10 +143,12 @@ test_data=$home_prefix/test
 log_dir=$home_prefix/log
 
 mfcc_dir=$home_prefix/mfcc                   # vanilla MFCC
-mfcc_sdc_dir=$home_prefix/mfcc_sdc           # MFCC for SDC (7D)
-sdc_dir=$home_prefix/mfcc_sdc                # SDC
+mfcc_sdc_dir=$home_prefix/mfcc_sdc           # MFCC for SDC (9D)
 
 # Only if not specified this in the config
+if [ -z ${sdc_dir+x} ]; then
+  sdc_dir=$home_prefix/mfcc_sdc              # SDC
+fi
 if [ -z ${mfcc_deltas_dir+x} ]; then
   mfcc_deltas_dir=$home_prefix/mfcc_deltas   # MFCC+deltas
 fi
@@ -158,7 +160,6 @@ energy_dir=$home_prefix/energy               # Raw energy
 vaddir=$home_prefix/vad                      # any feature type ultimately run through VAD
 vad_file_dir=$DATADIR/mfcc                   # The directory from which to take vad.scp (so 
                                              # the same VAD filtering can be done on any features)
-mfcc_deltas_pitch_energy_dir=$home_prefix/mfcc_deltas_pitch_energy
 
 feat_dir=$home_prefix/x_vector_features
 nnet_train_data=$home_prefix/nnet_train_data
@@ -301,7 +302,7 @@ if [ $stage -eq 2 ]; then
         $mfcc_deltas_dir
 
       utils/fix_data_dir.sh $DATADIR/${data_subset}
-      echo "Creating MFCC-delta features on top of 23D MFCC features."
+      echo "Creating 69D MFCC-delta features on top of 23D MFCC features."
       ./local/make_deltas.sh \
         --write-utt2num-frames false \
         --deltas-config conf/deltas.conf \
@@ -313,7 +314,7 @@ if [ $stage -eq 2 ]; then
         $mfcc_deltas_dir
     # Runtime: ??
     elif [ "$feature_type" == "sdc" ]; then
-      echo "Creating 7D MFCC features for SDC features."
+      echo "Creating 9D MFCC features for SDC features."
       steps/make_mfcc.sh \
         --write-utt2num-frames false \
         --mfcc-config conf/mfcc_sdc.conf \
@@ -326,7 +327,7 @@ if [ $stage -eq 2 ]; then
 
       utils/fix_data_dir.sh $DATADIR/${data_subset}
 
-      echo "Creating SDC features on top of 7D MFCC features."
+      echo "Creating 72D SDC features on top of 7D MFCC features."
       ./local/make_sdc.sh \
         --write-utt2num-frames false \
         --sdc-config conf/sdc.conf \
@@ -385,6 +386,15 @@ if [ $stage -eq 2 ]; then
         --cmd "$preprocess_cmd" \
         $mfcc_deltas_dir/${data_subset} \
         $pitch_energy_dir/${data_subset} \
+        $DATADIR/${data_subset}
+    elif [ "$feature_type" == "sdc_pitch_energy" ]; then
+      echo "Creating 77D SDC+KaldiPitch+energy features."
+      ./local/combine_feats.sh \
+        --feature-name $feature_type \
+        --paste-length-tolerance 2 \
+        --cmd "$preprocess_cmd" \
+        $mfcc_deltas_dir/${data_subset} \
+        $sdc_dir/${data_subset} \
         $DATADIR/${data_subset}
     fi
 
