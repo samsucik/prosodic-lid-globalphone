@@ -155,8 +155,12 @@ fi
 if [ -z ${pitch_energy_dir+x} ]; then
   pitch_energy_dir=$home_prefix/pitch_energy # Kaldi pitch + energy
 fi
-pitch_dir=$home_prefix/pitch                 # Kaldi pitch
-energy_dir=$home_prefix/energy               # Raw energy
+if [ -z ${pitch_dir+x} ]; then
+  pitch_dir=$home_prefix/pitch               # Kaldi pitch
+fi
+if [ -z ${energy_dir+x} ]; then
+  energy_dir=$home_prefix/energy             # Raw energy
+fi
 vaddir=$home_prefix/vad                      # any feature type ultimately run through VAD
 vad_file_dir=$DATADIR/mfcc                   # The directory from which to take vad.scp (so 
                                              # the same VAD filtering can be done on any features)
@@ -393,8 +397,26 @@ if [ $stage -eq 2 ]; then
         --feature-name $feature_type \
         --paste-length-tolerance 2 \
         --cmd "$preprocess_cmd" \
-        $mfcc_deltas_dir/${data_subset} \
         $sdc_dir/${data_subset} \
+        $pitch_energy_dir/${data_subset} \
+        $DATADIR/${data_subset}
+    elif [ "$feature_type" == "sdc_pitch" ]; then
+      echo "Creating 76D SDC+KaldiPitch features."
+      ./local/combine_feats.sh \
+        --feature-name $feature_type \
+        --paste-length-tolerance 2 \
+        --cmd "$preprocess_cmd" \
+        $sdc_dir/${data_subset} \
+        $pitch_dir/${data_subset} \
+        $DATADIR/${data_subset}
+    elif [ "$feature_type" == "sdc_energy" ]; then
+      echo "Creating 73D SDC+energy features."
+      ./local/combine_feats.sh \
+        --feature-name $feature_type \
+        --paste-length-tolerance 2 \
+        --cmd "$preprocess_cmd" \
+        $sdc_dir/${data_subset} \
+        $energy_dir/${data_subset} \
         $DATADIR/${data_subset}
     fi
 
