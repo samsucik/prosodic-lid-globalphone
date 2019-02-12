@@ -1,5 +1,66 @@
 Obtaining renewable credentials, you will be asked to type in your password
 Password for s1513472@INF.ED.AC.UK: 
+Running job " ./run.sh --exp-config=conf/exp_configs/mfcc_delt2s.co>nf --tage=1" for maximum of 28 days in background
+Waiting for job to start...
+Unknown argument: --tage=1, exiting
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 	 This shell script runs the GlobalPhone+X-vectors recipe.
+ 	 Use like this: ./run.sh <options>
+ 	 --stage=INT		Stage from which to start
+ 	 --run-all=(false|true)	Whether to run all stages
+ 	 			or just the specified one
+ 	 --experiment=STR	Experiment name (also name of directory 
+ 	 			where all files will be stored).
+ 	 			Default: 'baseline'.
+ 	 --exp-config=FILE	Config file with all kinds of options,
+ 	 			see conf/exp_default.conf for an example.
+ 	 			NOTE: Where arguments are passed on the command line,
+ 	 			the values overwrite those found in the config file.
+
+ 	 If no stage number is provided, either all stages
+ 	 will be run (--run-all=true) or no stages at all.
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+cat: /tmp/lrj.pid.6780: No such file or directory
+Usage: /bin/grep [OPTION]... PATTERN [FILE]...
+Try '/bin/grep --help' for more information.
+Job ran for less than 10 seconds. Problem?
+/bin/rm: cannot remove '/tmp/lrj.pid.6780': No such file or directory
+Obtaining renewable credentials, you will be asked to type in your password
+Password for s1513472@INF.ED.AC.UK: 
+Running job "./run.sh --exp-config=conf/exp_configs/mfcc_deltas.conf --stage=2" for maximum of 28 days in background
+Waiting for job to start...
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 	 This shell script runs the GlobalPhone+X-vectors recipe.
+ 	 Use like this: ./run.sh <options>
+ 	 --stage=INT		Stage from which to start
+ 	 --run-all=(false|true)	Whether to run all stages
+ 	 			or just the specified one
+ 	 --experiment=STR	Experiment name (also name of directory 
+ 	 			where all files will be stored).
+ 	 			Default: 'baseline'.
+ 	 --exp-config=FILE	Config file with all kinds of options,
+ 	 			see conf/exp_default.conf for an example.
+ 	 			NOTE: Where arguments are passed on the command line,
+ 	 			the values overwrite those found in the config file.
+
+ 	 If no stage number is provided, either all stages
+ 	 will be run (--run-all=true) or no stages at all.
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Overwriting the experiment config value of stage=1 using the value '2' passed as a command-line argument.
+Running experiment: 'mfcc_deltas'
+Running only stage 2.
+Running on the cluster.
+Conda environment not activated, sourcing ~/.bashrc and activating the 'lid' env.
+Job started successfully
+Using shorten (v3.6.1) from ~/language-ident-from-speech/gp-xvectors-recipe/tools/shorten-3.6.1/bin/shorten
+Using sox (v14.3.2) from ~/language-ident-from-speech/gp-xvectors-recipe/tools/sox-14.3.2/bin/sox
+Conda environment not activated, sourcing ~/.bashrc and activating the 'lid' env.
+The experiment directory is: /home/s1513472/lid/mfcc_deltas
+Running with languages: AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN
+#### STAGE 2: features (MFCC, SDC, pitch, energy, etc) and VAD. ####
+Finished stage 2.
+Obtaining renewable credentials, you will be asked to type in your password
+Password for s1513472@INF.ED.AC.UK: 
 Running job "./run.sh --exp-config=conf/exp_configs/mfcc_deltas.conf --stage=3" for maximum of 28 days in background
 Waiting for job to start...
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -21,32 +82,65 @@ Waiting for job to start...
  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Overwriting the experiment config value of stage=1 using the value '3' passed as a command-line argument.
 Running experiment: 'mfcc_deltas'
-Running all stages starting with 3.
+Running only stage 3.
 Running on the cluster.
-Conda environment not activated, sourcing ~/.bashrc and activating the 'lid' env.
+Conda environment 'lid' active.
 Using shorten (v3.6.1) from ~/language-ident-from-speech/gp-xvectors-recipe/tools/shorten-3.6.1/bin/shorten
 Using sox (v14.3.2) from ~/language-ident-from-speech/gp-xvectors-recipe/tools/sox-14.3.2/bin/sox
-Conda environment not activated, sourcing ~/.bashrc and activating the 'lid' env.
+Conda environment 'lid' active.
 The experiment directory is: /home/s1513472/lid/mfcc_deltas
 Running with languages: AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN
 #### STAGE 3: Preprocessing for X-vector training examples. ####
-./local/prepare_feats_for_egs.sh --nj 32 --cmd run.pl /home/s1513472/lid/mfcc_deltas/train /home/s1513472/lid/mfcc_deltas/nnet_train_data /home/s1513472/lid/mfcc_deltas/x_vector_features
+./local/prepare_feats_for_egs.sh --nj 32 --cmd run.pl --remove-nonspeech true /home/s1513472/lid/mfcc_deltas/train /home/s1513472/lid/mfcc_deltas/nnet_train_data /home/s1513472/lid/mfcc_deltas/x_vector_features
 Conda environment 'lid' active.
 Job started successfully
 ./local/prepare_feats_for_egs.sh: Succeeded creating xvector features for train
 utils/data/get_utt2num_frames.sh: /home/s1513472/lid/mfcc_deltas/nnet_train_data/utt2num_frames already present!
-fix_data_dir.sh: kept all 129207 utterances.
+fix_data_dir.sh: kept all 129108 utterances.
 fix_data_dir.sh: old files are kept in /home/s1513472/lid/mfcc_deltas/nnet_train_data/.backup
 Removing short features...
-fix_data_dir.sh: kept all 91169 utterances.
+fix_data_dir.sh: kept all 91100 utterances.
 fix_data_dir.sh: old files are kept in /home/s1513472/lid/mfcc_deltas/nnet_train_data/.backup
 Finished stage 3.
+Obtaining renewable credentials, you will be asked to type in your password
+Password for s1513472@INF.ED.AC.UK: 
+Running job "./run.sh --exp-config=conf/exp_configs/mfcc_deltas.conf --stage=4 --run-all=true" for maximum of 28 days in background
+Waiting for job to start...
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 	 This shell script runs the GlobalPhone+X-vectors recipe.
+ 	 Use like this: ./run.sh <options>
+ 	 --stage=INT		Stage from which to start
+ 	 --run-all=(false|true)	Whether to run all stages
+ 	 			or just the specified one
+ 	 --experiment=STR	Experiment name (also name of directory 
+ 	 			where all files will be stored).
+ 	 			Default: 'baseline'.
+ 	 --exp-config=FILE	Config file with all kinds of options,
+ 	 			see conf/exp_default.conf for an example.
+ 	 			NOTE: Where arguments are passed on the command line,
+ 	 			the values overwrite those found in the config file.
+
+ 	 If no stage number is provided, either all stages
+ 	 will be run (--run-all=true) or no stages at all.
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Overwriting the experiment config value of run_all=false using the value 'true' passed as a command-line argument.
+Overwriting the experiment config value of stage=1 using the value '4' passed as a command-line argument.
+Running experiment: 'mfcc_deltas'
+Running all stages starting with 4.
+Running on the cluster.
+Conda environment 'lid' active.
+Using shorten (v3.6.1) from ~/language-ident-from-speech/gp-xvectors-recipe/tools/shorten-3.6.1/bin/shorten
+Using sox (v14.3.2) from ~/language-ident-from-speech/gp-xvectors-recipe/tools/sox-14.3.2/bin/sox
+Conda environment 'lid' active.
+The experiment directory is: /home/s1513472/lid/mfcc_deltas
+Running with languages: AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN
 #### STAGE 4: Training the X-vector DNN. ####
 Running on the cluster.
 Conda environment 'lid' active.
 Running on the cluster.
-/home/s1513472/lid/mfcc_deltas/nnet_train_data
-/home/s1513472/lid/mfcc_deltas/nnet/egs
+Taking data from: /home/s1513472/lid/mfcc_deltas/nnet_train_data
+Storing training examples in: /home/s1513472/lid/mfcc_deltas/nnet/egs
+Storing TDNN in: /home/s1513472/lid/mfcc_deltas/nnet
 #### STAGE 4: Getting NN training egs. ####
 ./local/get_egs.sh --cmd slurm.pl --nj 32 --stage 0 --frames-per-iter 50000000 --frames-per-iter-diagnostic 100000 --min-frames-per-chunk 200 --max-frames-per-chunk 400 --num-diagnostic-archives 3 --num-repeats 35 /home/s1513472/lid/mfcc_deltas/nnet_train_data /home/s1513472/lid/mfcc_deltas/nnet/egs
 Conda environment 'lid' active.
@@ -54,6 +148,7 @@ feat-to-dim scp:/home/s1513472/lid/mfcc_deltas/nnet_train_data/feats.scp -
 ./local/get_egs.sh: Preparing train and validation lists
 ./local/get_egs.sh: Producing 70 archives for training
 ./local/get_egs.sh: Allocating training examples
+Job started successfully
 ./local/get_egs.sh: Allocating training subset examples
 ./local/get_egs.sh: Allocating validation examples
 ./local/get_egs.sh: Generating training examples on disk
@@ -71,12 +166,12 @@ LOG (nnet3-init[5.5.142~5-ff514]:main():nnet3-init.cc:80) Initialized raw neural
 nnet3-info /home/s1513472/lid/mfcc_deltas/nnet/configs/ref.raw 
 steps/nnet3/xconfig_to_configs.py --xconfig-file /home/s1513472/lid/mfcc_deltas/nnet/configs/network.xconfig --config-dir /home/s1513472/lid/mfcc_deltas/nnet/configs
 #### STAGE 6: Training the network. ####
-2019-01-29 00:35:40,689 [steps/nnet3/train_raw_dnn.py:35 - <module> - INFO ] Starting raw DNN trainer (train_raw_dnn.py)
-2019-01-29 00:35:41,022 [steps/nnet3/train_raw_dnn.py:156 - process_args - WARNING ] You are running with one thread but you have not compiled
+2019-02-10 23:56:43,017 [steps/nnet3/train_raw_dnn.py:35 - <module> - INFO ] Starting raw DNN trainer (train_raw_dnn.py)
+2019-02-10 23:56:43,869 [steps/nnet3/train_raw_dnn.py:156 - process_args - WARNING ] You are running with one thread but you have not compiled
                    for CUDA.  You may be running a setup optimized for GPUs.
                    If you have GPUs and have nvcc installed, go to src/ and do
                    ./configure; make
-2019-01-29 00:35:41,024 [steps/nnet3/train_raw_dnn.py:195 - train - INFO ] Arguments for the experiment
+2019-02-10 23:56:43,874 [steps/nnet3/train_raw_dnn.py:195 - train - INFO ] Arguments for the experiment
 {'backstitch_training_interval': 1,
  'backstitch_training_scale': 0.0,
  'cleanup': True,
@@ -127,188 +222,188 @@ steps/nnet3/xconfig_to_configs.py --xconfig-file /home/s1513472/lid/mfcc_deltas/
  'train_opts': [],
  'use_dense_targets': True,
  'use_gpu': 'yes'}
-2019-01-29 00:35:41,075 [steps/nnet3/train_raw_dnn.py:315 - train - INFO ] Preparing the initial network.
-2019-01-29 00:35:50,641 [steps/nnet3/train_raw_dnn.py:353 - train - INFO ] Training will run for 7.0 epochs = 163 iterations
-2019-01-29 00:35:50,642 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 0/162    Epoch: 0.00/7.0 (0.0% complete)    lr: 0.003000    shrink: 0.97000
-2019-01-29 00:43:46,694 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 1/162    Epoch: 0.04/7.0 (0.6% complete)    lr: 0.002958    shrink: 0.97042
-2019-01-29 00:51:48,094 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 2/162    Epoch: 0.09/7.0 (1.2% complete)    lr: 0.002917    shrink: 0.97083
-2019-01-29 00:57:06,888 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 3/162    Epoch: 0.13/7.0 (1.8% complete)    lr: 0.002876    shrink: 0.97124
-2019-01-29 01:03:32,014 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 4/162    Epoch: 0.17/7.0 (2.4% complete)    lr: 0.002836    shrink: 0.97164
-2019-01-29 01:11:23,806 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 5/162    Epoch: 0.21/7.0 (3.1% complete)    lr: 0.002796    shrink: 0.97204
-2019-01-29 01:19:03,962 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 6/162    Epoch: 0.26/7.0 (3.7% complete)    lr: 0.002757    shrink: 0.97243
-2019-01-29 01:27:14,428 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 7/162    Epoch: 0.30/7.0 (4.3% complete)    lr: 0.002718    shrink: 0.97282
-2019-01-29 01:35:21,796 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 8/162    Epoch: 0.34/7.0 (4.9% complete)    lr: 0.002680    shrink: 0.97320
-2019-01-29 01:41:13,468 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 9/162    Epoch: 0.39/7.0 (5.5% complete)    lr: 0.002643    shrink: 0.97357
-2019-01-29 01:48:24,422 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 10/162    Epoch: 0.43/7.0 (6.1% complete)    lr: 0.002606    shrink: 0.97394
-2019-01-29 01:54:24,851 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 11/162    Epoch: 0.47/7.0 (6.7% complete)    lr: 0.002569    shrink: 0.97431
-2019-01-29 02:01:34,852 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 12/162    Epoch: 0.51/7.0 (7.3% complete)    lr: 0.002533    shrink: 0.97467
-2019-01-29 02:08:54,734 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 13/162    Epoch: 0.56/7.0 (8.0% complete)    lr: 0.002498    shrink: 0.97502
-2019-01-29 02:17:03,760 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 14/162    Epoch: 0.60/7.0 (8.6% complete)    lr: 0.002463    shrink: 0.97537
-2019-01-29 02:24:31,707 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 15/162    Epoch: 0.64/7.0 (9.2% complete)    lr: 0.002428    shrink: 0.97572
-2019-01-29 02:31:51,914 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 16/162    Epoch: 0.69/7.0 (9.8% complete)    lr: 0.002394    shrink: 0.97606
-2019-01-29 02:40:09,785 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 17/162    Epoch: 0.73/7.0 (10.4% complete)    lr: 0.002361    shrink: 0.97639
-2019-01-29 02:48:17,973 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 18/162    Epoch: 0.77/7.0 (11.0% complete)    lr: 0.002328    shrink: 0.97672
-2019-01-29 02:56:02,246 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 19/162    Epoch: 0.81/7.0 (11.6% complete)    lr: 0.002295    shrink: 0.97705
-2019-01-29 03:01:05,147 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 20/162    Epoch: 0.86/7.0 (12.2% complete)    lr: 0.002263    shrink: 0.97737
-2019-01-29 03:08:09,542 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 21/162    Epoch: 0.90/7.0 (12.9% complete)    lr: 0.002231    shrink: 0.97769
-2019-01-29 03:15:35,287 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 22/162    Epoch: 0.94/7.0 (13.5% complete)    lr: 0.002200    shrink: 0.97800
-2019-01-29 03:23:31,257 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 23/162    Epoch: 0.99/7.0 (14.1% complete)    lr: 0.002169    shrink: 0.97831
-2019-01-29 03:28:46,438 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 24/162    Epoch: 1.03/7.0 (14.7% complete)    lr: 0.002139    shrink: 0.97861
-2019-01-29 03:36:51,358 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 25/162    Epoch: 1.07/7.0 (15.3% complete)    lr: 0.002109    shrink: 0.97891
-2019-01-29 03:44:53,931 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 26/162    Epoch: 1.11/7.0 (15.9% complete)    lr: 0.002079    shrink: 0.97921
-2019-01-29 03:50:46,843 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 27/162    Epoch: 1.16/7.0 (16.5% complete)    lr: 0.002050    shrink: 0.97950
-2019-01-29 03:58:39,785 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 28/162    Epoch: 1.20/7.0 (17.1% complete)    lr: 0.002022    shrink: 0.97978
-2019-01-29 04:06:23,875 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 29/162    Epoch: 1.24/7.0 (17.8% complete)    lr: 0.001993    shrink: 0.98007
-2019-01-29 04:14:05,961 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 30/162    Epoch: 1.29/7.0 (18.4% complete)    lr: 0.001965    shrink: 0.98035
-2019-01-29 04:22:03,667 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 31/162    Epoch: 1.33/7.0 (19.0% complete)    lr: 0.001938    shrink: 0.98062
-2019-01-29 04:30:16,365 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 32/162    Epoch: 1.37/7.0 (19.6% complete)    lr: 0.001911    shrink: 0.98089
-2019-01-29 04:37:28,187 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 33/162    Epoch: 1.41/7.0 (20.2% complete)    lr: 0.001884    shrink: 0.98116
-2019-01-29 04:43:32,025 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 34/162    Epoch: 1.46/7.0 (20.8% complete)    lr: 0.001858    shrink: 0.98142
-2019-01-29 04:50:41,151 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 35/162    Epoch: 1.50/7.0 (21.4% complete)    lr: 0.001832    shrink: 0.98168
-2019-01-29 04:58:04,326 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 36/162    Epoch: 1.54/7.0 (22.0% complete)    lr: 0.001806    shrink: 0.98194
-2019-01-29 05:06:15,268 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 37/162    Epoch: 1.59/7.0 (22.7% complete)    lr: 0.001781    shrink: 0.98219
-2019-01-29 05:13:22,774 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 38/162    Epoch: 1.63/7.0 (23.3% complete)    lr: 0.001756    shrink: 0.98244
-2019-01-29 05:20:52,793 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 39/162    Epoch: 1.67/7.0 (23.9% complete)    lr: 0.001731    shrink: 0.98269
-2019-01-29 05:26:20,321 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 40/162    Epoch: 1.71/7.0 (24.5% complete)    lr: 0.001707    shrink: 0.98293
-2019-01-29 05:34:41,384 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 41/162    Epoch: 1.76/7.0 (25.1% complete)    lr: 0.001683    shrink: 0.98317
-2019-01-29 05:42:23,805 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 42/162    Epoch: 1.80/7.0 (25.7% complete)    lr: 0.001660    shrink: 0.98340
-2019-01-29 05:50:14,349 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 43/162    Epoch: 1.84/7.0 (26.3% complete)    lr: 0.001636    shrink: 0.98364
-2019-01-29 05:55:02,693 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 44/162    Epoch: 1.89/7.0 (26.9% complete)    lr: 0.001613    shrink: 0.98387
-2019-01-29 06:02:23,870 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 45/162    Epoch: 1.93/7.0 (27.6% complete)    lr: 0.001591    shrink: 0.98409
-2019-01-29 06:09:26,076 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 46/162    Epoch: 1.97/7.0 (28.2% complete)    lr: 0.001569    shrink: 0.98431
-2019-01-29 06:17:23,541 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 47/162    Epoch: 2.01/7.0 (28.8% complete)    lr: 0.001547    shrink: 0.98453
-2019-01-29 06:25:24,416 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 48/162    Epoch: 2.06/7.0 (29.4% complete)    lr: 0.001525    shrink: 0.98475
-2019-01-29 06:33:25,023 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 49/162    Epoch: 2.10/7.0 (30.0% complete)    lr: 0.001504    shrink: 0.98496
-2019-01-29 06:39:18,547 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 50/162    Epoch: 2.14/7.0 (30.6% complete)    lr: 0.001483    shrink: 0.98517
-2019-01-29 06:46:58,962 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 51/162    Epoch: 2.19/7.0 (31.2% complete)    lr: 0.001462    shrink: 0.98538
-2019-01-29 06:54:53,898 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 52/162    Epoch: 2.23/7.0 (31.8% complete)    lr: 0.001441    shrink: 0.98559
-2019-01-29 07:02:33,526 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 53/162    Epoch: 2.27/7.0 (32.4% complete)    lr: 0.001421    shrink: 0.98579
-2019-01-29 07:10:31,193 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 54/162    Epoch: 2.31/7.0 (33.1% complete)    lr: 0.001401    shrink: 0.98599
-2019-01-29 07:18:34,899 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 55/162    Epoch: 2.36/7.0 (33.7% complete)    lr: 0.001382    shrink: 0.98618
-2019-01-29 07:24:27,806 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 56/162    Epoch: 2.40/7.0 (34.3% complete)    lr: 0.001362    shrink: 0.98638
-2019-01-29 07:31:42,398 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 57/162    Epoch: 2.44/7.0 (34.9% complete)    lr: 0.001343    shrink: 0.98657
-2019-01-29 07:37:36,161 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 58/162    Epoch: 2.49/7.0 (35.5% complete)    lr: 0.001324    shrink: 0.98676
-2019-01-29 07:44:58,016 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 59/162    Epoch: 2.53/7.0 (36.1% complete)    lr: 0.001306    shrink: 0.98694
-2019-01-29 07:52:10,003 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 60/162    Epoch: 2.57/7.0 (36.7% complete)    lr: 0.001288    shrink: 0.98712
-2019-01-29 08:00:52,696 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 61/162    Epoch: 2.61/7.0 (37.3% complete)    lr: 0.001270    shrink: 0.98730
-2019-01-29 08:08:24,036 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 62/162    Epoch: 2.66/7.0 (38.0% complete)    lr: 0.001252    shrink: 0.98748
-2019-01-29 08:14:38,222 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 63/162    Epoch: 2.70/7.0 (38.6% complete)    lr: 0.001234    shrink: 0.98766
-2019-01-29 08:22:59,840 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 64/162    Epoch: 2.74/7.0 (39.2% complete)    lr: 0.001217    shrink: 0.98783
-2019-01-29 08:31:09,787 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 65/162    Epoch: 2.79/7.0 (39.8% complete)    lr: 0.001200    shrink: 0.98800
-2019-01-29 08:38:58,389 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 66/162    Epoch: 2.83/7.0 (40.4% complete)    lr: 0.001183    shrink: 0.98817
-2019-01-29 08:44:00,991 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 67/162    Epoch: 2.87/7.0 (41.0% complete)    lr: 0.001167    shrink: 0.98833
-2019-01-29 08:51:34,220 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 68/162    Epoch: 2.91/7.0 (41.6% complete)    lr: 0.001150    shrink: 0.98850
-2019-01-29 08:58:38,228 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 69/162    Epoch: 2.96/7.0 (42.2% complete)    lr: 0.001134    shrink: 0.98866
-2019-01-29 09:06:33,902 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 70/162    Epoch: 3.00/7.0 (42.9% complete)    lr: 0.001118    shrink: 0.98882
-2019-01-29 09:14:50,169 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 71/162    Epoch: 3.04/7.0 (43.5% complete)    lr: 0.001103    shrink: 0.98897
-2019-01-29 09:22:51,262 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 72/162    Epoch: 3.09/7.0 (44.1% complete)    lr: 0.001087    shrink: 0.98913
-2019-01-29 09:28:18,687 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 73/162    Epoch: 3.13/7.0 (44.7% complete)    lr: 0.001072    shrink: 0.98928
-2019-01-29 09:34:42,595 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 74/162    Epoch: 3.17/7.0 (45.3% complete)    lr: 0.001057    shrink: 0.98943
-2019-01-29 09:42:34,716 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 75/162    Epoch: 3.21/7.0 (45.9% complete)    lr: 0.001042    shrink: 0.98958
-2019-01-29 09:50:20,585 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 76/162    Epoch: 3.26/7.0 (46.5% complete)    lr: 0.001028    shrink: 0.98972
-2019-01-29 09:58:22,389 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 77/162    Epoch: 3.30/7.0 (47.1% complete)    lr: 0.001013    shrink: 0.98987
-2019-01-29 10:06:27,289 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 78/162    Epoch: 3.34/7.0 (47.8% complete)    lr: 0.000999    shrink: 0.99001
-2019-01-29 10:12:17,839 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 79/162    Epoch: 3.39/7.0 (48.4% complete)    lr: 0.000985    shrink: 0.99015
-2019-01-29 10:19:33,465 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 80/162    Epoch: 3.43/7.0 (49.0% complete)    lr: 0.000971    shrink: 0.99029
-2019-01-29 10:25:40,571 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 81/162    Epoch: 3.47/7.0 (49.6% complete)    lr: 0.000958    shrink: 0.99042
-2019-01-29 10:32:48,202 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 82/162    Epoch: 3.51/7.0 (50.2% complete)    lr: 0.000944    shrink: 0.99056
-2019-01-29 10:40:13,472 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 83/162    Epoch: 3.56/7.0 (50.8% complete)    lr: 0.000931    shrink: 0.99069
-2019-01-29 10:48:23,297 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 84/162    Epoch: 3.60/7.0 (51.4% complete)    lr: 0.000918    shrink: 0.99082
-2019-01-29 10:55:57,695 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 85/162    Epoch: 3.64/7.0 (52.0% complete)    lr: 0.000905    shrink: 0.99095
-2019-01-29 11:03:17,969 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 86/162    Epoch: 3.69/7.0 (52.7% complete)    lr: 0.000892    shrink: 0.99108
-2019-01-29 11:11:37,347 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 87/162    Epoch: 3.73/7.0 (53.3% complete)    lr: 0.000880    shrink: 0.99120
-2019-01-29 11:19:41,767 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 88/162    Epoch: 3.77/7.0 (53.9% complete)    lr: 0.000868    shrink: 0.99132
-2019-01-29 11:27:29,471 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 89/162    Epoch: 3.81/7.0 (54.5% complete)    lr: 0.000856    shrink: 0.99144
-2019-01-29 11:32:34,872 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 90/162    Epoch: 3.86/7.0 (55.1% complete)    lr: 0.000844    shrink: 0.99156
-2019-01-29 11:40:12,603 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 91/162    Epoch: 3.90/7.0 (55.7% complete)    lr: 0.000832    shrink: 0.99168
-2019-01-29 11:47:33,090 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 92/162    Epoch: 3.94/7.0 (56.3% complete)    lr: 0.000820    shrink: 0.99180
-2019-01-29 11:55:26,455 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 93/162    Epoch: 3.99/7.0 (56.9% complete)    lr: 0.000809    shrink: 0.99191
-2019-01-29 12:00:42,567 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 94/162    Epoch: 4.03/7.0 (57.6% complete)    lr: 0.000797    shrink: 0.99203
-2019-01-29 12:08:50,200 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 95/162    Epoch: 4.07/7.0 (58.2% complete)    lr: 0.000786    shrink: 0.99214
-2019-01-29 12:16:53,137 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 96/162    Epoch: 4.11/7.0 (58.8% complete)    lr: 0.000775    shrink: 0.99225
-2019-01-29 12:22:53,484 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 97/162    Epoch: 4.16/7.0 (59.4% complete)    lr: 0.000764    shrink: 0.99236
-2019-01-29 12:30:44,695 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 98/162    Epoch: 4.20/7.0 (60.0% complete)    lr: 0.000754    shrink: 0.99246
-2019-01-29 12:38:17,228 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 99/162    Epoch: 4.24/7.0 (60.6% complete)    lr: 0.000743    shrink: 0.99257
-2019-01-29 12:45:58,965 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 100/162    Epoch: 4.29/7.0 (61.2% complete)    lr: 0.000733    shrink: 0.99267
-2019-01-29 12:53:58,128 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 101/162    Epoch: 4.33/7.0 (61.8% complete)    lr: 0.000722    shrink: 0.99278
-2019-01-29 13:02:08,932 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 102/162    Epoch: 4.37/7.0 (62.4% complete)    lr: 0.000712    shrink: 0.99288
-2019-01-29 13:09:20,125 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 103/162    Epoch: 4.41/7.0 (63.1% complete)    lr: 0.000702    shrink: 0.99298
-2019-01-29 13:15:23,772 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 104/162    Epoch: 4.46/7.0 (63.7% complete)    lr: 0.000692    shrink: 0.99308
-2019-01-29 13:22:34,020 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 105/162    Epoch: 4.50/7.0 (64.3% complete)    lr: 0.000683    shrink: 0.99317
-2019-01-29 13:29:57,257 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 106/162    Epoch: 4.54/7.0 (64.9% complete)    lr: 0.000673    shrink: 0.99327
-2019-01-29 13:38:09,082 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 107/162    Epoch: 4.59/7.0 (65.5% complete)    lr: 0.000664    shrink: 0.99336
-2019-01-29 13:45:16,747 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 108/162    Epoch: 4.63/7.0 (66.1% complete)    lr: 0.000654    shrink: 0.99346
-2019-01-29 13:52:48,548 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 109/162    Epoch: 4.67/7.0 (66.7% complete)    lr: 0.000645    shrink: 0.99355
-2019-01-29 13:58:14,030 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 110/162    Epoch: 4.71/7.0 (67.3% complete)    lr: 0.000636    shrink: 0.99364
-2019-01-29 14:06:37,455 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 111/162    Epoch: 4.76/7.0 (68.0% complete)    lr: 0.000627    shrink: 0.99373
-2019-01-29 14:14:21,809 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 112/162    Epoch: 4.80/7.0 (68.6% complete)    lr: 0.000619    shrink: 0.99381
-2019-01-29 14:22:11,925 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 113/162    Epoch: 4.84/7.0 (69.2% complete)    lr: 0.000610    shrink: 0.99390
-2019-01-29 14:26:57,589 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 114/162    Epoch: 4.89/7.0 (69.8% complete)    lr: 0.000601    shrink: 0.99399
-2019-01-29 14:34:20,761 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 115/162    Epoch: 4.93/7.0 (70.4% complete)    lr: 0.000593    shrink: 0.99407
-2019-01-29 14:41:20,715 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 116/162    Epoch: 4.97/7.0 (71.0% complete)    lr: 0.000585    shrink: 0.99415
-2019-01-29 14:49:18,611 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 117/162    Epoch: 5.01/7.0 (71.6% complete)    lr: 0.000576    shrink: 0.99424
-2019-01-29 14:57:31,557 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 118/162    Epoch: 5.06/7.0 (72.2% complete)    lr: 0.000568    shrink: 0.99432
-2019-01-29 15:05:31,816 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 119/162    Epoch: 5.10/7.0 (72.9% complete)    lr: 0.000560    shrink: 0.99440
-2019-01-29 15:11:30,255 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 120/162    Epoch: 5.14/7.0 (73.5% complete)    lr: 0.000553    shrink: 0.99447
-2019-01-29 15:18:48,153 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 121/162    Epoch: 5.19/7.0 (74.1% complete)    lr: 0.000545    shrink: 0.99455
-2019-01-29 15:26:54,354 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 122/162    Epoch: 5.23/7.0 (74.7% complete)    lr: 0.000537    shrink: 0.99463
-2019-01-29 15:34:36,320 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 123/162    Epoch: 5.27/7.0 (75.3% complete)    lr: 0.000530    shrink: 0.99470
-2019-01-29 15:42:36,133 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 124/162    Epoch: 5.31/7.0 (75.9% complete)    lr: 0.000522    shrink: 0.99478
-2019-01-29 15:50:39,342 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 125/162    Epoch: 5.36/7.0 (76.5% complete)    lr: 0.000515    shrink: 0.99485
-2019-01-29 15:56:31,144 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 126/162    Epoch: 5.40/7.0 (77.1% complete)    lr: 0.000508    shrink: 0.99492
-2019-01-29 16:03:45,454 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 127/162    Epoch: 5.44/7.0 (77.8% complete)    lr: 0.000501    shrink: 0.99499
-2019-01-29 16:09:44,032 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 128/162    Epoch: 5.49/7.0 (78.4% complete)    lr: 0.000494    shrink: 0.99506
-2019-01-29 16:17:07,401 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 129/162    Epoch: 5.53/7.0 (79.0% complete)    lr: 0.000487    shrink: 0.99513
-2019-01-29 16:24:30,910 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 130/162    Epoch: 5.57/7.0 (79.6% complete)    lr: 0.000480    shrink: 0.99520
-2019-01-29 16:32:53,653 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 131/162    Epoch: 5.61/7.0 (80.2% complete)    lr: 0.000473    shrink: 0.99527
-2019-01-29 17:17:07,859 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 132/162    Epoch: 5.66/7.0 (80.8% complete)    lr: 0.000467    shrink: 0.99533
-2019-01-29 17:23:59,031 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 133/162    Epoch: 5.70/7.0 (81.4% complete)    lr: 0.000460    shrink: 0.99540
-2019-01-29 17:32:16,078 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 134/162    Epoch: 5.74/7.0 (82.0% complete)    lr: 0.000454    shrink: 0.99546
-2019-01-29 17:40:26,064 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 135/162    Epoch: 5.79/7.0 (82.7% complete)    lr: 0.000447    shrink: 0.99553
-2019-01-29 17:48:14,244 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 136/162    Epoch: 5.83/7.0 (83.3% complete)    lr: 0.000441    shrink: 0.99559
-2019-01-29 17:53:19,266 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 137/162    Epoch: 5.87/7.0 (83.9% complete)    lr: 0.000435    shrink: 0.99565
-2019-01-29 18:00:44,294 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 138/162    Epoch: 5.91/7.0 (84.5% complete)    lr: 0.000429    shrink: 0.99571
-2019-01-29 18:07:50,129 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 139/162    Epoch: 5.96/7.0 (85.1% complete)    lr: 0.000423    shrink: 0.99577
-2019-01-29 18:15:47,448 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 140/162    Epoch: 6.00/7.0 (85.7% complete)    lr: 0.000417    shrink: 0.99583
-2019-01-29 18:23:52,356 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 141/162    Epoch: 6.04/7.0 (86.3% complete)    lr: 0.000411    shrink: 0.99589
-2019-01-29 18:31:59,182 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 142/162    Epoch: 6.09/7.0 (86.9% complete)    lr: 0.000405    shrink: 0.99595
-2019-01-29 18:37:24,630 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 143/162    Epoch: 6.13/7.0 (87.6% complete)    lr: 0.000400    shrink: 0.99600
-2019-01-29 18:43:48,105 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 144/162    Epoch: 6.17/7.0 (88.2% complete)    lr: 0.000394    shrink: 0.99606
-2019-01-29 18:51:43,334 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 145/162    Epoch: 6.21/7.0 (88.8% complete)    lr: 0.000388    shrink: 0.99612
-2019-01-29 18:59:26,399 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 146/162    Epoch: 6.26/7.0 (89.4% complete)    lr: 0.000383    shrink: 0.99617
-2019-01-29 19:07:24,721 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 147/162    Epoch: 6.30/7.0 (90.0% complete)    lr: 0.000378    shrink: 0.99622
-2019-01-29 19:15:31,630 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 148/162    Epoch: 6.34/7.0 (90.6% complete)    lr: 0.000372    shrink: 0.99628
-2019-01-29 19:21:27,280 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 149/162    Epoch: 6.39/7.0 (91.2% complete)    lr: 0.000367    shrink: 0.99633
-2019-01-29 19:28:40,398 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 150/162    Epoch: 6.43/7.0 (91.8% complete)    lr: 0.000362    shrink: 0.99638
-2019-01-29 19:34:54,896 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 151/162    Epoch: 6.47/7.0 (92.4% complete)    lr: 0.000357    shrink: 0.99643
-2019-01-29 19:42:07,949 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 152/162    Epoch: 6.51/7.0 (93.1% complete)    lr: 0.000352    shrink: 0.99648
-2019-01-29 19:49:31,681 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 153/162    Epoch: 6.56/7.0 (93.7% complete)    lr: 0.000347    shrink: 0.99653
-2019-01-29 19:57:46,037 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 154/162    Epoch: 6.60/7.0 (94.3% complete)    lr: 0.000342    shrink: 0.99658
-2019-01-29 20:07:04,203 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 155/162    Epoch: 6.64/7.0 (94.9% complete)    lr: 0.000337    shrink: 0.99663
-2019-01-29 20:57:19,334 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 156/162    Epoch: 6.69/7.0 (95.5% complete)    lr: 0.000333    shrink: 0.99667
-2019-01-29 21:05:44,476 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 157/162    Epoch: 6.73/7.0 (96.1% complete)    lr: 0.000328    shrink: 0.99672
-2019-01-29 21:13:52,612 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 158/162    Epoch: 6.77/7.0 (96.7% complete)    lr: 0.000323    shrink: 0.99677
-2019-01-29 21:21:42,893 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 159/162    Epoch: 6.81/7.0 (97.3% complete)    lr: 0.000319    shrink: 0.99681
-2019-01-29 21:27:48,734 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 160/162    Epoch: 6.86/7.0 (98.0% complete)    lr: 0.000314    shrink: 0.99686
-2019-01-29 21:34:49,947 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 161/162    Epoch: 6.90/7.0 (98.6% complete)    lr: 0.000310    shrink: 0.99690
-2019-01-29 21:44:03,355 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 162/162    Epoch: 6.94/7.0 (99.2% complete)    lr: 0.000300    shrink: 0.99700
-2019-01-29 21:51:57,941 [steps/nnet3/train_raw_dnn.py:440 - train - INFO ] Doing final combination to produce final.raw
-2019-01-29 21:51:57,941 [steps/libs/nnet3/train/frame_level_objf/common.py:491 - combine_models - INFO ] Combining {144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163} models.
-2019-01-29 21:57:05,272 [steps/nnet3/train_raw_dnn.py:462 - train - INFO ] Cleaning up the experiment directory /home/s1513472/lid/mfcc_deltas/nnet
-/home/s1513472/lid/mfcc_deltas/nnet: num-iters=163 nj=3..3 num-params=4.6M dim=69->19 combine=-0.02->-0.02 (over 8) loglike:train/valid[107,162]=(-0.0152,-0.0172/-0.116,-0.099) accuracy:train/valid[107,162]=(1.0000,1.0000/0.941,0.9804)
+2019-02-10 23:56:43,929 [steps/nnet3/train_raw_dnn.py:315 - train - INFO ] Preparing the initial network.
+2019-02-10 23:56:50,717 [steps/nnet3/train_raw_dnn.py:353 - train - INFO ] Training will run for 7.0 epochs = 163 iterations
+2019-02-10 23:56:50,717 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 0/162    Epoch: 0.00/7.0 (0.0% complete)    lr: 0.003000    shrink: 0.97000
+2019-02-11 00:07:45,196 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 1/162    Epoch: 0.04/7.0 (0.6% complete)    lr: 0.002958    shrink: 0.97042
+2019-02-11 00:14:03,127 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 2/162    Epoch: 0.09/7.0 (1.2% complete)    lr: 0.002917    shrink: 0.97083
+2019-02-11 00:22:46,213 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 3/162    Epoch: 0.13/7.0 (1.8% complete)    lr: 0.002876    shrink: 0.97124
+2019-02-11 00:32:59,657 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 4/162    Epoch: 0.17/7.0 (2.4% complete)    lr: 0.002836    shrink: 0.97164
+2019-02-11 00:40:34,445 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 5/162    Epoch: 0.21/7.0 (3.1% complete)    lr: 0.002796    shrink: 0.97204
+2019-02-11 01:31:28,867 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 6/162    Epoch: 0.26/7.0 (3.7% complete)    lr: 0.002757    shrink: 0.97243
+2019-02-11 01:42:18,272 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 7/162    Epoch: 0.30/7.0 (4.3% complete)    lr: 0.002718    shrink: 0.97282
+2019-02-11 01:52:01,142 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 8/162    Epoch: 0.34/7.0 (4.9% complete)    lr: 0.002680    shrink: 0.97320
+2019-02-11 02:01:16,116 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 9/162    Epoch: 0.39/7.0 (5.5% complete)    lr: 0.002643    shrink: 0.97357
+2019-02-11 02:11:17,046 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 10/162    Epoch: 0.43/7.0 (6.1% complete)    lr: 0.002606    shrink: 0.97394
+2019-02-11 02:20:53,070 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 11/162    Epoch: 0.47/7.0 (6.7% complete)    lr: 0.002569    shrink: 0.97431
+2019-02-11 02:30:12,527 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 12/162    Epoch: 0.51/7.0 (7.3% complete)    lr: 0.002533    shrink: 0.97467
+2019-02-11 02:39:31,241 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 13/162    Epoch: 0.56/7.0 (8.0% complete)    lr: 0.002498    shrink: 0.97502
+2019-02-11 02:46:47,175 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 14/162    Epoch: 0.60/7.0 (8.6% complete)    lr: 0.002463    shrink: 0.97537
+2019-02-11 02:56:19,804 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 15/162    Epoch: 0.64/7.0 (9.2% complete)    lr: 0.002428    shrink: 0.97572
+2019-02-11 03:04:20,916 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 16/162    Epoch: 0.69/7.0 (9.8% complete)    lr: 0.002394    shrink: 0.97606
+2019-02-11 03:15:09,800 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 17/162    Epoch: 0.73/7.0 (10.4% complete)    lr: 0.002361    shrink: 0.97639
+2019-02-11 03:25:34,823 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 18/162    Epoch: 0.77/7.0 (11.0% complete)    lr: 0.002328    shrink: 0.97672
+2019-02-11 03:33:21,737 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 19/162    Epoch: 0.81/7.0 (11.6% complete)    lr: 0.002295    shrink: 0.97705
+2019-02-11 03:41:17,665 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 20/162    Epoch: 0.86/7.0 (12.2% complete)    lr: 0.002263    shrink: 0.97737
+2019-02-11 03:48:48,034 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 21/162    Epoch: 0.90/7.0 (12.9% complete)    lr: 0.002231    shrink: 0.97769
+2019-02-11 03:55:59,342 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 22/162    Epoch: 0.94/7.0 (13.5% complete)    lr: 0.002200    shrink: 0.97800
+2019-02-11 04:04:32,999 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 23/162    Epoch: 0.99/7.0 (14.1% complete)    lr: 0.002169    shrink: 0.97831
+2019-02-11 04:14:20,468 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 24/162    Epoch: 1.03/7.0 (14.7% complete)    lr: 0.002139    shrink: 0.97861
+2019-02-11 04:21:37,525 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 25/162    Epoch: 1.07/7.0 (15.3% complete)    lr: 0.002109    shrink: 0.97891
+2019-02-11 04:30:03,807 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 26/162    Epoch: 1.11/7.0 (15.9% complete)    lr: 0.002079    shrink: 0.97921
+2019-02-11 04:40:20,134 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 27/162    Epoch: 1.16/7.0 (16.5% complete)    lr: 0.002050    shrink: 0.97950
+2019-02-11 04:49:01,491 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 28/162    Epoch: 1.20/7.0 (17.1% complete)    lr: 0.002022    shrink: 0.97978
+2019-02-11 04:56:26,666 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 29/162    Epoch: 1.24/7.0 (17.8% complete)    lr: 0.001993    shrink: 0.98007
+2019-02-11 05:05:30,516 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 30/162    Epoch: 1.29/7.0 (18.4% complete)    lr: 0.001965    shrink: 0.98035
+2019-02-11 05:13:58,441 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 31/162    Epoch: 1.33/7.0 (19.0% complete)    lr: 0.001938    shrink: 0.98062
+2019-02-11 05:22:53,049 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 32/162    Epoch: 1.37/7.0 (19.6% complete)    lr: 0.001911    shrink: 0.98089
+2019-02-11 05:32:08,930 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 33/162    Epoch: 1.41/7.0 (20.2% complete)    lr: 0.001884    shrink: 0.98116
+2019-02-11 05:42:08,294 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 34/162    Epoch: 1.46/7.0 (20.8% complete)    lr: 0.001858    shrink: 0.98142
+2019-02-11 05:49:39,010 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 35/162    Epoch: 1.50/7.0 (21.4% complete)    lr: 0.001832    shrink: 0.98168
+2019-02-11 05:57:57,488 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 36/162    Epoch: 1.54/7.0 (22.0% complete)    lr: 0.001806    shrink: 0.98194
+2019-02-11 06:04:29,002 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 37/162    Epoch: 1.59/7.0 (22.7% complete)    lr: 0.001781    shrink: 0.98219
+2019-02-11 06:14:02,264 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 38/162    Epoch: 1.63/7.0 (23.3% complete)    lr: 0.001756    shrink: 0.98244
+2019-02-11 06:20:51,861 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 39/162    Epoch: 1.67/7.0 (23.9% complete)    lr: 0.001731    shrink: 0.98269
+2019-02-11 06:31:04,783 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 40/162    Epoch: 1.71/7.0 (24.5% complete)    lr: 0.001707    shrink: 0.98293
+2019-02-11 06:41:13,011 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 41/162    Epoch: 1.76/7.0 (25.1% complete)    lr: 0.001683    shrink: 0.98317
+2019-02-11 06:49:05,453 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 42/162    Epoch: 1.80/7.0 (25.7% complete)    lr: 0.001660    shrink: 0.98340
+2019-02-11 06:56:39,529 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 43/162    Epoch: 1.84/7.0 (26.3% complete)    lr: 0.001636    shrink: 0.98364
+2019-02-11 07:06:01,453 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 44/162    Epoch: 1.89/7.0 (26.9% complete)    lr: 0.001613    shrink: 0.98387
+2019-02-11 07:13:47,324 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 45/162    Epoch: 1.93/7.0 (27.6% complete)    lr: 0.001591    shrink: 0.98409
+2019-02-11 07:22:03,997 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 46/162    Epoch: 1.97/7.0 (28.2% complete)    lr: 0.001569    shrink: 0.98431
+2019-02-11 07:31:56,933 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 47/162    Epoch: 2.01/7.0 (28.8% complete)    lr: 0.001547    shrink: 0.98453
+2019-02-11 07:38:25,589 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 48/162    Epoch: 2.06/7.0 (29.4% complete)    lr: 0.001525    shrink: 0.98475
+2019-02-11 07:45:13,103 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 49/162    Epoch: 2.10/7.0 (30.0% complete)    lr: 0.001504    shrink: 0.98496
+2019-02-11 07:54:03,501 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 50/162    Epoch: 2.14/7.0 (30.6% complete)    lr: 0.001483    shrink: 0.98517
+2019-02-11 08:03:43,665 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 51/162    Epoch: 2.19/7.0 (31.2% complete)    lr: 0.001462    shrink: 0.98538
+2019-02-11 08:11:40,967 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 52/162    Epoch: 2.23/7.0 (31.8% complete)    lr: 0.001441    shrink: 0.98559
+2019-02-11 08:20:40,136 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 53/162    Epoch: 2.27/7.0 (32.4% complete)    lr: 0.001421    shrink: 0.98579
+2019-02-11 08:28:55,182 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 54/162    Epoch: 2.31/7.0 (33.1% complete)    lr: 0.001401    shrink: 0.98599
+2019-02-11 08:37:43,393 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 55/162    Epoch: 2.36/7.0 (33.7% complete)    lr: 0.001382    shrink: 0.98618
+2019-02-11 08:47:44,362 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 56/162    Epoch: 2.40/7.0 (34.3% complete)    lr: 0.001362    shrink: 0.98638
+2019-02-11 08:57:36,231 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 57/162    Epoch: 2.44/7.0 (34.9% complete)    lr: 0.001343    shrink: 0.98657
+2019-02-11 09:05:07,198 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 58/162    Epoch: 2.49/7.0 (35.5% complete)    lr: 0.001324    shrink: 0.98676
+2019-02-11 09:14:29,847 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 59/162    Epoch: 2.53/7.0 (36.1% complete)    lr: 0.001306    shrink: 0.98694
+2019-02-11 09:24:54,560 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 60/162    Epoch: 2.57/7.0 (36.7% complete)    lr: 0.001288    shrink: 0.98712
+2019-02-11 09:32:10,212 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 61/162    Epoch: 2.61/7.0 (37.3% complete)    lr: 0.001270    shrink: 0.98730
+2019-02-11 09:41:53,025 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 62/162    Epoch: 2.66/7.0 (38.0% complete)    lr: 0.001252    shrink: 0.98748
+2019-02-11 09:50:22,183 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 63/162    Epoch: 2.70/7.0 (38.6% complete)    lr: 0.001234    shrink: 0.98766
+2019-02-11 10:00:36,620 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 64/162    Epoch: 2.74/7.0 (39.2% complete)    lr: 0.001217    shrink: 0.98783
+2019-02-11 10:10:38,660 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 65/162    Epoch: 2.79/7.0 (39.8% complete)    lr: 0.001200    shrink: 0.98800
+2019-02-11 10:18:10,019 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 66/162    Epoch: 2.83/7.0 (40.4% complete)    lr: 0.001183    shrink: 0.98817
+2019-02-11 10:27:23,306 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 67/162    Epoch: 2.87/7.0 (41.0% complete)    lr: 0.001167    shrink: 0.98833
+2019-02-11 10:35:35,869 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 68/162    Epoch: 2.91/7.0 (41.6% complete)    lr: 0.001150    shrink: 0.98850
+2019-02-11 10:42:25,982 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 69/162    Epoch: 2.96/7.0 (42.2% complete)    lr: 0.001134    shrink: 0.98866
+2019-02-11 10:51:33,296 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 70/162    Epoch: 3.00/7.0 (42.9% complete)    lr: 0.001118    shrink: 0.98882
+2019-02-11 10:58:07,479 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 71/162    Epoch: 3.04/7.0 (43.5% complete)    lr: 0.001103    shrink: 0.98897
+2019-02-11 11:04:09,778 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 72/162    Epoch: 3.09/7.0 (44.1% complete)    lr: 0.001087    shrink: 0.98913
+2019-02-11 11:13:17,715 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 73/162    Epoch: 3.13/7.0 (44.7% complete)    lr: 0.001072    shrink: 0.98928
+2019-02-11 11:21:23,042 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 74/162    Epoch: 3.17/7.0 (45.3% complete)    lr: 0.001057    shrink: 0.98943
+2019-02-11 12:09:36,272 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 75/162    Epoch: 3.21/7.0 (45.9% complete)    lr: 0.001042    shrink: 0.98958
+2019-02-11 12:20:18,737 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 76/162    Epoch: 3.26/7.0 (46.5% complete)    lr: 0.001028    shrink: 0.98972
+2019-02-11 12:29:08,396 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 77/162    Epoch: 3.30/7.0 (47.1% complete)    lr: 0.001013    shrink: 0.98987
+2019-02-11 12:38:48,960 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 78/162    Epoch: 3.34/7.0 (47.8% complete)    lr: 0.000999    shrink: 0.99001
+2019-02-11 12:48:14,840 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 79/162    Epoch: 3.39/7.0 (48.4% complete)    lr: 0.000985    shrink: 0.99015
+2019-02-11 13:00:03,649 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 80/162    Epoch: 3.43/7.0 (49.0% complete)    lr: 0.000971    shrink: 0.99029
+2019-02-11 13:08:45,176 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 81/162    Epoch: 3.47/7.0 (49.6% complete)    lr: 0.000958    shrink: 0.99042
+2019-02-11 13:19:10,380 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 82/162    Epoch: 3.51/7.0 (50.2% complete)    lr: 0.000944    shrink: 0.99056
+2019-02-11 13:29:14,664 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 83/162    Epoch: 3.56/7.0 (50.8% complete)    lr: 0.000931    shrink: 0.99069
+2019-02-11 13:37:13,791 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 84/162    Epoch: 3.60/7.0 (51.4% complete)    lr: 0.000918    shrink: 0.99082
+2019-02-11 13:45:15,562 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 85/162    Epoch: 3.64/7.0 (52.0% complete)    lr: 0.000905    shrink: 0.99095
+2019-02-11 13:51:57,489 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 86/162    Epoch: 3.69/7.0 (52.7% complete)    lr: 0.000892    shrink: 0.99108
+2019-02-11 14:02:53,828 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 87/162    Epoch: 3.73/7.0 (53.3% complete)    lr: 0.000880    shrink: 0.99120
+2019-02-11 14:13:27,477 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 88/162    Epoch: 3.77/7.0 (53.9% complete)    lr: 0.000868    shrink: 0.99132
+2019-02-11 14:21:24,467 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 89/162    Epoch: 3.81/7.0 (54.5% complete)    lr: 0.000856    shrink: 0.99144
+2019-02-11 14:30:18,396 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 90/162    Epoch: 3.86/7.0 (55.1% complete)    lr: 0.000844    shrink: 0.99156
+2019-02-11 14:39:31,898 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 91/162    Epoch: 3.90/7.0 (55.7% complete)    lr: 0.000832    shrink: 0.99168
+2019-02-11 14:47:02,803 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 92/162    Epoch: 3.94/7.0 (56.3% complete)    lr: 0.000820    shrink: 0.99180
+2019-02-11 14:57:29,202 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 93/162    Epoch: 3.99/7.0 (56.9% complete)    lr: 0.000809    shrink: 0.99191
+2019-02-11 15:07:15,668 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 94/162    Epoch: 4.03/7.0 (57.6% complete)    lr: 0.000797    shrink: 0.99203
+2019-02-11 15:14:18,659 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 95/162    Epoch: 4.07/7.0 (58.2% complete)    lr: 0.000786    shrink: 0.99214
+2019-02-11 15:25:26,604 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 96/162    Epoch: 4.11/7.0 (58.8% complete)    lr: 0.000775    shrink: 0.99225
+2019-02-11 15:35:47,756 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 97/162    Epoch: 4.16/7.0 (59.4% complete)    lr: 0.000764    shrink: 0.99236
+2019-02-11 15:43:20,281 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 98/162    Epoch: 4.20/7.0 (60.0% complete)    lr: 0.000754    shrink: 0.99246
+2019-02-11 15:52:22,718 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 99/162    Epoch: 4.24/7.0 (60.6% complete)    lr: 0.000743    shrink: 0.99257
+2019-02-11 16:03:27,728 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 100/162    Epoch: 4.29/7.0 (61.2% complete)    lr: 0.000733    shrink: 0.99267
+2019-02-11 16:13:09,697 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 101/162    Epoch: 4.33/7.0 (61.8% complete)    lr: 0.000722    shrink: 0.99278
+2019-02-11 16:24:39,225 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 102/162    Epoch: 4.37/7.0 (62.4% complete)    lr: 0.000712    shrink: 0.99288
+2019-02-11 16:37:52,545 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 103/162    Epoch: 4.41/7.0 (63.1% complete)    lr: 0.000702    shrink: 0.99298
+2019-02-11 16:49:23,462 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 104/162    Epoch: 4.46/7.0 (63.7% complete)    lr: 0.000692    shrink: 0.99308
+2019-02-11 16:59:08,832 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 105/162    Epoch: 4.50/7.0 (64.3% complete)    lr: 0.000683    shrink: 0.99317
+2019-02-11 17:09:58,064 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 106/162    Epoch: 4.54/7.0 (64.9% complete)    lr: 0.000673    shrink: 0.99327
+2019-02-11 17:17:50,191 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 107/162    Epoch: 4.59/7.0 (65.5% complete)    lr: 0.000664    shrink: 0.99336
+2019-02-11 17:28:22,116 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 108/162    Epoch: 4.63/7.0 (66.1% complete)    lr: 0.000654    shrink: 0.99346
+2019-02-11 17:38:01,547 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 109/162    Epoch: 4.67/7.0 (66.7% complete)    lr: 0.000645    shrink: 0.99355
+2019-02-11 17:48:34,853 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 110/162    Epoch: 4.71/7.0 (67.3% complete)    lr: 0.000636    shrink: 0.99364
+2019-02-11 17:58:16,179 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 111/162    Epoch: 4.76/7.0 (68.0% complete)    lr: 0.000627    shrink: 0.99373
+2019-02-11 18:07:57,178 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 112/162    Epoch: 4.80/7.0 (68.6% complete)    lr: 0.000619    shrink: 0.99381
+2019-02-11 18:17:27,668 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 113/162    Epoch: 4.84/7.0 (69.2% complete)    lr: 0.000610    shrink: 0.99390
+2019-02-11 18:25:51,577 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 114/162    Epoch: 4.89/7.0 (69.8% complete)    lr: 0.000601    shrink: 0.99399
+2019-02-11 18:34:44,570 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 115/162    Epoch: 4.93/7.0 (70.4% complete)    lr: 0.000593    shrink: 0.99407
+2019-02-11 18:42:32,501 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 116/162    Epoch: 4.97/7.0 (71.0% complete)    lr: 0.000585    shrink: 0.99415
+2019-02-11 18:52:20,573 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 117/162    Epoch: 5.01/7.0 (71.6% complete)    lr: 0.000576    shrink: 0.99424
+2019-02-11 19:00:01,829 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 118/162    Epoch: 5.06/7.0 (72.2% complete)    lr: 0.000568    shrink: 0.99432
+2019-02-11 19:06:49,034 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 119/162    Epoch: 5.10/7.0 (72.9% complete)    lr: 0.000560    shrink: 0.99440
+2019-02-11 19:17:52,159 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 120/162    Epoch: 5.14/7.0 (73.5% complete)    lr: 0.000553    shrink: 0.99447
+2019-02-11 19:26:43,384 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 121/162    Epoch: 5.19/7.0 (74.1% complete)    lr: 0.000545    shrink: 0.99455
+2019-02-11 19:37:53,421 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 122/162    Epoch: 5.23/7.0 (74.7% complete)    lr: 0.000537    shrink: 0.99463
+2019-02-11 19:47:45,296 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 123/162    Epoch: 5.27/7.0 (75.3% complete)    lr: 0.000530    shrink: 0.99470
+2019-02-11 19:57:53,216 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 124/162    Epoch: 5.31/7.0 (75.9% complete)    lr: 0.000522    shrink: 0.99478
+2019-02-11 20:06:09,310 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 125/162    Epoch: 5.36/7.0 (76.5% complete)    lr: 0.000515    shrink: 0.99485
+2019-02-11 20:16:19,233 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 126/162    Epoch: 5.40/7.0 (77.1% complete)    lr: 0.000508    shrink: 0.99492
+2019-02-11 20:25:58,613 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 127/162    Epoch: 5.44/7.0 (77.8% complete)    lr: 0.000501    shrink: 0.99499
+2019-02-11 20:34:44,210 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 128/162    Epoch: 5.49/7.0 (78.4% complete)    lr: 0.000494    shrink: 0.99506
+2019-02-11 20:43:41,896 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 129/162    Epoch: 5.53/7.0 (79.0% complete)    lr: 0.000487    shrink: 0.99513
+2019-02-11 20:54:23,948 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 130/162    Epoch: 5.57/7.0 (79.6% complete)    lr: 0.000480    shrink: 0.99520
+2019-02-11 21:01:41,624 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 131/162    Epoch: 5.61/7.0 (80.2% complete)    lr: 0.000473    shrink: 0.99527
+2019-02-11 21:11:35,138 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 132/162    Epoch: 5.66/7.0 (80.8% complete)    lr: 0.000467    shrink: 0.99533
+2019-02-11 21:20:03,051 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 133/162    Epoch: 5.70/7.0 (81.4% complete)    lr: 0.000460    shrink: 0.99540
+2019-02-11 21:31:26,318 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 134/162    Epoch: 5.74/7.0 (82.0% complete)    lr: 0.000454    shrink: 0.99546
+2019-02-11 21:40:24,612 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 135/162    Epoch: 5.79/7.0 (82.7% complete)    lr: 0.000447    shrink: 0.99553
+2019-02-11 21:48:21,902 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 136/162    Epoch: 5.83/7.0 (83.3% complete)    lr: 0.000441    shrink: 0.99559
+2019-02-11 21:56:55,417 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 137/162    Epoch: 5.87/7.0 (83.9% complete)    lr: 0.000435    shrink: 0.99565
+2019-02-11 22:04:58,149 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 138/162    Epoch: 5.91/7.0 (84.5% complete)    lr: 0.000429    shrink: 0.99571
+2019-02-11 22:12:18,069 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 139/162    Epoch: 5.96/7.0 (85.1% complete)    lr: 0.000423    shrink: 0.99577
+2019-02-11 22:22:09,493 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 140/162    Epoch: 6.00/7.0 (85.7% complete)    lr: 0.000417    shrink: 0.99583
+2019-02-11 22:28:57,828 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 141/162    Epoch: 6.04/7.0 (86.3% complete)    lr: 0.000411    shrink: 0.99589
+2019-02-11 22:36:21,119 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 142/162    Epoch: 6.09/7.0 (86.9% complete)    lr: 0.000405    shrink: 0.99595
+2019-02-11 22:45:45,863 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 143/162    Epoch: 6.13/7.0 (87.6% complete)    lr: 0.000400    shrink: 0.99600
+2019-02-11 22:55:57,977 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 144/162    Epoch: 6.17/7.0 (88.2% complete)    lr: 0.000394    shrink: 0.99606
+2019-02-11 23:04:32,397 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 145/162    Epoch: 6.21/7.0 (88.8% complete)    lr: 0.000388    shrink: 0.99612
+2019-02-11 23:13:51,562 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 146/162    Epoch: 6.26/7.0 (89.4% complete)    lr: 0.000383    shrink: 0.99617
+2019-02-11 23:23:13,789 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 147/162    Epoch: 6.30/7.0 (90.0% complete)    lr: 0.000378    shrink: 0.99622
+2019-02-11 23:33:47,755 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 148/162    Epoch: 6.34/7.0 (90.6% complete)    lr: 0.000372    shrink: 0.99628
+2019-02-11 23:42:08,241 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 149/162    Epoch: 6.39/7.0 (91.2% complete)    lr: 0.000367    shrink: 0.99633
+2019-02-11 23:53:38,784 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 150/162    Epoch: 6.43/7.0 (91.8% complete)    lr: 0.000362    shrink: 0.99638
+2019-02-12 00:04:07,471 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 151/162    Epoch: 6.47/7.0 (92.4% complete)    lr: 0.000357    shrink: 0.99643
+2019-02-12 00:14:03,237 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 152/162    Epoch: 6.51/7.0 (93.1% complete)    lr: 0.000352    shrink: 0.99648
+2019-02-12 00:25:24,874 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 153/162    Epoch: 6.56/7.0 (93.7% complete)    lr: 0.000347    shrink: 0.99653
+2019-02-12 00:33:56,303 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 154/162    Epoch: 6.60/7.0 (94.3% complete)    lr: 0.000342    shrink: 0.99658
+2019-02-12 00:44:36,770 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 155/162    Epoch: 6.64/7.0 (94.9% complete)    lr: 0.000337    shrink: 0.99663
+2019-02-12 00:52:39,757 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 156/162    Epoch: 6.69/7.0 (95.5% complete)    lr: 0.000333    shrink: 0.99667
+2019-02-12 01:05:39,663 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 157/162    Epoch: 6.73/7.0 (96.1% complete)    lr: 0.000328    shrink: 0.99672
+2019-02-12 01:18:16,299 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 158/162    Epoch: 6.77/7.0 (96.7% complete)    lr: 0.000323    shrink: 0.99677
+2019-02-12 01:29:33,171 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 159/162    Epoch: 6.81/7.0 (97.3% complete)    lr: 0.000319    shrink: 0.99681
+2019-02-12 01:44:39,618 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 160/162    Epoch: 6.86/7.0 (98.0% complete)    lr: 0.000314    shrink: 0.99686
+2019-02-12 01:54:31,095 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 161/162    Epoch: 6.90/7.0 (98.6% complete)    lr: 0.000310    shrink: 0.99690
+2019-02-12 02:05:47,650 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 162/162    Epoch: 6.94/7.0 (99.2% complete)    lr: 0.000300    shrink: 0.99700
+2019-02-12 02:14:05,213 [steps/nnet3/train_raw_dnn.py:440 - train - INFO ] Doing final combination to produce final.raw
+2019-02-12 02:14:05,214 [steps/libs/nnet3/train/frame_level_objf/common.py:491 - combine_models - INFO ] Combining {144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163} models.
+2019-02-12 02:19:32,216 [steps/nnet3/train_raw_dnn.py:462 - train - INFO ] Cleaning up the experiment directory /home/s1513472/lid/mfcc_deltas/nnet
+/home/s1513472/lid/mfcc_deltas/nnet: num-iters=163 nj=3..3 num-params=4.6M dim=69->19 combine=-0.08->-0.07 (over 20) loglike:train/valid[107,162]=(-0.179,-0.145/-0.156,-0.115) accuracy:train/valid[107,162]=(0.963,0.963/0.961,0.961)
 steps/nnet3/train_raw_dnn.py --stage=-1 --cmd=slurm.pl --trainer.optimization.proportional-shrink 10 --trainer.optimization.momentum=0.5 --trainer.optimization.num-jobs-initial=3 --trainer.optimization.num-jobs-final=3 --trainer.optimization.initial-effective-lrate=0.001 --trainer.optimization.final-effective-lrate=0.0001 --trainer.optimization.minibatch-size=64 --trainer.srand=123 --trainer.max-param-change=2 --trainer.num-epochs=7 --trainer.dropout-schedule=0,0@0.20,0.1@0.50,0 --trainer.shuffle-buffer-size=1000 --egs.frames-per-eg=1 --egs.dir=/home/s1513472/lid/mfcc_deltas/nnet/egs --cleanup.remove-egs false --cleanup.preserve-model-interval=10 --use-gpu=true --dir=/home/s1513472/lid/mfcc_deltas/nnet
 ['steps/nnet3/train_raw_dnn.py', '--stage=-1', '--cmd=slurm.pl', '--trainer.optimization.proportional-shrink', '10', '--trainer.optimization.momentum=0.5', '--trainer.optimization.num-jobs-initial=3', '--trainer.optimization.num-jobs-final=3', '--trainer.optimization.initial-effective-lrate=0.001', '--trainer.optimization.final-effective-lrate=0.0001', '--trainer.optimization.minibatch-size=64', '--trainer.srand=123', '--trainer.max-param-change=2', '--trainer.num-epochs=7', '--trainer.dropout-schedule=0,0@0.20,0.1@0.50,0', '--trainer.shuffle-buffer-size=1000', '--egs.frames-per-eg=1', '--egs.dir=/home/s1513472/lid/mfcc_deltas/nnet/egs', '--cleanup.remove-egs', 'false', '--cleanup.preserve-model-interval=10', '--use-gpu=true', '--dir=/home/s1513472/lid/mfcc_deltas/nnet']
 Finished stage 4.
 #### STAGE 7: Extracting X-vectors from the trained DNN. ####
-./local/extract_xvectors.sh --cmd slurm.pl --mem 6G --use-gpu true --nj 32 --stage 0 /home/s1513472/lid/mfcc_deltas/nnet /home/s1513472/lid/mfcc_deltas/enroll /home/s1513472/lid/mfcc_deltas/exp/xvectors_enroll
-./local/extract_xvectors.sh --cmd slurm.pl --mem 6G --use-gpu true --nj 32 --stage 0 /home/s1513472/lid/mfcc_deltas/nnet /home/s1513472/lid/mfcc_deltas/eval /home/s1513472/lid/mfcc_deltas/exp/xvectors_eval
+./local/extract_xvectors.sh --cmd slurm.pl --mem 6G --use-gpu true --nj 32 --stage 0 --remove-nonspeech true /home/s1513472/lid/mfcc_deltas/nnet /home/s1513472/lid/mfcc_deltas/enroll /home/s1513472/lid/mfcc_deltas/exp/xvectors_enroll
+./local/extract_xvectors.sh --cmd slurm.pl --mem 6G --use-gpu true --nj 32 --stage 0 --remove-nonspeech true /home/s1513472/lid/mfcc_deltas/nnet /home/s1513472/lid/mfcc_deltas/eval /home/s1513472/lid/mfcc_deltas/exp/xvectors_eval
 Conda environment 'lid' active.
 Conda environment 'lid' active.
 ./local/extract_xvectors.sh: using /home/s1513472/lid/mfcc_deltas/nnet/extract.config to extract xvectors
 ./local/extract_xvectors.sh: using /home/s1513472/lid/mfcc_deltas/nnet/extract.config to extract xvectors
-./local/extract_xvectors.sh: extracting xvectors for /home/s1513472/lid/mfcc_deltas/enroll
-./local/extract_xvectors.sh: extracting xvectors from nnet
 ./local/extract_xvectors.sh: extracting xvectors for /home/s1513472/lid/mfcc_deltas/eval
+./local/extract_xvectors.sh: extracting xvectors from nnet
+./local/extract_xvectors.sh: extracting xvectors for /home/s1513472/lid/mfcc_deltas/enroll
 ./local/extract_xvectors.sh: extracting xvectors from nnet
 ./local/extract_xvectors.sh: combining xvectors across jobs
 ./local/extract_xvectors.sh: computing mean of xvectors for each language
@@ -318,27 +413,4 @@ Finished stage 7.
 #### STAGE 8: Training logistic regression classifier and classifying test utterances. ####
 Finished stage 8.
 #### STAGE 9: Calculating results. ####
-Accuracy: 0.946 (19245/20349 classified correctly)
-Confusion matrix:
-    AR   BG   CH   CR   CZ   FR   GE   JA   KO   PL   PO   RU   SP   SW   TA   TH   TU   WU   VN  
-AR  772  0    1    3    1    0    1    1    0    2    5    16   15   3    1    0    3    0    0   
-BG  0    1207 0    2    0    0    0    1    0    15   3    4    0    0    0    0    0    0    0   
-CH  0    0    1023 0    0    0    0    2    11   1    9    1    2    1    0    1    1    10   0   
-CR  2    0    0    939  2    0    0    1    0    20   0    34   14   9    0    0    7    0    0   
-CZ  1    7    0    0    1233 0    1    0    0    94   1    1    0    1    1    7    0    0    0   
-FR  0    0    0    0    0    1066 0    0    0    12   1    3    1    2    0    0    2    0    0   
-GE  21   0    6    0    14   0    1070 1    0    1    4    11   2    2    2    0    38   0    0   
-JA  1    0    5    0    1    0    0    441  24   0    7    4    5    0    0    1    1    0    0   
-KO  0    0    3    0    1    0    0    13   1114 0    0    0    25   11   1    1    1    1    0   
-PL  0    1    0    0    0    0    1    0    0    1493 0    14   0    0    3    1    0    0    0   
-PO  2    0    0    5    1    0    4    1    0    1    853  16   21   18   0    0    2    0    0   
-RU  3    0    1    74   0    0    1    0    0    12   8    1571 15   6    0    1    5    3    0   
-SP  17   0    0    14   1    0    1    0    4    2    15   27   994  37   0    0    3    1    2   
-SW  1    0    0    16   0    0    0    0    0    2    6    10   20   1291 0    0    1    0    0   
-TA  0    0    0    0    0    0    0    0    0    0    0    1    0    0    413  0    0    0    0   
-TH  3    0    0    0    0    0    0    0    0    0    0    0    0    0    0    1319 0    0    0   
-TU  1    2    0    55   1    0    0    0    1    18   18   9    3    4    0    0    977  0    1   
-WU  0    0    17   0    0    0    0    1    2    0    2    1    3    10   0    0    1    310  0   
-VN  0    1    0    0    0    0    0    0    0    0    0    0    0    0    0    1    0    0    1159
-C_primary value: 0.071
 Finished stage 9.

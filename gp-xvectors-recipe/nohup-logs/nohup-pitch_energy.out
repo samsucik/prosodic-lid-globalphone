@@ -1,6 +1,479 @@
 Obtaining renewable credentials, you will be asked to type in your password
 Password for s1513472@INF.ED.AC.UK: 
-Running job "./run.sh --exp-config=conf/exp_configs/pitch_energy.conf --stage=3 --run-all=true" for maximum of 28 days in background
+Running job " ./run.sh --exp-config=conf/exp_configs/pitch_energy.conf --stage=1" for maximum of 28 days in background
+Waiting for job to start...
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 	 This shell script runs the GlobalPhone+X-vectors recipe.
+ 	 Use like this: ./run.sh <options>
+ 	 --stage=INT		Stage from which to start
+ 	 --run-all=(false|true)	Whether to run all stages
+ 	 			or just the specified one
+ 	 --experiment=STR	Experiment name (also name of directory 
+ 	 			where all files will be stored).
+ 	 			Default: 'baseline'.
+ 	 --exp-config=FILE	Config file with all kinds of options,
+ 	 			see conf/exp_default.conf for an example.
+ 	 			NOTE: Where arguments are passed on the command line,
+ 	 			the values overwrite those found in the config file.
+
+ 	 If no stage number is provided, either all stages
+ 	 will be run (--run-all=true) or no stages at all.
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Overwriting the experiment config value of stage=1 using the value '1' passed as a command-line argument.
+Running experiment: 'pitch_energy'
+Running only stage 1.
+Running on the cluster.
+Conda environment not activated, sourcing ~/.bashrc and activating the 'lid' env.
+Using shorten (v3.6.1) from ~/language-ident-from-speech/gp-xvectors-recipe/tools/shorten-3.6.1/bin/shorten
+Using sox (v14.3.2) from ~/language-ident-from-speech/gp-xvectors-recipe/tools/sox-14.3.2/bin/sox
+Conda environment not activated, sourcing ~/.bashrc and activating the 'lid' env.
+Job started successfully
+The experiment directory is: /home/s1513472/lid/pitch_energy
+Running with languages: AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN
+#### STAGE 1: Organising speakers into sets. ####
+Conda environment 'lid' active.
+datadir is: /home/s1513472/lid/pitch_energy
+Language - AR: formatting train/enroll/eval/test data.
+Language - BG: formatting train/enroll/eval/test data.
+Language - CR: formatting train/enroll/eval/test data.
+Language - CZ: formatting train/enroll/eval/test data.
+Language - CH: formatting train/enroll/eval/test data.
+Language - GE: formatting train/enroll/eval/test data.
+Language - FR: formatting train/enroll/eval/test data.
+Language - JA: formatting train/enroll/eval/test data.
+Language - KO: formatting train/enroll/eval/test data.
+Language - PL: formatting train/enroll/eval/test data.
+Language - PO: formatting train/enroll/eval/test data.
+Language - RU: formatting train/enroll/eval/test data.
+Language - SP: formatting train/enroll/eval/test data.
+Language - SW: formatting train/enroll/eval/test data.
+Language - TH: formatting train/enroll/eval/test data.
+Language - TA: formatting train/enroll/eval/test data.
+Language - VN: formatting train/enroll/eval/test data.
+Language - TU: formatting train/enroll/eval/test data.
+Language - WU: formatting train/enroll/eval/test data.
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/WU/train/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/AR/train/utt2spk is not in sorted order or not unique, sorting it
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 294 utterances.
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/CZ/train/utt2spk is not in sorted order or not unique, sorting it
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/BG/train/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: kept all 3727 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/WU/train/.backup
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/TU/train/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/GE/train/utt2spk is not in sorted order or not unique, sorting it
+Removing short utterances (< 0.1s)
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/CR/train/utt2spk is not in sorted order or not unique, sorting it
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/TH/train/utt2spk is not in sorted order or not unique, sorting it
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/AR/train/.backup
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 35 utterances.
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 9115 utterances.
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/FR/train/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/WU/enroll/utt2spk is not in sorted order or not unique, sorting it
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 6226 utterances.
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/KO/train/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/TA/train/.backup
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/PL/train/utt2spk is not in sorted order or not unique, sorting it
+Removing short utterances (< 0.1s)
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/PO/train/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/RU/train/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: kept all 4847 utterances.
+fix_data_dir.sh: kept all 7283 utterances.
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/SP/train/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/CZ/train/.backup
+fix_data_dir.sh: kept all 2873 utterances.
+Removing short utterances (< 0.1s)
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/AR/enroll/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/SW/train/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: kept all 10878 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/BG/train/.backup
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/TU/train/.backup
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 194 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/CR/train/.backup
+fix_data_dir.sh: kept all 7770 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/GE/train/.backup
+Removing short utterances (< 0.1s)
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/CH/train/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: kept all 5552 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/TH/train/.backup
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 8141 utterances.
+fix_data_dir.sh: kept all 7070 utterances.
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 8234 utterances.
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/CZ/enroll/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/VN/train/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: kept all 5024 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/WU/enroll/.backup
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 400 utterances.
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/BG/enroll/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/FR/train/.backup
+fix_data_dir.sh: kept all 8266 utterances.
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/JA/train/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/KO/train/.backup
+Removing short utterances (< 0.1s)
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/CR/enroll/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/GE/enroll/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/TU/enroll/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/PL/train/.backup
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 4 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/RU/train/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/PO/train/.backup
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/SP/train/.backup
+fix_data_dir.sh: kept all 7592 utterances.
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/TH/enroll/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/AR/enroll/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/SW/train/.backup
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/WU/eval/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: kept all 1252 utterances.
+Removing short utterances (< 0.1s)
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/KO/enroll/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/FR/enroll/utt2spk is not in sorted order or not unique, sorting it
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 15016 utterances.
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 795 utterances.
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/TA/enroll/.backup
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 11165 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/CH/train/.backup
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 513 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/CZ/enroll/.backup
+fix_data_dir.sh: kept all 637 utterances.
+fix_data_dir.sh: kept all 902 utterances.
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/PL/enroll/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/PO/enroll/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/RU/enroll/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/AR/eval/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/BG/enroll/.backup
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/SP/enroll/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/VN/train/.backup
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/SW/enroll/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: kept all 1580 utterances.
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/JA/train/.backup
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 198 utterances.
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/CR/enroll/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/GE/enroll/.backup
+fix_data_dir.sh: kept all 889 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/TU/enroll/.backup
+fix_data_dir.sh: kept all 1048 utterances.
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/WU/eval/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/TH/enroll/.backup
+fix_data_dir.sh: kept all 982 utterances.
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/CH/enroll/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/CZ/eval/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: kept all 1181 utterances.
+fix_data_dir.sh: kept all 411 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/KO/enroll/.backup
+fix_data_dir.sh: kept all 722 utterances.
+fix_data_dir.sh: kept all 1140 utterances.
+fix_data_dir.sh: kept all 630 utterances.
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/VN/enroll/utt2spk is not in sorted order or not unique, sorting it
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 4 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/PL/enroll/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/RU/enroll/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/AR/eval/.backup
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/BG/eval/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/TA/eval/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/SP/enroll/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/SW/enroll/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/FR/enroll/.backup
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 1740 utterances.
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/PO/enroll/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/VN/enroll/.backup
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 1028 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/CZ/eval/.backup
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/GE/eval/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: kept all 830 utterances.
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/JA/enroll/utt2spk is not in sorted order or not unique, sorting it
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/WU/test/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/TU/eval/utt2spk is not in sorted order or not unique, sorting it
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/SW/eval/utt2spk is not in sorted order or not unique, sorting it
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/CR/eval/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/TH/eval/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/BG/eval/.backup
+fix_data_dir.sh: kept all 994 utterances.
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/FR/eval/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/AR/test/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/RU/eval/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/KO/eval/utt2spk is not in sorted order or not unique, sorting it
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 4 utterances.
+fix_data_dir.sh: kept all 1073 utterances.
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/PO/eval/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/SP/eval/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: kept all 1261 utterances.
+fix_data_dir.sh: kept all 309 utterances.
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/VN/eval/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/CZ/test/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/PL/eval/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: kept all 734 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/CH/enroll/.backup
+fix_data_dir.sh: kept all 1207 utterances.
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/BG/test/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/GE/eval/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/TA/test/.backup
+fix_data_dir.sh: kept all 600 utterances.
+fix_data_dir.sh: kept all 1181 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/WU/test/.backup
+fix_data_dir.sh: kept all 839 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/TU/eval/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/SW/eval/.backup
+fix_data_dir.sh: kept all 680 utterances.
+fix_data_dir.sh: kept all 369 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/TH/eval/.backup
+fix_data_dir.sh: kept all 797 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/CR/eval/.backup
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 648 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/JA/enroll/.backup
+fix_data_dir.sh: kept all 1030 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/SP/eval/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/AR/test/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/FR/eval/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/KO/eval/.backup
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 1019 utterances.
+fix_data_dir.sh: kept all 831 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/PO/eval/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/CZ/test/.backup
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/TU/test/utt2spk is not in sorted order or not unique, sorting it
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 1415 utterances.
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/PL/eval/.backup
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/BG/test/.backup
+Removing short utterances (< 0.1s)
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/CH/eval/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: kept all 1161 utterances.
+Removing short utterances (< 0.1s)
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/TH/test/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/JA/eval/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/GE/test/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/RU/eval/.backup
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/FR/test/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/SW/test/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/CR/test/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/KO/test/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/SP/test/utt2spk is not in sorted order or not unique, sorting it
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 731 utterances.
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/PO/test/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/VN/eval/.backup
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/PL/test/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: kept all 724 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/TU/test/.backup
+fix_data_dir.sh: kept all 400 utterances.
+fix_data_dir.sh: kept all 350 utterances.
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/RU/test/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: kept all 821 utterances.
+fix_data_dir.sh: kept all 826 utterances.
+fix_data_dir.sh: kept all 513 utterances.
+fix_data_dir.sh: kept all 1203 utterances.
+fix_data_dir.sh: kept all 869 utterances.
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/VN/test/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: kept all 564 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/CH/eval/.backup
+fix_data_dir.sh: kept all 693 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/TH/test/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/JA/eval/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/GE/test/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/FR/test/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/CR/test/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/SW/test/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/KO/test/.backup
+fix_data_dir.sh: kept all 1059 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/SP/test/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/PO/test/.backup
+fix_data_dir.sh: kept all 1373 utterances.
+Removing short utterances (< 0.1s)
+Removing short utterances (< 0.1s)
+fix_data_dir.sh: kept all 924 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/PL/test/.backup
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/CH/test/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file /home/s1513472/lid/pitch_energy/JA/test/utt2spk is not in sorted order or not unique, sorting it
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/RU/test/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/VN/test/.backup
+fix_data_dir.sh: kept all 291 utterances.
+fix_data_dir.sh: kept all 871 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/JA/test/.backup
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/CH/test/.backup
+Done
+Combining training directories: /AR/train /BG/train /CH/train /CR/train /CZ/train /FR/train /GE/train /JA/train /KO/train /PL/train /PO/train /RU/train /SP/train /SW/train /TA/train /TH/train /TU/train /WU/train /VN/train
+utils/combine_data.sh --extra-files utt2len /home/s1513472/lid/pitch_energy/train /home/s1513472/lid/pitch_energy/AR/train /home/s1513472/lid/pitch_energy/BG/train /home/s1513472/lid/pitch_energy/CH/train /home/s1513472/lid/pitch_energy/CR/train /home/s1513472/lid/pitch_energy/CZ/train /home/s1513472/lid/pitch_energy/FR/train /home/s1513472/lid/pitch_energy/GE/train /home/s1513472/lid/pitch_energy/JA/train /home/s1513472/lid/pitch_energy/KO/train /home/s1513472/lid/pitch_energy/PL/train /home/s1513472/lid/pitch_energy/PO/train /home/s1513472/lid/pitch_energy/RU/train /home/s1513472/lid/pitch_energy/SP/train /home/s1513472/lid/pitch_energy/SW/train /home/s1513472/lid/pitch_energy/TA/train /home/s1513472/lid/pitch_energy/TH/train /home/s1513472/lid/pitch_energy/TU/train /home/s1513472/lid/pitch_energy/WU/train /home/s1513472/lid/pitch_energy/VN/train
+Conda environment 'lid' active.
+utils/combine_data.sh [info]: not combining utt2uniq as it does not exist
+utils/combine_data.sh [info]: not combining segments as it does not exist
+utils/combine_data.sh: combined utt2spk
+utils/combine_data.sh [info]: not combining utt2lang as it does not exist
+utils/combine_data.sh [info]: not combining utt2dur as it does not exist
+utils/combine_data.sh [info]: not combining reco2dur as it does not exist
+utils/combine_data.sh [info]: not combining feats.scp as it does not exist
+utils/combine_data.sh [info]: not combining text as it does not exist
+utils/combine_data.sh [info]: not combining cmvn.scp as it does not exist
+utils/combine_data.sh [info]: not combining vad.scp as it does not exist
+utils/combine_data.sh [info]: not combining reco2file_and_channel as it does not exist
+utils/combine_data.sh: combined wav.scp
+utils/combine_data.sh [info]: not combining spk2gender as it does not exist
+utils/combine_data.sh: combined utt2len
+fix_data_dir.sh: kept all 129108 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/train/.backup
+Combining enrollment directories: /AR/enroll /BG/enroll /CH/enroll /CR/enroll /CZ/enroll /FR/enroll /GE/enroll /JA/enroll /KO/enroll /PL/enroll /PO/enroll /RU/enroll /SP/enroll /SW/enroll /TA/enroll /TH/enroll /TU/enroll /WU/enroll /VN/enroll
+utils/combine_data.sh --extra-files utt2len /home/s1513472/lid/pitch_energy/enroll /home/s1513472/lid/pitch_energy/AR/enroll /home/s1513472/lid/pitch_energy/BG/enroll /home/s1513472/lid/pitch_energy/CH/enroll /home/s1513472/lid/pitch_energy/CR/enroll /home/s1513472/lid/pitch_energy/CZ/enroll /home/s1513472/lid/pitch_energy/FR/enroll /home/s1513472/lid/pitch_energy/GE/enroll /home/s1513472/lid/pitch_energy/JA/enroll /home/s1513472/lid/pitch_energy/KO/enroll /home/s1513472/lid/pitch_energy/PL/enroll /home/s1513472/lid/pitch_energy/PO/enroll /home/s1513472/lid/pitch_energy/RU/enroll /home/s1513472/lid/pitch_energy/SP/enroll /home/s1513472/lid/pitch_energy/SW/enroll /home/s1513472/lid/pitch_energy/TA/enroll /home/s1513472/lid/pitch_energy/TH/enroll /home/s1513472/lid/pitch_energy/TU/enroll /home/s1513472/lid/pitch_energy/WU/enroll /home/s1513472/lid/pitch_energy/VN/enroll
+Conda environment 'lid' active.
+utils/combine_data.sh [info]: not combining utt2uniq as it does not exist
+utils/combine_data.sh [info]: not combining segments as it does not exist
+utils/combine_data.sh: combined utt2spk
+utils/combine_data.sh [info]: not combining utt2lang as it does not exist
+utils/combine_data.sh [info]: not combining utt2dur as it does not exist
+utils/combine_data.sh [info]: not combining reco2dur as it does not exist
+utils/combine_data.sh [info]: not combining feats.scp as it does not exist
+utils/combine_data.sh [info]: not combining text as it does not exist
+utils/combine_data.sh [info]: not combining cmvn.scp as it does not exist
+utils/combine_data.sh [info]: not combining vad.scp as it does not exist
+utils/combine_data.sh [info]: not combining reco2file_and_channel as it does not exist
+utils/combine_data.sh: combined wav.scp
+utils/combine_data.sh [info]: not combining spk2gender as it does not exist
+utils/combine_data.sh: combined utt2len
+fix_data_dir.sh: kept all 16864 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/enroll/.backup
+Combining evaluation directories: /AR/eval /BG/eval /CH/eval /CR/eval /CZ/eval /FR/eval /GE/eval /JA/eval /KO/eval /PL/eval /PO/eval /RU/eval /SP/eval /SW/eval /TA/eval /TH/eval /TU/eval /WU/eval /VN/eval
+utils/combine_data.sh --extra-files utt2len /home/s1513472/lid/pitch_energy/eval /home/s1513472/lid/pitch_energy/AR/eval /home/s1513472/lid/pitch_energy/BG/eval /home/s1513472/lid/pitch_energy/CH/eval /home/s1513472/lid/pitch_energy/CR/eval /home/s1513472/lid/pitch_energy/CZ/eval /home/s1513472/lid/pitch_energy/FR/eval /home/s1513472/lid/pitch_energy/GE/eval /home/s1513472/lid/pitch_energy/JA/eval /home/s1513472/lid/pitch_energy/KO/eval /home/s1513472/lid/pitch_energy/PL/eval /home/s1513472/lid/pitch_energy/PO/eval /home/s1513472/lid/pitch_energy/RU/eval /home/s1513472/lid/pitch_energy/SP/eval /home/s1513472/lid/pitch_energy/SW/eval /home/s1513472/lid/pitch_energy/TA/eval /home/s1513472/lid/pitch_energy/TH/eval /home/s1513472/lid/pitch_energy/TU/eval /home/s1513472/lid/pitch_energy/WU/eval /home/s1513472/lid/pitch_energy/VN/eval
+Conda environment 'lid' active.
+utils/combine_data.sh [info]: not combining utt2uniq as it does not exist
+utils/combine_data.sh [info]: not combining segments as it does not exist
+utils/combine_data.sh: combined utt2spk
+utils/combine_data.sh [info]: not combining utt2lang as it does not exist
+utils/combine_data.sh [info]: not combining utt2dur as it does not exist
+utils/combine_data.sh [info]: not combining reco2dur as it does not exist
+utils/combine_data.sh [info]: not combining feats.scp as it does not exist
+utils/combine_data.sh [info]: not combining text as it does not exist
+utils/combine_data.sh [info]: not combining cmvn.scp as it does not exist
+utils/combine_data.sh [info]: not combining vad.scp as it does not exist
+utils/combine_data.sh [info]: not combining reco2file_and_channel as it does not exist
+utils/combine_data.sh: combined wav.scp
+utils/combine_data.sh [info]: not combining spk2gender as it does not exist
+utils/combine_data.sh: combined utt2len
+fix_data_dir.sh: kept all 14899 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/eval/.backup
+Combining testing directories: /AR/test /BG/test /CH/test /CR/test /CZ/test /FR/test /GE/test /JA/test /KO/test /PL/test /PO/test /RU/test /SP/test /SW/test /TA/test /TH/test /TU/test /WU/test /VN/test
+utils/combine_data.sh --extra-files utt2len /home/s1513472/lid/pitch_energy/test /home/s1513472/lid/pitch_energy/AR/test /home/s1513472/lid/pitch_energy/BG/test /home/s1513472/lid/pitch_energy/CH/test /home/s1513472/lid/pitch_energy/CR/test /home/s1513472/lid/pitch_energy/CZ/test /home/s1513472/lid/pitch_energy/FR/test /home/s1513472/lid/pitch_energy/GE/test /home/s1513472/lid/pitch_energy/JA/test /home/s1513472/lid/pitch_energy/KO/test /home/s1513472/lid/pitch_energy/PL/test /home/s1513472/lid/pitch_energy/PO/test /home/s1513472/lid/pitch_energy/RU/test /home/s1513472/lid/pitch_energy/SP/test /home/s1513472/lid/pitch_energy/SW/test /home/s1513472/lid/pitch_energy/TA/test /home/s1513472/lid/pitch_energy/TH/test /home/s1513472/lid/pitch_energy/TU/test /home/s1513472/lid/pitch_energy/WU/test /home/s1513472/lid/pitch_energy/VN/test
+Conda environment 'lid' active.
+utils/combine_data.sh [info]: not combining utt2uniq as it does not exist
+utils/combine_data.sh [info]: not combining segments as it does not exist
+utils/combine_data.sh: combined utt2spk
+utils/combine_data.sh [info]: not combining utt2lang as it does not exist
+utils/combine_data.sh [info]: not combining utt2dur as it does not exist
+utils/combine_data.sh [info]: not combining reco2dur as it does not exist
+utils/combine_data.sh [info]: not combining feats.scp as it does not exist
+utils/combine_data.sh [info]: not combining text as it does not exist
+utils/combine_data.sh [info]: not combining cmvn.scp as it does not exist
+utils/combine_data.sh [info]: not combining vad.scp as it does not exist
+utils/combine_data.sh [info]: not combining reco2file_and_channel as it does not exist
+utils/combine_data.sh: combined wav.scp
+utils/combine_data.sh [info]: not combining spk2gender as it does not exist
+utils/combine_data.sh: combined utt2len
+fix_data_dir.sh: kept all 13681 utterances.
+fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/test/.backup
+Finished data preparation.
+Input and output directory are the same one. Backing up original utt2spk, spk2utt, utt2lang, lang2utt, utt2len and wav.scp files (with the '.unsplit' suffix).
+utils/validate_data_dir.sh: Successfully validated data-directory /home/s1513472/lid/pitch_energy/enroll
+Input and output directory are the same one. Backing up original utt2spk, spk2utt, utt2lang, lang2utt, utt2len and wav.scp files (with the '.unsplit' suffix).
+utils/validate_data_dir.sh: Successfully validated data-directory /home/s1513472/lid/pitch_energy/eval
+Input and output directory are the same one. Backing up original utt2spk, spk2utt, utt2lang, lang2utt, utt2len and wav.scp files (with the '.unsplit' suffix).
+utils/validate_data_dir.sh: Successfully validated data-directory /home/s1513472/lid/pitch_energy/test
+Finished stage 1.
+Obtaining renewable credentials, you will be asked to type in your password
+Password for s1513472@INF.ED.AC.UK: 
+Running job " ./run.sh --exp-config=conf/exp_configs/pitch_energy.conf --stage=2" for maximum of 28 days in background
+Waiting for job to start...
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 	 This shell script runs the GlobalPhone+X-vectors recipe.
+ 	 Use like this: ./run.sh <options>
+ 	 --stage=INT		Stage from which to start
+ 	 --run-all=(false|true)	Whether to run all stages
+ 	 			or just the specified one
+ 	 --experiment=STR	Experiment name (also name of directory 
+ 	 			where all files will be stored).
+ 	 			Default: 'baseline'.
+ 	 --exp-config=FILE	Config file with all kinds of options,
+ 	 			see conf/exp_default.conf for an example.
+ 	 			NOTE: Where arguments are passed on the command line,
+ 	 			the values overwrite those found in the config file.
+
+ 	 If no stage number is provided, either all stages
+ 	 will be run (--run-all=true) or no stages at all.
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Overwriting the experiment config value of stage=1 using the value '2' passed as a command-line argument.
+Running experiment: 'pitch_energy'
+Running only stage 2.
+Running on the cluster.
+Conda environment not activated, sourcing ~/.bashrc and activating the 'lid' env.
+Job started successfully
+Using shorten (v3.6.1) from ~/language-ident-from-speech/gp-xvectors-recipe/tools/shorten-3.6.1/bin/shorten
+Using sox (v14.3.2) from ~/language-ident-from-speech/gp-xvectors-recipe/tools/sox-14.3.2/bin/sox
+Conda environment not activated, sourcing ~/.bashrc and activating the 'lid' env.
+The experiment directory is: /home/s1513472/lid/pitch_energy
+Running with languages: AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN
+#### STAGE 2: features (MFCC, SDC, pitch, energy, etc) and VAD. ####
+Finished stage 2.
+Obtaining renewable credentials, you will be asked to type in your password
+Password for s1513472@INF.ED.AC.UK: 
+Running job " ./run.sh --exp-config=conf/exp_configs/pitch_energy.conf --stage=3 --run-all=true" for maximum of 28 days in background
 Waiting for job to start...
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  	 This shell script runs the GlobalPhone+X-vectors recipe.
@@ -31,15 +504,15 @@ Conda environment not activated, sourcing ~/.bashrc and activating the 'lid' env
 The experiment directory is: /home/s1513472/lid/pitch_energy
 Running with languages: AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN
 #### STAGE 3: Preprocessing for X-vector training examples. ####
-./local/prepare_feats_for_egs.sh --nj 32 --cmd run.pl --remove-nonspeech false /home/s1513472/lid/pitch_energy/train /home/s1513472/lid/pitch_energy/nnet_train_data /home/s1513472/lid/pitch_energy/x_vector_features
+./local/prepare_feats_for_egs.sh --nj 32 --cmd run.pl --remove-nonspeech true /home/s1513472/lid/pitch_energy/train /home/s1513472/lid/pitch_energy/nnet_train_data /home/s1513472/lid/pitch_energy/x_vector_features
 Conda environment 'lid' active.
 Job started successfully
 ./local/prepare_feats_for_egs.sh: Succeeded creating xvector features for train
 utils/data/get_utt2num_frames.sh: /home/s1513472/lid/pitch_energy/nnet_train_data/utt2num_frames already present!
-fix_data_dir.sh: kept all 123332 utterances.
+fix_data_dir.sh: kept all 129108 utterances.
 fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/nnet_train_data/.backup
 Removing short features...
-fix_data_dir.sh: kept all 86713 utterances.
+fix_data_dir.sh: kept all 91100 utterances.
 fix_data_dir.sh: old files are kept in /home/s1513472/lid/pitch_energy/nnet_train_data/.backup
 Finished stage 3.
 #### STAGE 4: Training the X-vector DNN. ####
@@ -54,7 +527,7 @@ Storing TDNN in: /home/s1513472/lid/pitch_energy/nnet
 Conda environment 'lid' active.
 feat-to-dim scp:/home/s1513472/lid/pitch_energy/nnet_train_data/feats.scp - 
 ./local/get_egs.sh: Preparing train and validation lists
-./local/get_egs.sh: Producing 67 archives for training
+./local/get_egs.sh: Producing 70 archives for training
 ./local/get_egs.sh: Allocating training examples
 ./local/get_egs.sh: Allocating training subset examples
 ./local/get_egs.sh: Allocating validation examples
@@ -73,12 +546,12 @@ LOG (nnet3-init[5.5.142~5-ff514]:main():nnet3-init.cc:80) Initialized raw neural
 nnet3-info /home/s1513472/lid/pitch_energy/nnet/configs/ref.raw 
 steps/nnet3/xconfig_to_configs.py --xconfig-file /home/s1513472/lid/pitch_energy/nnet/configs/network.xconfig --config-dir /home/s1513472/lid/pitch_energy/nnet/configs
 #### STAGE 6: Training the network. ####
-2019-02-02 01:57:13,742 [steps/nnet3/train_raw_dnn.py:35 - <module> - INFO ] Starting raw DNN trainer (train_raw_dnn.py)
-2019-02-02 01:57:13,960 [steps/nnet3/train_raw_dnn.py:156 - process_args - WARNING ] You are running with one thread but you have not compiled
+2019-02-10 01:45:00,178 [steps/nnet3/train_raw_dnn.py:35 - <module> - INFO ] Starting raw DNN trainer (train_raw_dnn.py)
+2019-02-10 01:45:00,590 [steps/nnet3/train_raw_dnn.py:156 - process_args - WARNING ] You are running with one thread but you have not compiled
                    for CUDA.  You may be running a setup optimized for GPUs.
                    If you have GPUs and have nvcc installed, go to src/ and do
                    ./configure; make
-2019-02-02 01:57:13,962 [steps/nnet3/train_raw_dnn.py:195 - train - INFO ] Arguments for the experiment
+2019-02-10 01:45:00,592 [steps/nnet3/train_raw_dnn.py:195 - train - INFO ] Arguments for the experiment
 {'backstitch_training_interval': 1,
  'backstitch_training_scale': 0.0,
  'cleanup': True,
@@ -129,218 +602,181 @@ steps/nnet3/xconfig_to_configs.py --xconfig-file /home/s1513472/lid/pitch_energy
  'train_opts': [],
  'use_dense_targets': True,
  'use_gpu': 'yes'}
-2019-02-02 01:57:13,995 [steps/nnet3/train_raw_dnn.py:315 - train - INFO ] Preparing the initial network.
-2019-02-02 01:57:23,467 [steps/nnet3/train_raw_dnn.py:353 - train - INFO ] Training will run for 7.0 epochs = 156 iterations
-2019-02-02 01:57:23,467 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 0/155    Epoch: 0.00/7.0 (0.0% complete)    lr: 0.003000    shrink: 0.97000
-2019-02-02 02:05:06,266 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 1/155    Epoch: 0.04/7.0 (0.6% complete)    lr: 0.002956    shrink: 0.97044
-2019-02-02 02:13:09,495 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 2/155    Epoch: 0.09/7.0 (1.3% complete)    lr: 0.002913    shrink: 0.97087
-2019-02-02 02:20:19,628 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 3/155    Epoch: 0.13/7.0 (1.9% complete)    lr: 0.002870    shrink: 0.97130
-2019-02-02 02:27:22,630 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 4/155    Epoch: 0.18/7.0 (2.6% complete)    lr: 0.002828    shrink: 0.97172
-2019-02-02 02:35:20,285 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 5/155    Epoch: 0.22/7.0 (3.2% complete)    lr: 0.002787    shrink: 0.97213
-2019-02-02 02:42:21,471 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 6/155    Epoch: 0.27/7.0 (3.8% complete)    lr: 0.002746    shrink: 0.97254
-2019-02-02 02:49:21,188 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 7/155    Epoch: 0.31/7.0 (4.5% complete)    lr: 0.002706    shrink: 0.97294
-2019-02-02 02:56:19,585 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 8/155    Epoch: 0.36/7.0 (5.1% complete)    lr: 0.002667    shrink: 0.97333
-2019-02-02 03:02:52,291 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 9/155    Epoch: 0.40/7.0 (5.8% complete)    lr: 0.002628    shrink: 0.97372
-2019-02-02 03:07:42,739 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 10/155    Epoch: 0.45/7.0 (6.4% complete)    lr: 0.002589    shrink: 0.97411
-2019-02-02 03:15:28,331 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 11/155    Epoch: 0.49/7.0 (7.0% complete)    lr: 0.002551    shrink: 0.97449
-2019-02-02 03:21:20,036 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 12/155    Epoch: 0.54/7.0 (7.7% complete)    lr: 0.002514    shrink: 0.97486
-2019-02-02 03:29:27,397 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 13/155    Epoch: 0.58/7.0 (8.3% complete)    lr: 0.002477    shrink: 0.97523
-2019-02-02 03:36:44,196 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 14/155    Epoch: 0.63/7.0 (9.0% complete)    lr: 0.002441    shrink: 0.97559
-2019-02-02 03:45:27,506 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 15/155    Epoch: 0.67/7.0 (9.6% complete)    lr: 0.002405    shrink: 0.97595
-2019-02-02 03:54:43,330 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 16/155    Epoch: 0.72/7.0 (10.2% complete)    lr: 0.002370    shrink: 0.97630
-2019-02-02 04:01:43,938 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 17/155    Epoch: 0.76/7.0 (10.9% complete)    lr: 0.002335    shrink: 0.97665
-2019-02-02 04:09:12,534 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 18/155    Epoch: 0.81/7.0 (11.5% complete)    lr: 0.002301    shrink: 0.97699
-2019-02-02 04:16:10,757 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 19/155    Epoch: 0.85/7.0 (12.2% complete)    lr: 0.002268    shrink: 0.97732
-2019-02-02 04:24:48,661 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 20/155    Epoch: 0.90/7.0 (12.8% complete)    lr: 0.002235    shrink: 0.97765
-2019-02-02 04:33:11,548 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 21/155    Epoch: 0.94/7.0 (13.4% complete)    lr: 0.002202    shrink: 0.97798
-2019-02-02 04:43:05,493 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 22/155    Epoch: 0.99/7.0 (14.1% complete)    lr: 0.002170    shrink: 0.97830
-2019-02-02 04:51:07,549 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 23/155    Epoch: 1.03/7.0 (14.7% complete)    lr: 0.002138    shrink: 0.97862
-2019-02-02 05:00:54,737 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 24/155    Epoch: 1.07/7.0 (15.4% complete)    lr: 0.002107    shrink: 0.97893
-2019-02-02 05:09:45,553 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 25/155    Epoch: 1.12/7.0 (16.0% complete)    lr: 0.002076    shrink: 0.97924
-2019-02-02 05:18:16,743 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 26/155    Epoch: 1.16/7.0 (16.6% complete)    lr: 0.002046    shrink: 0.97954
-2019-02-02 05:25:23,647 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 27/155    Epoch: 1.21/7.0 (17.3% complete)    lr: 0.002016    shrink: 0.97984
-2019-02-02 05:35:30,206 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 28/155    Epoch: 1.25/7.0 (17.9% complete)    lr: 0.001986    shrink: 0.98014
-2019-02-02 05:43:13,249 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 29/155    Epoch: 1.30/7.0 (18.6% complete)    lr: 0.001957    shrink: 0.98043
-2019-02-02 05:49:29,873 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 30/155    Epoch: 1.34/7.0 (19.2% complete)    lr: 0.001929    shrink: 0.98071
-2019-02-02 05:56:34,369 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 31/155    Epoch: 1.39/7.0 (19.8% complete)    lr: 0.001900    shrink: 0.98100
-2019-02-02 06:03:10,469 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 32/155    Epoch: 1.43/7.0 (20.5% complete)    lr: 0.001873    shrink: 0.98127
-2019-02-02 06:09:35,109 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 33/155    Epoch: 1.48/7.0 (21.1% complete)    lr: 0.001845    shrink: 0.98155
-2019-02-02 06:17:06,848 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 34/155    Epoch: 1.52/7.0 (21.7% complete)    lr: 0.001818    shrink: 0.98182
-2019-02-02 06:25:03,858 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 35/155    Epoch: 1.57/7.0 (22.4% complete)    lr: 0.001792    shrink: 0.98208
-2019-02-02 06:33:00,518 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 36/155    Epoch: 1.61/7.0 (23.0% complete)    lr: 0.001765    shrink: 0.98235
-2019-02-02 06:41:43,979 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 37/155    Epoch: 1.66/7.0 (23.7% complete)    lr: 0.001740    shrink: 0.98260
-2019-02-02 06:51:01,843 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 38/155    Epoch: 1.70/7.0 (24.3% complete)    lr: 0.001714    shrink: 0.98286
-2019-02-02 06:59:24,678 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 39/155    Epoch: 1.75/7.0 (24.9% complete)    lr: 0.001689    shrink: 0.98311
-2019-02-02 07:07:32,662 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 40/155    Epoch: 1.79/7.0 (25.6% complete)    lr: 0.001664    shrink: 0.98336
-2019-02-02 07:15:10,113 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 41/155    Epoch: 1.84/7.0 (26.2% complete)    lr: 0.001640    shrink: 0.98360
-2019-02-02 07:22:27,425 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 42/155    Epoch: 1.88/7.0 (26.9% complete)    lr: 0.001616    shrink: 0.98384
-2019-02-02 07:29:26,132 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 43/155    Epoch: 1.93/7.0 (27.5% complete)    lr: 0.001592    shrink: 0.98408
-2019-02-02 07:37:06,320 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 44/155    Epoch: 1.97/7.0 (28.1% complete)    lr: 0.001569    shrink: 0.98431
-2019-02-02 07:47:06,165 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 45/155    Epoch: 2.01/7.0 (28.8% complete)    lr: 0.001546    shrink: 0.98454
-2019-02-02 07:55:12,371 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 46/155    Epoch: 2.06/7.0 (29.4% complete)    lr: 0.001524    shrink: 0.98476
-2019-02-02 08:03:17,968 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 47/155    Epoch: 2.10/7.0 (30.1% complete)    lr: 0.001501    shrink: 0.98499
-2019-02-02 08:10:37,001 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 48/155    Epoch: 2.15/7.0 (30.7% complete)    lr: 0.001479    shrink: 0.98521
-2019-02-02 08:17:44,632 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 49/155    Epoch: 2.19/7.0 (31.3% complete)    lr: 0.001458    shrink: 0.98542
-2019-02-02 08:25:46,585 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 50/155    Epoch: 2.24/7.0 (32.0% complete)    lr: 0.001436    shrink: 0.98564
-2019-02-02 08:32:58,472 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 51/155    Epoch: 2.28/7.0 (32.6% complete)    lr: 0.001415    shrink: 0.98585
-2019-02-02 08:39:14,935 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 52/155    Epoch: 2.33/7.0 (33.3% complete)    lr: 0.001395    shrink: 0.98605
-2019-02-02 08:46:28,733 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 53/155    Epoch: 2.37/7.0 (33.9% complete)    lr: 0.001374    shrink: 0.98626
-2019-02-02 08:53:00,592 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 54/155    Epoch: 2.42/7.0 (34.5% complete)    lr: 0.001354    shrink: 0.98646
-2019-02-02 08:59:24,277 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 55/155    Epoch: 2.46/7.0 (35.2% complete)    lr: 0.001334    shrink: 0.98666
-2019-02-02 09:07:20,658 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 56/155    Epoch: 2.51/7.0 (35.8% complete)    lr: 0.001315    shrink: 0.98685
-2019-02-02 09:13:16,052 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 57/155    Epoch: 2.55/7.0 (36.5% complete)    lr: 0.001296    shrink: 0.98704
-2019-02-02 09:21:45,765 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 58/155    Epoch: 2.60/7.0 (37.1% complete)    lr: 0.001277    shrink: 0.98723
-2019-02-02 09:29:30,739 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 59/155    Epoch: 2.64/7.0 (37.7% complete)    lr: 0.001258    shrink: 0.98742
-2019-02-02 09:38:46,800 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 60/155    Epoch: 2.69/7.0 (38.4% complete)    lr: 0.001240    shrink: 0.98760
-2019-02-02 09:47:23,243 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 61/155    Epoch: 2.73/7.0 (39.0% complete)    lr: 0.001222    shrink: 0.98778
-2019-02-02 09:55:47,150 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 62/155    Epoch: 2.78/7.0 (39.7% complete)    lr: 0.001204    shrink: 0.98796
-2019-02-02 10:02:13,547 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 63/155    Epoch: 2.82/7.0 (40.3% complete)    lr: 0.001186    shrink: 0.98814
-2019-02-02 10:09:46,198 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 64/155    Epoch: 2.87/7.0 (40.9% complete)    lr: 0.001169    shrink: 0.98831
-2019-02-02 10:17:55,278 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 65/155    Epoch: 2.91/7.0 (41.6% complete)    lr: 0.001152    shrink: 0.98848
-2019-02-02 10:27:16,626 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 66/155    Epoch: 2.96/7.0 (42.2% complete)    lr: 0.001135    shrink: 0.98865
-2019-02-02 10:37:10,353 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 67/155    Epoch: 3.00/7.0 (42.9% complete)    lr: 0.001118    shrink: 0.98882
-2019-02-02 10:47:29,964 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 68/155    Epoch: 3.04/7.0 (43.5% complete)    lr: 0.001102    shrink: 0.98898
-2019-02-02 10:57:04,872 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 69/155    Epoch: 3.09/7.0 (44.1% complete)    lr: 0.001086    shrink: 0.98914
-2019-02-02 11:06:03,392 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 70/155    Epoch: 3.13/7.0 (44.8% complete)    lr: 0.001070    shrink: 0.98930
-2019-02-02 11:14:22,011 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 71/155    Epoch: 3.18/7.0 (45.4% complete)    lr: 0.001054    shrink: 0.98946
-2019-02-02 11:23:02,010 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 72/155    Epoch: 3.22/7.0 (46.1% complete)    lr: 0.001039    shrink: 0.98961
-2019-02-02 11:30:44,010 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 73/155    Epoch: 3.27/7.0 (46.7% complete)    lr: 0.001024    shrink: 0.98976
-2019-02-02 11:39:24,538 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 74/155    Epoch: 3.31/7.0 (47.3% complete)    lr: 0.001009    shrink: 0.98991
-2019-02-02 11:46:41,820 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 75/155    Epoch: 3.36/7.0 (48.0% complete)    lr: 0.000994    shrink: 0.99006
-2019-02-02 11:53:12,660 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 76/155    Epoch: 3.40/7.0 (48.6% complete)    lr: 0.000979    shrink: 0.99021
-2019-02-02 11:59:05,532 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 77/155    Epoch: 3.45/7.0 (49.3% complete)    lr: 0.000965    shrink: 0.99035
-2019-02-02 12:08:22,873 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 78/155    Epoch: 3.49/7.0 (49.9% complete)    lr: 0.000951    shrink: 0.99049
-2019-02-02 12:14:17,091 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 79/155    Epoch: 3.54/7.0 (50.5% complete)    lr: 0.000937    shrink: 0.99063
-2019-02-02 12:23:32,225 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 80/155    Epoch: 3.58/7.0 (51.2% complete)    lr: 0.000923    shrink: 0.99077
-2019-02-02 12:29:47,244 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 81/155    Epoch: 3.63/7.0 (51.8% complete)    lr: 0.000910    shrink: 0.99090
-2019-02-02 12:37:23,755 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 82/155    Epoch: 3.67/7.0 (52.5% complete)    lr: 0.000897    shrink: 0.99103
-2019-02-02 12:46:05,285 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 83/155    Epoch: 3.72/7.0 (53.1% complete)    lr: 0.000883    shrink: 0.99117
-2019-02-02 12:53:52,054 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 84/155    Epoch: 3.76/7.0 (53.7% complete)    lr: 0.000871    shrink: 0.99129
-2019-02-02 12:59:58,331 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 85/155    Epoch: 3.81/7.0 (54.4% complete)    lr: 0.000858    shrink: 0.99142
-2019-02-02 13:08:24,206 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 86/155    Epoch: 3.85/7.0 (55.0% complete)    lr: 0.000845    shrink: 0.99155
-2019-02-02 13:16:53,690 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 87/155    Epoch: 3.90/7.0 (55.7% complete)    lr: 0.000833    shrink: 0.99167
-2019-02-02 13:25:01,585 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 88/155    Epoch: 3.94/7.0 (56.3% complete)    lr: 0.000821    shrink: 0.99179
-2019-02-02 13:34:38,057 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 89/155    Epoch: 3.99/7.0 (56.9% complete)    lr: 0.000809    shrink: 0.99191
-2019-02-02 13:43:15,892 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 90/155    Epoch: 4.03/7.0 (57.6% complete)    lr: 0.000797    shrink: 0.99203
-2019-02-02 13:51:35,829 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 91/155    Epoch: 4.07/7.0 (58.2% complete)    lr: 0.000785    shrink: 0.99215
-2019-02-02 14:00:30,107 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 92/155    Epoch: 4.12/7.0 (58.8% complete)    lr: 0.000774    shrink: 0.99226
-2019-02-02 14:07:06,880 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 93/155    Epoch: 4.16/7.0 (59.5% complete)    lr: 0.000762    shrink: 0.99238
-2019-02-02 14:14:22,854 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 94/155    Epoch: 4.21/7.0 (60.1% complete)    lr: 0.000751    shrink: 0.99249
-2019-02-02 14:22:29,428 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 95/155    Epoch: 4.25/7.0 (60.8% complete)    lr: 0.000740    shrink: 0.99260
-2019-02-02 14:31:09,050 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 96/155    Epoch: 4.30/7.0 (61.4% complete)    lr: 0.000730    shrink: 0.99270
-2019-02-02 14:39:08,851 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 97/155    Epoch: 4.34/7.0 (62.0% complete)    lr: 0.000719    shrink: 0.99281
-2019-02-02 14:47:17,694 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 98/155    Epoch: 4.39/7.0 (62.7% complete)    lr: 0.000708    shrink: 0.99292
-2019-02-02 14:53:54,505 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 99/155    Epoch: 4.43/7.0 (63.3% complete)    lr: 0.000698    shrink: 0.99302
-2019-02-02 15:01:33,089 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 100/155    Epoch: 4.48/7.0 (64.0% complete)    lr: 0.000688    shrink: 0.99312
-2019-02-02 15:09:38,823 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 101/155    Epoch: 4.52/7.0 (64.6% complete)    lr: 0.000678    shrink: 0.99322
-2019-02-02 15:19:34,091 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 102/155    Epoch: 4.57/7.0 (65.2% complete)    lr: 0.000668    shrink: 0.99332
-2019-02-02 15:27:09,803 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 103/155    Epoch: 4.61/7.0 (65.9% complete)    lr: 0.000658    shrink: 0.99342
-2019-02-02 15:35:23,899 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 104/155    Epoch: 4.66/7.0 (66.5% complete)    lr: 0.000648    shrink: 0.99352
-2019-02-02 15:44:30,530 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 105/155    Epoch: 4.70/7.0 (67.2% complete)    lr: 0.000639    shrink: 0.99361
-2019-02-02 15:52:42,103 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 106/155    Epoch: 4.75/7.0 (67.8% complete)    lr: 0.000630    shrink: 0.99370
-2019-02-02 15:59:16,293 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 107/155    Epoch: 4.79/7.0 (68.4% complete)    lr: 0.000620    shrink: 0.99380
-2019-02-02 16:06:19,186 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 108/155    Epoch: 4.84/7.0 (69.1% complete)    lr: 0.000611    shrink: 0.99389
-2019-02-02 16:14:41,731 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 109/155    Epoch: 4.88/7.0 (69.7% complete)    lr: 0.000602    shrink: 0.99398
-2019-02-02 16:22:54,434 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 110/155    Epoch: 4.93/7.0 (70.4% complete)    lr: 0.000594    shrink: 0.99406
-2019-02-02 16:32:20,058 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 111/155    Epoch: 4.97/7.0 (71.0% complete)    lr: 0.000585    shrink: 0.99415
-2019-02-02 16:41:41,293 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 112/155    Epoch: 5.01/7.0 (71.6% complete)    lr: 0.000576    shrink: 0.99424
-2019-02-02 16:49:41,387 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 113/155    Epoch: 5.06/7.0 (72.3% complete)    lr: 0.000568    shrink: 0.99432
-2019-02-02 17:00:24,024 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 114/155    Epoch: 5.10/7.0 (72.9% complete)    lr: 0.000560    shrink: 0.99440
-2019-02-02 17:09:27,566 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 115/155    Epoch: 5.15/7.0 (73.6% complete)    lr: 0.000551    shrink: 0.99449
-2019-02-02 17:18:13,258 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 116/155    Epoch: 5.19/7.0 (74.2% complete)    lr: 0.000543    shrink: 0.99457
-2019-02-02 17:26:19,186 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 117/155    Epoch: 5.24/7.0 (74.8% complete)    lr: 0.000535    shrink: 0.99465
-2019-02-02 17:34:32,000 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 118/155    Epoch: 5.28/7.0 (75.5% complete)    lr: 0.000528    shrink: 0.99472
-2019-02-02 17:40:50,025 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 119/155    Epoch: 5.33/7.0 (76.1% complete)    lr: 0.000520    shrink: 0.99480
-2019-02-02 17:47:50,180 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 120/155    Epoch: 5.37/7.0 (76.8% complete)    lr: 0.000512    shrink: 0.99488
-2019-02-02 17:55:41,412 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 121/155    Epoch: 5.42/7.0 (77.4% complete)    lr: 0.000505    shrink: 0.99495
-2019-02-02 18:02:08,920 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 122/155    Epoch: 5.46/7.0 (78.0% complete)    lr: 0.000497    shrink: 0.99503
-2019-02-02 18:11:30,709 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 123/155    Epoch: 5.51/7.0 (78.7% complete)    lr: 0.000490    shrink: 0.99510
-2019-02-02 18:18:39,229 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 124/155    Epoch: 5.55/7.0 (79.3% complete)    lr: 0.000483    shrink: 0.99517
-2019-02-02 18:28:41,584 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 125/155    Epoch: 5.60/7.0 (80.0% complete)    lr: 0.000476    shrink: 0.99524
-2019-02-02 18:36:21,175 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 126/155    Epoch: 5.64/7.0 (80.6% complete)    lr: 0.000469    shrink: 0.99531
-2019-02-02 18:45:52,778 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 127/155    Epoch: 5.69/7.0 (81.2% complete)    lr: 0.000462    shrink: 0.99538
-2019-02-02 18:53:43,050 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 128/155    Epoch: 5.73/7.0 (81.9% complete)    lr: 0.000455    shrink: 0.99545
-2019-02-02 19:00:56,854 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 129/155    Epoch: 5.78/7.0 (82.5% complete)    lr: 0.000449    shrink: 0.99551
-2019-02-02 19:07:37,992 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 130/155    Epoch: 5.82/7.0 (83.2% complete)    lr: 0.000442    shrink: 0.99558
-2019-02-02 19:15:44,787 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 131/155    Epoch: 5.87/7.0 (83.8% complete)    lr: 0.000436    shrink: 0.99564
-2019-02-02 19:23:55,185 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 132/155    Epoch: 5.91/7.0 (84.4% complete)    lr: 0.000429    shrink: 0.99571
-2019-02-02 19:31:42,250 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 133/155    Epoch: 5.96/7.0 (85.1% complete)    lr: 0.000423    shrink: 0.99577
-2019-02-02 19:39:38,080 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 134/155    Epoch: 6.00/7.0 (85.7% complete)    lr: 0.000417    shrink: 0.99583
-2019-02-02 19:47:41,412 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 135/155    Epoch: 6.04/7.0 (86.4% complete)    lr: 0.000411    shrink: 0.99589
-2019-02-02 19:57:01,548 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 136/155    Epoch: 6.09/7.0 (87.0% complete)    lr: 0.000405    shrink: 0.99595
-2019-02-02 20:04:28,601 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 137/155    Epoch: 6.13/7.0 (87.6% complete)    lr: 0.000399    shrink: 0.99601
-2019-02-02 20:11:37,525 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 138/155    Epoch: 6.18/7.0 (88.3% complete)    lr: 0.000393    shrink: 0.99607
-2019-02-02 20:19:53,346 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 139/155    Epoch: 6.22/7.0 (88.9% complete)    lr: 0.000387    shrink: 0.99613
-2019-02-02 20:27:07,177 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 140/155    Epoch: 6.27/7.0 (89.6% complete)    lr: 0.000382    shrink: 0.99618
-2019-02-02 20:34:07,865 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 141/155    Epoch: 6.31/7.0 (90.2% complete)    lr: 0.000376    shrink: 0.99624
-2019-02-02 20:42:12,743 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 142/155    Epoch: 6.36/7.0 (90.8% complete)    lr: 0.000371    shrink: 0.99629
-2019-02-02 20:49:48,677 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 143/155    Epoch: 6.40/7.0 (91.5% complete)    lr: 0.000365    shrink: 0.99635
-2019-02-02 20:55:32,142 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 144/155    Epoch: 6.45/7.0 (92.1% complete)    lr: 0.000360    shrink: 0.99640
-2019-02-02 21:04:16,100 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 145/155    Epoch: 6.49/7.0 (92.8% complete)    lr: 0.000354    shrink: 0.99646
-2019-02-02 21:10:58,697 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 146/155    Epoch: 6.54/7.0 (93.4% complete)    lr: 0.000349    shrink: 0.99651
-2019-02-02 21:20:50,041 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 147/155    Epoch: 6.58/7.0 (94.0% complete)    lr: 0.000344    shrink: 0.99656
-2019-02-02 21:28:33,077 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 148/155    Epoch: 6.63/7.0 (94.7% complete)    lr: 0.000339    shrink: 0.99661
-2019-02-02 21:37:48,480 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 149/155    Epoch: 6.67/7.0 (95.3% complete)    lr: 0.000334    shrink: 0.99666
-2019-02-02 21:47:17,106 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 150/155    Epoch: 6.72/7.0 (95.9% complete)    lr: 0.000329    shrink: 0.99671
-2019-02-02 21:55:42,865 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 151/155    Epoch: 6.76/7.0 (96.6% complete)    lr: 0.000325    shrink: 0.99675
-2019-02-02 22:02:43,058 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 152/155    Epoch: 6.81/7.0 (97.2% complete)    lr: 0.000320    shrink: 0.99680
-2019-02-02 22:11:09,030 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 153/155    Epoch: 6.85/7.0 (97.9% complete)    lr: 0.000315    shrink: 0.99685
-2019-02-02 22:20:20,931 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 154/155    Epoch: 6.90/7.0 (98.5% complete)    lr: 0.000310    shrink: 0.99690
-2019-02-02 22:27:59,003 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 155/155    Epoch: 6.94/7.0 (99.1% complete)    lr: 0.000300    shrink: 0.99700
-2019-02-02 22:37:05,473 [steps/nnet3/train_raw_dnn.py:440 - train - INFO ] Doing final combination to produce final.raw
-2019-02-02 22:37:05,473 [steps/libs/nnet3/train/frame_level_objf/common.py:491 - combine_models - INFO ] Combining {137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156} models.
-2019-02-02 22:41:15,108 [steps/nnet3/train_raw_dnn.py:462 - train - INFO ] Cleaning up the experiment directory /home/s1513472/lid/pitch_energy/nnet
-/home/s1513472/lid/pitch_energy/nnet: num-iters=156 nj=3..3 num-params=4.4M dim=5->19 combine=-0.36->-0.36 (over 1) loglike:train/valid[103,155]=(-0.55,-0.54/-0.46,-0.46) accuracy:train/valid[103,155]=(0.804,0.843/0.863,0.882)
+2019-02-10 01:45:00,633 [steps/nnet3/train_raw_dnn.py:315 - train - INFO ] Preparing the initial network.
+2019-02-10 01:45:12,818 [steps/nnet3/train_raw_dnn.py:353 - train - INFO ] Training will run for 7.0 epochs = 163 iterations
+2019-02-10 01:45:12,818 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 0/162    Epoch: 0.00/7.0 (0.0% complete)    lr: 0.003000    shrink: 0.97000
+2019-02-10 01:50:08,265 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 1/162    Epoch: 0.04/7.0 (0.6% complete)    lr: 0.002958    shrink: 0.97042
+2019-02-10 01:55:58,388 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 2/162    Epoch: 0.09/7.0 (1.2% complete)    lr: 0.002917    shrink: 0.97083
+2019-02-10 02:03:11,315 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 3/162    Epoch: 0.13/7.0 (1.8% complete)    lr: 0.002876    shrink: 0.97124
+2019-02-10 02:11:02,676 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 4/162    Epoch: 0.17/7.0 (2.4% complete)    lr: 0.002836    shrink: 0.97164
+2019-02-10 02:17:55,639 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 5/162    Epoch: 0.21/7.0 (3.1% complete)    lr: 0.002796    shrink: 0.97204
+2019-02-10 02:25:07,358 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 6/162    Epoch: 0.26/7.0 (3.7% complete)    lr: 0.002757    shrink: 0.97243
+2019-02-10 02:32:02,082 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 7/162    Epoch: 0.30/7.0 (4.3% complete)    lr: 0.002718    shrink: 0.97282
+2019-02-10 02:39:30,474 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 8/162    Epoch: 0.34/7.0 (4.9% complete)    lr: 0.002680    shrink: 0.97320
+2019-02-10 02:46:43,871 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 9/162    Epoch: 0.39/7.0 (5.5% complete)    lr: 0.002643    shrink: 0.97357
+2019-02-10 02:55:03,886 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 10/162    Epoch: 0.43/7.0 (6.1% complete)    lr: 0.002606    shrink: 0.97394
+2019-02-10 03:02:51,790 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 11/162    Epoch: 0.47/7.0 (6.7% complete)    lr: 0.002569    shrink: 0.97431
+2019-02-10 03:10:15,456 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 12/162    Epoch: 0.51/7.0 (7.3% complete)    lr: 0.002533    shrink: 0.97467
+2019-02-10 03:18:12,748 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 13/162    Epoch: 0.56/7.0 (8.0% complete)    lr: 0.002498    shrink: 0.97502
+2019-02-10 03:23:38,648 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 14/162    Epoch: 0.60/7.0 (8.6% complete)    lr: 0.002463    shrink: 0.97537
+2019-02-10 03:31:13,404 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 15/162    Epoch: 0.64/7.0 (9.2% complete)    lr: 0.002428    shrink: 0.97572
+2019-02-10 03:37:20,053 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 16/162    Epoch: 0.69/7.0 (9.8% complete)    lr: 0.002394    shrink: 0.97606
+2019-02-10 03:45:20,602 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 17/162    Epoch: 0.73/7.0 (10.4% complete)    lr: 0.002361    shrink: 0.97639
+2019-02-10 03:53:13,785 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 18/162    Epoch: 0.77/7.0 (11.0% complete)    lr: 0.002328    shrink: 0.97672
+2019-02-10 04:00:33,449 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 19/162    Epoch: 0.81/7.0 (11.6% complete)    lr: 0.002295    shrink: 0.97705
+2019-02-10 04:09:30,534 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 20/162    Epoch: 0.86/7.0 (12.2% complete)    lr: 0.002263    shrink: 0.97737
+2019-02-10 04:17:47,433 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 21/162    Epoch: 0.90/7.0 (12.9% complete)    lr: 0.002231    shrink: 0.97769
+2019-02-10 04:24:13,401 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 22/162    Epoch: 0.94/7.0 (13.5% complete)    lr: 0.002200    shrink: 0.97800
+2019-02-10 04:32:14,039 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 23/162    Epoch: 0.99/7.0 (14.1% complete)    lr: 0.002169    shrink: 0.97831
+2019-02-10 04:39:50,721 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 24/162    Epoch: 1.03/7.0 (14.7% complete)    lr: 0.002139    shrink: 0.97861
+2019-02-10 04:45:33,659 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 25/162    Epoch: 1.07/7.0 (15.3% complete)    lr: 0.002109    shrink: 0.97891
+2019-02-10 04:54:33,775 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 26/162    Epoch: 1.11/7.0 (15.9% complete)    lr: 0.002079    shrink: 0.97921
+2019-02-10 05:02:22,090 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 27/162    Epoch: 1.16/7.0 (16.5% complete)    lr: 0.002050    shrink: 0.97950
+2019-02-10 05:09:09,335 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 28/162    Epoch: 1.20/7.0 (17.1% complete)    lr: 0.002022    shrink: 0.97978
+2019-02-10 05:16:23,723 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 29/162    Epoch: 1.24/7.0 (17.8% complete)    lr: 0.001993    shrink: 0.98007
+2019-02-10 05:24:50,789 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 30/162    Epoch: 1.29/7.0 (18.4% complete)    lr: 0.001965    shrink: 0.98035
+2019-02-10 05:32:32,800 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 31/162    Epoch: 1.33/7.0 (19.0% complete)    lr: 0.001938    shrink: 0.98062
+2019-02-10 05:41:15,671 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 32/162    Epoch: 1.37/7.0 (19.6% complete)    lr: 0.001911    shrink: 0.98089
+2019-02-10 05:49:04,470 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 33/162    Epoch: 1.41/7.0 (20.2% complete)    lr: 0.001884    shrink: 0.98116
+2019-02-10 05:58:45,556 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 34/162    Epoch: 1.46/7.0 (20.8% complete)    lr: 0.001858    shrink: 0.98142
+2019-02-10 06:07:50,720 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 35/162    Epoch: 1.50/7.0 (21.4% complete)    lr: 0.001832    shrink: 0.98168
+2019-02-10 06:15:58,776 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 36/162    Epoch: 1.54/7.0 (22.0% complete)    lr: 0.001806    shrink: 0.98194
+2019-02-10 06:22:35,360 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 37/162    Epoch: 1.59/7.0 (22.7% complete)    lr: 0.001781    shrink: 0.98219
+2019-02-10 06:30:49,071 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 38/162    Epoch: 1.63/7.0 (23.3% complete)    lr: 0.001756    shrink: 0.98244
+2019-02-10 06:38:23,692 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 39/162    Epoch: 1.67/7.0 (23.9% complete)    lr: 0.001731    shrink: 0.98269
+2019-02-10 06:47:07,791 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 40/162    Epoch: 1.71/7.0 (24.5% complete)    lr: 0.001707    shrink: 0.98293
+2019-02-10 06:55:31,439 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 41/162    Epoch: 1.76/7.0 (25.1% complete)    lr: 0.001683    shrink: 0.98317
+2019-02-10 07:02:36,044 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 42/162    Epoch: 1.80/7.0 (25.7% complete)    lr: 0.001660    shrink: 0.98340
+2019-02-10 07:10:06,082 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 43/162    Epoch: 1.84/7.0 (26.3% complete)    lr: 0.001636    shrink: 0.98364
+2019-02-10 07:19:08,887 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 44/162    Epoch: 1.89/7.0 (26.9% complete)    lr: 0.001613    shrink: 0.98387
+2019-02-10 07:27:05,929 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 45/162    Epoch: 1.93/7.0 (27.6% complete)    lr: 0.001591    shrink: 0.98409
+2019-02-10 07:34:48,275 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 46/162    Epoch: 1.97/7.0 (28.2% complete)    lr: 0.001569    shrink: 0.98431
+2019-02-10 07:44:23,662 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 47/162    Epoch: 2.01/7.0 (28.8% complete)    lr: 0.001547    shrink: 0.98453
+2019-02-10 07:51:24,861 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 48/162    Epoch: 2.06/7.0 (29.4% complete)    lr: 0.001525    shrink: 0.98475
+2019-02-10 07:58:00,737 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 49/162    Epoch: 2.10/7.0 (30.0% complete)    lr: 0.001504    shrink: 0.98496
+2019-02-10 08:06:53,322 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 50/162    Epoch: 2.14/7.0 (30.6% complete)    lr: 0.001483    shrink: 0.98517
+2019-02-10 08:16:31,622 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 51/162    Epoch: 2.19/7.0 (31.2% complete)    lr: 0.001462    shrink: 0.98538
+2019-02-10 08:25:25,059 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 52/162    Epoch: 2.23/7.0 (31.8% complete)    lr: 0.001441    shrink: 0.98559
+2019-02-10 08:34:11,594 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 53/162    Epoch: 2.27/7.0 (32.4% complete)    lr: 0.001421    shrink: 0.98579
+2019-02-10 08:42:53,279 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 54/162    Epoch: 2.31/7.0 (33.1% complete)    lr: 0.001401    shrink: 0.98599
+2019-02-10 08:49:45,088 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 55/162    Epoch: 2.36/7.0 (33.7% complete)    lr: 0.001382    shrink: 0.98618
+2019-02-10 08:59:09,417 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 56/162    Epoch: 2.40/7.0 (34.3% complete)    lr: 0.001362    shrink: 0.98638
+2019-02-10 09:08:58,173 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 57/162    Epoch: 2.44/7.0 (34.9% complete)    lr: 0.001343    shrink: 0.98657
+2019-02-10 09:16:10,533 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 58/162    Epoch: 2.49/7.0 (35.5% complete)    lr: 0.001324    shrink: 0.98676
+2019-02-10 09:25:18,940 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 59/162    Epoch: 2.53/7.0 (36.1% complete)    lr: 0.001306    shrink: 0.98694
+2019-02-10 09:35:23,801 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 60/162    Epoch: 2.57/7.0 (36.7% complete)    lr: 0.001288    shrink: 0.98712
+2019-02-10 09:42:15,434 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 61/162    Epoch: 2.61/7.0 (37.3% complete)    lr: 0.001270    shrink: 0.98730
+2019-02-10 09:51:43,449 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 62/162    Epoch: 2.66/7.0 (38.0% complete)    lr: 0.001252    shrink: 0.98748
+2019-02-10 10:00:04,700 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 63/162    Epoch: 2.70/7.0 (38.6% complete)    lr: 0.001234    shrink: 0.98766
+2019-02-10 10:08:09,915 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 64/162    Epoch: 2.74/7.0 (39.2% complete)    lr: 0.001217    shrink: 0.98783
+2019-02-10 10:15:59,553 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 65/162    Epoch: 2.79/7.0 (39.8% complete)    lr: 0.001200    shrink: 0.98800
+2019-02-10 10:23:39,959 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 66/162    Epoch: 2.83/7.0 (40.4% complete)    lr: 0.001183    shrink: 0.98817
+2019-02-10 10:30:49,317 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 67/162    Epoch: 2.87/7.0 (41.0% complete)    lr: 0.001167    shrink: 0.98833
+2019-02-10 10:38:11,636 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 68/162    Epoch: 2.91/7.0 (41.6% complete)    lr: 0.001150    shrink: 0.98850
+2019-02-10 10:46:20,574 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 69/162    Epoch: 2.96/7.0 (42.2% complete)    lr: 0.001134    shrink: 0.98866
+2019-02-10 10:55:53,847 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 70/162    Epoch: 3.00/7.0 (42.9% complete)    lr: 0.001118    shrink: 0.98882
+2019-02-10 11:01:45,862 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 71/162    Epoch: 3.04/7.0 (43.5% complete)    lr: 0.001103    shrink: 0.98897
+2019-02-10 11:08:48,642 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 72/162    Epoch: 3.09/7.0 (44.1% complete)    lr: 0.001087    shrink: 0.98913
+2019-02-10 11:16:12,454 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 73/162    Epoch: 3.13/7.0 (44.7% complete)    lr: 0.001072    shrink: 0.98928
+2019-02-10 11:24:29,102 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 74/162    Epoch: 3.17/7.0 (45.3% complete)    lr: 0.001057    shrink: 0.98943
+2019-02-10 11:31:55,147 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 75/162    Epoch: 3.21/7.0 (45.9% complete)    lr: 0.001042    shrink: 0.98958
+2019-02-10 11:40:52,035 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 76/162    Epoch: 3.26/7.0 (46.5% complete)    lr: 0.001028    shrink: 0.98972
+2019-02-10 11:49:24,996 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 77/162    Epoch: 3.30/7.0 (47.1% complete)    lr: 0.001013    shrink: 0.98987
+2019-02-10 11:58:50,079 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 78/162    Epoch: 3.34/7.0 (47.8% complete)    lr: 0.000999    shrink: 0.99001
+2019-02-10 12:07:50,854 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 79/162    Epoch: 3.39/7.0 (48.4% complete)    lr: 0.000985    shrink: 0.99015
+2019-02-10 12:17:33,112 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 80/162    Epoch: 3.43/7.0 (49.0% complete)    lr: 0.000971    shrink: 0.99029
+2019-02-10 12:26:01,143 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 81/162    Epoch: 3.47/7.0 (49.6% complete)    lr: 0.000958    shrink: 0.99042
+2019-02-10 12:34:49,947 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 82/162    Epoch: 3.51/7.0 (50.2% complete)    lr: 0.000944    shrink: 0.99056
+2019-02-10 12:44:53,272 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 83/162    Epoch: 3.56/7.0 (50.8% complete)    lr: 0.000931    shrink: 0.99069
+2019-02-10 12:51:38,025 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 84/162    Epoch: 3.60/7.0 (51.4% complete)    lr: 0.000918    shrink: 0.99082
+2019-02-10 13:01:01,866 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 85/162    Epoch: 3.64/7.0 (52.0% complete)    lr: 0.000905    shrink: 0.99095
+2019-02-10 13:08:19,610 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 86/162    Epoch: 3.69/7.0 (52.7% complete)    lr: 0.000892    shrink: 0.99108
+2019-02-10 13:18:21,131 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 87/162    Epoch: 3.73/7.0 (53.3% complete)    lr: 0.000880    shrink: 0.99120
+2019-02-10 13:27:32,173 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 88/162    Epoch: 3.77/7.0 (53.9% complete)    lr: 0.000868    shrink: 0.99132
+2019-02-10 13:36:12,484 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 89/162    Epoch: 3.81/7.0 (54.5% complete)    lr: 0.000856    shrink: 0.99144
+2019-02-10 13:45:18,812 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 90/162    Epoch: 3.86/7.0 (55.1% complete)    lr: 0.000844    shrink: 0.99156
+2019-02-10 13:51:58,004 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 91/162    Epoch: 3.90/7.0 (55.7% complete)    lr: 0.000832    shrink: 0.99168
+2019-02-10 13:58:32,928 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 92/162    Epoch: 3.94/7.0 (56.3% complete)    lr: 0.000820    shrink: 0.99180
+2019-02-10 14:06:20,402 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 93/162    Epoch: 3.99/7.0 (56.9% complete)    lr: 0.000809    shrink: 0.99191
+2019-02-10 14:14:06,529 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 94/162    Epoch: 4.03/7.0 (57.6% complete)    lr: 0.000797    shrink: 0.99203
+2019-02-10 14:19:49,061 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 95/162    Epoch: 4.07/7.0 (58.2% complete)    lr: 0.000786    shrink: 0.99214
+2019-02-10 14:28:39,865 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 96/162    Epoch: 4.11/7.0 (58.8% complete)    lr: 0.000775    shrink: 0.99225
+2019-02-10 14:36:26,702 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 97/162    Epoch: 4.16/7.0 (59.4% complete)    lr: 0.000764    shrink: 0.99236
+2019-02-10 14:44:53,800 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 98/162    Epoch: 4.20/7.0 (60.0% complete)    lr: 0.000754    shrink: 0.99246
+2019-02-10 14:52:22,174 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 99/162    Epoch: 4.24/7.0 (60.6% complete)    lr: 0.000743    shrink: 0.99257
+2019-02-10 15:00:58,803 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 100/162    Epoch: 4.29/7.0 (61.2% complete)    lr: 0.000733    shrink: 0.99267
+2019-02-10 15:10:21,642 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 101/162    Epoch: 4.33/7.0 (61.8% complete)    lr: 0.000722    shrink: 0.99278
+2019-02-10 15:18:33,623 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 102/162    Epoch: 4.37/7.0 (62.4% complete)    lr: 0.000712    shrink: 0.99288
+2019-02-10 15:27:12,699 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 103/162    Epoch: 4.41/7.0 (63.1% complete)    lr: 0.000702    shrink: 0.99298
+2019-02-10 15:35:05,254 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 104/162    Epoch: 4.46/7.0 (63.7% complete)    lr: 0.000692    shrink: 0.99308
+2019-02-10 15:43:12,137 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 105/162    Epoch: 4.50/7.0 (64.3% complete)    lr: 0.000683    shrink: 0.99317
+2019-02-10 15:52:48,445 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 106/162    Epoch: 4.54/7.0 (64.9% complete)    lr: 0.000673    shrink: 0.99327
+2019-02-10 15:58:58,305 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 107/162    Epoch: 4.59/7.0 (65.5% complete)    lr: 0.000664    shrink: 0.99336
+2019-02-10 16:06:34,729 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 108/162    Epoch: 4.63/7.0 (66.1% complete)    lr: 0.000654    shrink: 0.99346
+2019-02-10 16:14:23,588 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 109/162    Epoch: 4.67/7.0 (66.7% complete)    lr: 0.000645    shrink: 0.99355
+2019-02-10 16:23:34,027 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 110/162    Epoch: 4.71/7.0 (67.3% complete)    lr: 0.000636    shrink: 0.99364
+2019-02-10 16:31:38,971 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 111/162    Epoch: 4.76/7.0 (68.0% complete)    lr: 0.000627    shrink: 0.99373
+2019-02-10 16:39:34,061 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 112/162    Epoch: 4.80/7.0 (68.6% complete)    lr: 0.000619    shrink: 0.99381
+2019-02-10 16:47:06,443 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 113/162    Epoch: 4.84/7.0 (69.2% complete)    lr: 0.000610    shrink: 0.99390
+2019-02-10 16:56:02,277 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 114/162    Epoch: 4.89/7.0 (69.8% complete)    lr: 0.000601    shrink: 0.99399
+2019-02-10 17:03:49,550 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 115/162    Epoch: 4.93/7.0 (70.4% complete)    lr: 0.000593    shrink: 0.99407
+2019-02-10 17:12:13,454 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 116/162    Epoch: 4.97/7.0 (71.0% complete)    lr: 0.000585    shrink: 0.99415
+2019-02-10 17:22:01,683 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 117/162    Epoch: 5.01/7.0 (71.6% complete)    lr: 0.000576    shrink: 0.99424
+2019-02-10 17:29:05,271 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 118/162    Epoch: 5.06/7.0 (72.2% complete)    lr: 0.000568    shrink: 0.99432
+2019-02-10 17:35:45,144 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 119/162    Epoch: 5.10/7.0 (72.9% complete)    lr: 0.000560    shrink: 0.99440
+2019-02-10 17:44:52,451 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 120/162    Epoch: 5.14/7.0 (73.5% complete)    lr: 0.000553    shrink: 0.99447
+2019-02-10 17:53:39,625 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 121/162    Epoch: 5.19/7.0 (74.1% complete)    lr: 0.000545    shrink: 0.99455
+2019-02-10 18:02:42,979 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 122/162    Epoch: 5.23/7.0 (74.7% complete)    lr: 0.000537    shrink: 0.99463
+2019-02-10 18:11:07,050 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 123/162    Epoch: 5.27/7.0 (75.3% complete)    lr: 0.000530    shrink: 0.99470
+2019-02-10 18:18:42,285 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 124/162    Epoch: 5.31/7.0 (75.9% complete)    lr: 0.000522    shrink: 0.99478
+2019-02-10 18:26:04,961 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 125/162    Epoch: 5.36/7.0 (76.5% complete)    lr: 0.000515    shrink: 0.99485
+2019-02-10 18:36:03,682 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 126/162    Epoch: 5.40/7.0 (77.1% complete)    lr: 0.000508    shrink: 0.99492
+2019-02-10 18:44:07,871 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 127/162    Epoch: 5.44/7.0 (77.8% complete)    lr: 0.000501    shrink: 0.99499
+2019-02-10 18:53:34,714 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 128/162    Epoch: 5.49/7.0 (78.4% complete)    lr: 0.000494    shrink: 0.99506
+2019-02-10 19:01:01,134 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 129/162    Epoch: 5.53/7.0 (79.0% complete)    lr: 0.000487    shrink: 0.99513
+2019-02-10 19:09:03,744 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 130/162    Epoch: 5.57/7.0 (79.6% complete)    lr: 0.000480    shrink: 0.99520
+2019-02-10 19:15:11,751 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 131/162    Epoch: 5.61/7.0 (80.2% complete)    lr: 0.000473    shrink: 0.99527
+2019-02-10 19:22:45,874 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 132/162    Epoch: 5.66/7.0 (80.8% complete)    lr: 0.000467    shrink: 0.99533
+2019-02-10 19:30:26,469 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 133/162    Epoch: 5.70/7.0 (81.4% complete)    lr: 0.000460    shrink: 0.99540
+2019-02-10 19:39:44,841 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 134/162    Epoch: 5.74/7.0 (82.0% complete)    lr: 0.000454    shrink: 0.99546
+2019-02-10 19:47:37,244 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 135/162    Epoch: 5.79/7.0 (82.7% complete)    lr: 0.000447    shrink: 0.99553
+2019-02-10 19:56:27,609 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 136/162    Epoch: 5.83/7.0 (83.3% complete)    lr: 0.000441    shrink: 0.99559
+2019-02-10 20:05:35,430 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 137/162    Epoch: 5.87/7.0 (83.9% complete)    lr: 0.000435    shrink: 0.99565
+2019-02-10 20:13:58,399 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 138/162    Epoch: 5.91/7.0 (84.5% complete)    lr: 0.000429    shrink: 0.99571
+2019-02-10 20:22:20,971 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 139/162    Epoch: 5.96/7.0 (85.1% complete)    lr: 0.000423    shrink: 0.99577
+2019-02-10 20:30:30,128 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 140/162    Epoch: 6.00/7.0 (85.7% complete)    lr: 0.000417    shrink: 0.99583
+2019-02-10 20:35:49,966 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 141/162    Epoch: 6.04/7.0 (86.3% complete)    lr: 0.000411    shrink: 0.99589
+2019-02-10 20:41:36,643 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 142/162    Epoch: 6.09/7.0 (86.9% complete)    lr: 0.000405    shrink: 0.99595
+2019-02-10 20:49:04,639 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 143/162    Epoch: 6.13/7.0 (87.6% complete)    lr: 0.000400    shrink: 0.99600
+2019-02-10 20:58:06,547 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 144/162    Epoch: 6.17/7.0 (88.2% complete)    lr: 0.000394    shrink: 0.99606
+2019-02-10 21:06:41,897 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 145/162    Epoch: 6.21/7.0 (88.8% complete)    lr: 0.000388    shrink: 0.99612
+2019-02-10 21:16:10,357 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 146/162    Epoch: 6.26/7.0 (89.4% complete)    lr: 0.000383    shrink: 0.99617
+2019-02-10 21:24:32,905 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 147/162    Epoch: 6.30/7.0 (90.0% complete)    lr: 0.000378    shrink: 0.99622
+2019-02-10 21:34:13,711 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 148/162    Epoch: 6.34/7.0 (90.6% complete)    lr: 0.000372    shrink: 0.99628
+2019-02-10 21:42:36,376 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 149/162    Epoch: 6.39/7.0 (91.2% complete)    lr: 0.000367    shrink: 0.99633
+2019-02-10 21:51:09,747 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 150/162    Epoch: 6.43/7.0 (91.8% complete)    lr: 0.000362    shrink: 0.99638
+2019-02-10 21:59:10,143 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 151/162    Epoch: 6.47/7.0 (92.4% complete)    lr: 0.000357    shrink: 0.99643
+2019-02-10 22:08:06,844 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 152/162    Epoch: 6.51/7.0 (93.1% complete)    lr: 0.000352    shrink: 0.99648
+2019-02-10 22:22:30,820 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 153/162    Epoch: 6.56/7.0 (93.7% complete)    lr: 0.000347    shrink: 0.99653
+2019-02-10 22:29:34,738 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 154/162    Epoch: 6.60/7.0 (94.3% complete)    lr: 0.000342    shrink: 0.99658
+2019-02-10 22:39:11,082 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 155/162    Epoch: 6.64/7.0 (94.9% complete)    lr: 0.000337    shrink: 0.99663
+2019-02-10 22:46:46,394 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 156/162    Epoch: 6.69/7.0 (95.5% complete)    lr: 0.000333    shrink: 0.99667
+2019-02-10 22:59:35,085 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 157/162    Epoch: 6.73/7.0 (96.1% complete)    lr: 0.000328    shrink: 0.99672
+2019-02-10 23:46:19,787 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 158/162    Epoch: 6.77/7.0 (96.7% complete)    lr: 0.000323    shrink: 0.99677
+2019-02-10 23:56:05,763 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 159/162    Epoch: 6.81/7.0 (97.3% complete)    lr: 0.000319    shrink: 0.99681
+2019-02-11 00:06:43,581 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 160/162    Epoch: 6.86/7.0 (98.0% complete)    lr: 0.000314    shrink: 0.99686
+2019-02-11 00:14:59,530 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 161/162    Epoch: 6.90/7.0 (98.6% complete)    lr: 0.000310    shrink: 0.99690
+2019-02-11 00:27:40,220 [steps/nnet3/train_raw_dnn.py:388 - train - INFO ] Iter: 162/162    Epoch: 6.94/7.0 (99.2% complete)    lr: 0.000300    shrink: 0.99700
+2019-02-11 00:38:08,482 [steps/nnet3/train_raw_dnn.py:440 - train - INFO ] Doing final combination to produce final.raw
+2019-02-11 00:38:08,503 [steps/libs/nnet3/train/frame_level_objf/common.py:491 - combine_models - INFO ] Combining {144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163} models.
+2019-02-11 00:43:49,950 [steps/nnet3/train_raw_dnn.py:462 - train - INFO ] Cleaning up the experiment directory /home/s1513472/lid/pitch_energy/nnet
+/home/s1513472/lid/pitch_energy/nnet: num-iters=163 nj=3..3 num-params=4.4M dim=5->19 combine=-0.17->-0.15 (over 13) loglike:train/valid[107,162]=(-0.42,-0.26/-0.32,-0.31) accuracy:train/valid[107,162]=(0.870,0.889/0.882,0.882)
 steps/nnet3/train_raw_dnn.py --stage=-1 --cmd=slurm.pl --trainer.optimization.proportional-shrink 10 --trainer.optimization.momentum=0.5 --trainer.optimization.num-jobs-initial=3 --trainer.optimization.num-jobs-final=3 --trainer.optimization.initial-effective-lrate=0.001 --trainer.optimization.final-effective-lrate=0.0001 --trainer.optimization.minibatch-size=64 --trainer.srand=123 --trainer.max-param-change=2 --trainer.num-epochs=7 --trainer.dropout-schedule=0,0@0.20,0.1@0.50,0 --trainer.shuffle-buffer-size=1000 --egs.frames-per-eg=1 --egs.dir=/home/s1513472/lid/pitch_energy/nnet/egs --cleanup.remove-egs false --cleanup.preserve-model-interval=10 --use-gpu=true --dir=/home/s1513472/lid/pitch_energy/nnet
 ['steps/nnet3/train_raw_dnn.py', '--stage=-1', '--cmd=slurm.pl', '--trainer.optimization.proportional-shrink', '10', '--trainer.optimization.momentum=0.5', '--trainer.optimization.num-jobs-initial=3', '--trainer.optimization.num-jobs-final=3', '--trainer.optimization.initial-effective-lrate=0.001', '--trainer.optimization.final-effective-lrate=0.0001', '--trainer.optimization.minibatch-size=64', '--trainer.srand=123', '--trainer.max-param-change=2', '--trainer.num-epochs=7', '--trainer.dropout-schedule=0,0@0.20,0.1@0.50,0', '--trainer.shuffle-buffer-size=1000', '--egs.frames-per-eg=1', '--egs.dir=/home/s1513472/lid/pitch_energy/nnet/egs', '--cleanup.remove-egs', 'false', '--cleanup.preserve-model-interval=10', '--use-gpu=true', '--dir=/home/s1513472/lid/pitch_energy/nnet']
 Finished stage 4.
 #### STAGE 7: Extracting X-vectors from the trained DNN. ####
-./local/extract_xvectors.sh --cmd slurm.pl --mem 6G --use-gpu true --nj 32 --stage 0 --remove-nonspeech false /home/s1513472/lid/pitch_energy/nnet /home/s1513472/lid/pitch_energy/enroll /home/s1513472/lid/pitch_energy/exp/xvectors_enroll
-./local/extract_xvectors.sh --cmd slurm.pl --mem 6G --use-gpu true --nj 32 --stage 0 --remove-nonspeech false /home/s1513472/lid/pitch_energy/nnet /home/s1513472/lid/pitch_energy/eval /home/s1513472/lid/pitch_energy/exp/xvectors_eval
-Conda environment 'lid' active.
-Conda environment 'lid' active.
-No such file /home/s1513472/lid/pitch_energy/enroll/vad.scp
-No such file /home/s1513472/lid/pitch_energy/eval/vad.scp
-Finished stage 7.
-#### STAGE 8: Training logistic regression classifier and classifying test utterances. ####
-Finished stage 8.
-#### STAGE 9: Calculating results. ####
-Finished stage 9.
-Obtaining renewable credentials, you will be asked to type in your password
-Password for s1513472@INF.ED.AC.UK: 
-Running job "./run.sh --exp-config=conf/exp_configs/pitch_energy.conf --stage=7 --run-all=true" for maximum of 28 days in background
-Waiting for job to start...
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 	 This shell script runs the GlobalPhone+X-vectors recipe.
- 	 Use like this: ./run.sh <options>
- 	 --stage=INT		Stage from which to start
- 	 --run-all=(false|true)	Whether to run all stages
- 	 			or just the specified one
- 	 --experiment=STR	Experiment name (also name of directory 
- 	 			where all files will be stored).
- 	 			Default: 'baseline'.
- 	 --exp-config=FILE	Config file with all kinds of options,
- 	 			see conf/exp_default.conf for an example.
- 	 			NOTE: Where arguments are passed on the command line,
- 	 			the values overwrite those found in the config file.
-
- 	 If no stage number is provided, either all stages
- 	 will be run (--run-all=true) or no stages at all.
- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Overwriting the experiment config value of run_all=false using the value 'true' passed as a command-line argument.
-Overwriting the experiment config value of stage=1 using the value '7' passed as a command-line argument.
-Running experiment: 'pitch_energy'
-Running all stages starting with 7.
-Running on the cluster.
-Conda environment not activated, sourcing ~/.bashrc and activating the 'lid' env.
-Using shorten (v3.6.1) from ~/language-ident-from-speech/gp-xvectors-recipe/tools/shorten-3.6.1/bin/shorten
-Using sox (v14.3.2) from ~/language-ident-from-speech/gp-xvectors-recipe/tools/sox-14.3.2/bin/sox
-Conda environment not activated, sourcing ~/.bashrc and activating the 'lid' env.
-The experiment directory is: /home/s1513472/lid/pitch_energy
-Running with languages: AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN
-#### STAGE 7: Extracting X-vectors from the trained DNN. ####
-./local/extract_xvectors.sh --cmd slurm.pl --mem 6G --use-gpu true --nj 32 --stage 0 --remove-nonspeech false /home/s1513472/lid/pitch_energy/nnet /home/s1513472/lid/pitch_energy/enroll /home/s1513472/lid/pitch_energy/exp/xvectors_enroll
-./local/extract_xvectors.sh --cmd slurm.pl --mem 6G --use-gpu true --nj 32 --stage 0 --remove-nonspeech false /home/s1513472/lid/pitch_energy/nnet /home/s1513472/lid/pitch_energy/eval /home/s1513472/lid/pitch_energy/exp/xvectors_eval
+./local/extract_xvectors.sh --cmd slurm.pl --mem 6G --use-gpu true --nj 32 --stage 0 --remove-nonspeech true /home/s1513472/lid/pitch_energy/nnet /home/s1513472/lid/pitch_energy/enroll /home/s1513472/lid/pitch_energy/exp/xvectors_enroll
+./local/extract_xvectors.sh --cmd slurm.pl --mem 6G --use-gpu true --nj 32 --stage 0 --remove-nonspeech true /home/s1513472/lid/pitch_energy/nnet /home/s1513472/lid/pitch_energy/eval /home/s1513472/lid/pitch_energy/exp/xvectors_eval
 Conda environment 'lid' active.
 Conda environment 'lid' active.
 ./local/extract_xvectors.sh: using /home/s1513472/lid/pitch_energy/nnet/extract.config to extract xvectors
@@ -349,7 +785,6 @@ Conda environment 'lid' active.
 ./local/extract_xvectors.sh: extracting xvectors from nnet
 ./local/extract_xvectors.sh: extracting xvectors for /home/s1513472/lid/pitch_energy/enroll
 ./local/extract_xvectors.sh: extracting xvectors from nnet
-Job started successfully
 ./local/extract_xvectors.sh: combining xvectors across jobs
 ./local/extract_xvectors.sh: computing mean of xvectors for each language
 ./local/extract_xvectors.sh: combining xvectors across jobs
@@ -358,27 +793,4 @@ Finished stage 7.
 #### STAGE 8: Training logistic regression classifier and classifying test utterances. ####
 Finished stage 8.
 #### STAGE 9: Calculating results. ####
-Accuracy: 0.850 (17306/20349 classified correctly)
-Confusion matrix:
-    AR   BG   CH   CR   CZ   FR   GE   JA   KO   PL   PO   RU   SP   SW   TA   TH   TU   WU   VN  
-AR  682  0    0    4    5    4    14   5    1    0    24   26   27   16   1    0    15   0    0   
-BG  0    1016 0    2    0    0    0    0    0    211  2    0    0    1    0    0    0    0    0   
-CH  0    0    1051 0    0    0    2    0    0    3    1    0    0    0    0    1    0    1    3   
-CR  3    0    1    815  11   1    3    2    1    2    35   66   33   41   0    0    12   0    2   
-CZ  10   0    0    2    1177 1    6    3    5    64   39   12   7    11   1    5    0    0    4   
-FR  0    0    0    0    5    1022 14   2    1    0    7    9    1    13   0    0    10   2    1   
-GE  40   0    2    0    3    14   1065 6    0    0    13   10   2    0    0    0    17   0    0   
-JA  0    0    11   0    2    0    3    390  9    0    5    6    6    36   0    0    13   9    0   
-KO  0    0    1    0    0    1    3    5    1140 0    6    1    3    0    0    2    6    1    2   
-PL  30   104  0    19   3    39   28   1    0    1004 51   134  0    10   3    1    12   0    74  
-PO  7    0    2    20   2    11   2    1    0    1    748  54   47   6    0    1    22   0    0   
-RU  22   0    3    190  15   8    11   8    6    2    114  1219 28   38   0    0    29   2    5   
-SP  4    0    0    67   3    27   2    2    8    3    30   8    806  105  1    1    51   0    0   
-SW  3    0    6    13   7    8    11   6    21   0    24   75   31   1091 0    0    43   0    8   
-TA  22   1    0    0    35   0    0    0    1    6    7    0    6    0    328  0    1    0    7   
-TH  0    0    1    0    0    0    0    0    0    1    0    0    1    1    0    1316 0    0    2   
-TU  4    2    0    3    7    17   2    0    7    17   12   12   6    10   0    0    984  0    7   
-WU  0    0    27   1    0    0    0    1    0    0    1    0    0    0    0    0    1    311  5   
-VN  2    0    1    0    3    1    0    0    1    0    0    2    5    1    0    2    2    0    1141
-C_primary value: 0.185
 Finished stage 9.
