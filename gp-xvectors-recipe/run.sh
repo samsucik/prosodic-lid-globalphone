@@ -128,13 +128,6 @@ fi
 
 . ./path.sh || { echo "Cannot source path.sh"; exit 1; }
 
-#if [ -d $DATADIR/$exp_name ]; then
-#  echo "Experiment with name '$exp_name' already exists." \
-#       "Continuing would overwrite it. Rename this experiment" \
-#       "or backup/delete the old experiment directory '$DATADIR'."
-#  exit 1
-#fi
-
 home_prefix=$DATADIR/$exp_name
 train_data=$home_prefix/train
 enroll_data=$home_prefix/enroll
@@ -142,10 +135,10 @@ eval_data=$home_prefix/eval
 test_data=$home_prefix/test
 log_dir=$home_prefix/log
 
-mfcc_dir=$home_prefix/mfcc                   # vanilla MFCC
-mfcc_sdc_dir=$home_prefix/mfcc_sdc           # MFCC for SDC (9D)
-
 # Only if not specified this in the config
+if [ -z ${mfcc_dir+x} ]; then
+  mfcc_dir=$home_prefix/mfcc                 # vanilla MFCC
+fi
 if [ -z ${sdc_dir+x} ]; then
   sdc_dir=$home_prefix/mfcc_sdc              # SDC
 fi
@@ -161,6 +154,7 @@ fi
 if [ -z ${energy_dir+x} ]; then
   energy_dir=$home_prefix/energy             # Raw energy
 fi
+mfcc_sdc_dir=$home_prefix/mfcc_sdc           # MFCC for SDC (9D)
 vaddir=$home_prefix/vad                      # any feature type ultimately run through VAD
 vad_file_dir=$DATADIR/mfcc                   # The directory from which to take vad.scp (so 
                                              # the same VAD filtering can be done on any features)
@@ -390,6 +384,33 @@ if [ $stage -eq 2 ]; then
         --cmd "$preprocess_cmd" \
         $mfcc_deltas_dir/${data_subset} \
         $pitch_energy_dir/${data_subset} \
+        $DATADIR/${data_subset}
+    elif [ "$feature_type" == "mfcc_pitch_energy" ]; then
+      echo "Creating 28D MFCC+KaldiPitch+energy features."
+      ./local/combine_feats.sh \
+        --feature-name $feature_type \
+        --paste-length-tolerance 2 \
+        --cmd "$preprocess_cmd" \
+        $mfcc_dir/${data_subset} \
+        $pitch_energy_dir/${data_subset} \
+        $DATADIR/${data_subset}
+    elif [ "$feature_type" == "mfcc_pitch" ]; then
+      echo "Creating 27D MFCC+KaldiPitch features."
+      ./local/combine_feats.sh \
+        --feature-name $feature_type \
+        --paste-length-tolerance 2 \
+        --cmd "$preprocess_cmd" \
+        $mfcc_dir/${data_subset} \
+        $pitch_dir/${data_subset} \
+        $DATADIR/${data_subset}
+    elif [ "$feature_type" == "mfcc_energy" ]; then
+      echo "Creating 24D MFCC+energy features."
+      ./local/combine_feats.sh \
+        --feature-name $feature_type \
+        --paste-length-tolerance 2 \
+        --cmd "$preprocess_cmd" \
+        $mfcc_dir/${data_subset} \
+        $energy_dir/${data_subset} \
         $DATADIR/${data_subset}
     elif [ "$feature_type" == "sdc_pitch_energy" ]; then
       echo "Creating 77D SDC+KaldiPitch+energy features."
@@ -632,6 +653,7 @@ if [ $stage -eq 9 ]; then
   ./local/compute_results.py \
     --classification-file $exp_dir/results/classification \
     --output-file $exp_dir/results/results \
+    --conf-mtrx-file $exp_dir/results/conf_matrix.csv \
     --language-list "$GP_LANGUAGES" \
     &>$exp_dir/results/compute_results.log
 

@@ -21,6 +21,8 @@ def get_args():
                     help="File with all utterances, classification pairs, e.g. exp/classification")
     parser.add_argument("--output-file", type=str, required=True,
                     help="Name of file to which results will be dumped, e.g. exp/results")
+    parser.add_argument("--conf-mtrx-file", type=str, required=True,
+                    help="Name of file to which the CSV confusion mtrix will be dumped, e.g. exp/conf_mtrx.csv")
     parser.add_argument("--language-list", type=str, required=True,
                     help="Ordered string of all languages, e.g. 'GE KO SW'")
     args = parser.parse_args()
@@ -67,17 +69,19 @@ def find_c_primary(conf_matrix, languages):
         c_sum += find_c_avg(beta, n, sum_p_miss, sum_p_fa)
     return c_sum/2
 
-def make_stats(classification_file, output_file, languages):
+def make_stats(classification_file, output_file, conf_mtrx_file, languages):
     with open(classification_file, "r") as f:
         # From lines like "GE001_33 KO" make simple pairs (true, predicted) like [GE, KO]
         classifications = np.array([[l.split()[0][:2], l.split()[1]] for l in f.readlines()])
         y_true = classifications[:, 0]
         y_pred = classifications[:, 1]
         conf_matrix = confusion_matrix(y_true, y_pred, labels=languages)
+        langs_string = ",".join(languages)
+        np.savetxt(conf_mtrx_file, conf_matrix, delimiter=",", header=langs_string)
 
         # Accuracy (sum along the diagonal of the conf. matrix)
         accuracy = np.trace(conf_matrix)/np.sum(conf_matrix)
-        acc_msg = "Accuracy: {:.3f} ({}/{} classified correctly)"\
+        acc_msg = "Accuracy: {:.4f} ({}/{} classified correctly)"\
             .format(accuracy, np.trace(conf_matrix), np.sum(conf_matrix))
         print(acc_msg)
 
@@ -93,7 +97,7 @@ def make_stats(classification_file, output_file, languages):
 
         # C primary calculation
         c_primary = find_c_primary(conf_matrix, languages)
-        c_primary_msg = "C_primary value: {:.3f}".format(c_primary)
+        c_primary_msg = "C_primary value: {:.4f}".format(c_primary)
         print(c_primary_msg)
 
         # Write results to file
@@ -105,4 +109,4 @@ def make_stats(classification_file, output_file, languages):
 if __name__ == "__main__":
     args = get_args()
     languages = args.language_list.split()
-    make_stats(args.classification_file, args.output_file, languages)
+    make_stats(args.classification_file, args.output_file, args.conf_mtrx_file, languages)
