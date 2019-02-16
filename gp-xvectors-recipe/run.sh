@@ -385,6 +385,24 @@ if [ $stage -eq 2 ]; then
         $mfcc_deltas_dir/${data_subset} \
         $pitch_energy_dir/${data_subset} \
         $DATADIR/${data_subset}
+    elif [ "$feature_type" == "mfcc_deltas_pitch" ]; then
+      echo "Creating 73D MFCC+deltas+delta-deltas+KaldiPitch features."
+      ./local/combine_feats.sh \
+        --feature-name $feature_type \
+        --paste-length-tolerance 2 \
+        --cmd "$preprocess_cmd" \
+        $mfcc_deltas_dir/${data_subset} \
+        $pitch_dir/${data_subset} \
+        $DATADIR/${data_subset}
+    elif [ "$feature_type" == "mfcc_deltas_energy" ]; then
+      echo "Creating 70D MFCC+deltas+delta-deltas+energy features."
+      ./local/combine_feats.sh \
+        --feature-name $feature_type \
+        --paste-length-tolerance 2 \
+        --cmd "$preprocess_cmd" \
+        $mfcc_deltas_dir/${data_subset} \
+        $energy_dir/${data_subset} \
+        $DATADIR/${data_subset}
     elif [ "$feature_type" == "mfcc_pitch_energy" ]; then
       echo "Creating 28D MFCC+KaldiPitch+energy features."
       ./local/combine_feats.sh \
