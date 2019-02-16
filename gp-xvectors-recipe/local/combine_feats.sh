@@ -5,9 +5,6 @@
 # Begin configuration section.
 nj=1
 cmd=run.pl
-# mfcc_config=conf/mfcc.conf
-# pitch_config=conf/pitch.conf
-# pitch_postprocess_config=
 paste_length_tolerance=2
 compress=true
 write_utt2num_frames=false  # if true writes utt2num_frames
@@ -27,29 +24,19 @@ if [ $# -lt 1 ] || [ $# -gt 3 ]; then
    echo "  --feature-name STR                                   # name of the combined feature"
    echo "  --paste-length-tolerance   <tolerance>               # length tolerance passed to paste-feats"
    echo "  --cmd (utils/run.pl|utils/queue.pl <queue opts>)     # how to run jobs"
-   # echo "  --nj                       <nj>                      # number of parallel jobs"
-   # echo "  --write-utt2num-frames <true|false>     # If true, write utt2num_frames file."
    exit 1;
 fi
 
 in_dir1=$1
 in_dir2=$2
 out_dir=$3
-# feature_name=$4
 
 if [ $# -ge 4 ]; then
   logdir=$4
 else
   logdir=$out_dir/log
 fi
-# if [ $# -ge 3 ]; then
-#   out_dir=$3
-# else
-#   out_dir=$data/data
-# fi
 
-
-# make $out_dir an absolute pathname.
 out_dir=`perl -e '($out_dir,$pwd)= @ARGV; if($out_dir!~m:^/:) { $out_dir = "$pwd/$out_dir"; } print $out_dir; ' $out_dir ${PWD}`
 in_dir1=`perl -e '($in_dir,$pwd)= @ARGV; if($in_dir!~m:^/:) { $in_dir = "$pwd/$in_dir"; } print $in_dir; ' $in_dir1 ${PWD}`
 in_dir2=`perl -e '($in_dir,$pwd)= @ARGV; if($in_dir!~m:^/:) { $in_dir = "$pwd/$in_dir"; } print $in_dir; ' $in_dir2 ${PWD}`
@@ -59,12 +46,6 @@ name=`basename $out_dir`
 
 mkdir -p $out_dir || exit 1;
 mkdir -p $logdir || exit 1;
-
-# if [ -f $data/feats.scp ]; then
-#   mkdir -p $data/.backup
-#   echo "$0: moving $data/feats.scp to $data/.backup"
-#   mv $data/feats.scp $data/.backup
-# fi
 
 scp1=$in_dir1/feats.scp
 scp2=$in_dir2/feats.scp
@@ -79,66 +60,8 @@ done
 utils/validate_data_dir.sh --no-text --no-feats $in_dir1 || exit 1;
 utils/validate_data_dir.sh --no-text --no-feats $in_dir2 || exit 1;
 
-# if [ ! -z "$pitch_postprocess_config" ]; then
-#   postprocess_config_opt="--config=$pitch_postprocess_config";
-# else
-#   postprocess_config_opt=
-# fi
-
-# if [ -f $data/spk2warp ]; then
-#   echo "$0 [info]: using VTLN warp factors from $data/spk2warp"
-#   vtln_opts="--vtln-map=ark:$data/spk2warp --utt2spk=ark:$data/utt2spk"
-# elif [ -f $data/utt2warp ]; then
-#   echo "$0 [info]: using VTLN warp factors from $data/utt2warp"
-#   vtln_opts="--vtln-map=ark:$data/utt2warp"
-# fi
-
-# for n in $(seq $nj); do
-#   # the next command does nothing unless $out_dir/storage/ exists, see
-#   # utils/create_data_link.pl for more info.
-#   utils/create_data_link.pl $out_dir/raw_mfcc_pitch_$name.$n.ark
-# done
-
-# if $write_utt2num_frames; then
-#   write_num_frames_opt="--write-num-frames=ark,t:$logdir/utt2num_frames.JOB"
-# else
-#   write_num_frames_opt=
-# fi
-
-# if [ -f $data/segments ]; then
-#   echo "$0 [info]: segments file exists: using that."
-#   split_segments=""
-#   for n in $(seq $nj); do
-#     split_segments="$split_segments $logdir/segments.$n"
-#   done
-
-#   utils/split_scp.pl $data/segments $split_segments || exit 1;
-#   rm $logdir/.error 2>/dev/null
-
-#   mfcc_feats="ark:extract-segments scp,p:$scp $logdir/segments.JOB ark:- | compute-mfcc-feats $vtln_opts --verbose=2 --config=$mfcc_config ark:- ark:- |"
-#   pitch_feats="ark,s,cs:extract-segments scp,p:$scp $logdir/segments.JOB ark:- | compute-kaldi-pitch-feats --verbose=2 --config=$pitch_config ark:- ark:- | process-kaldi-pitch-feats $postprocess_config_opt ark:- ark:- |"
-
-#   $cmd JOB=1:$nj $logdir/make_mfcc_pitch_${name}.JOB.log \
-#     paste-feats --length-tolerance=$paste_length_tolerance "$mfcc_feats" "$pitch_feats" ark:- \| \
-#     copy-feats --compress=$compress $write_num_frames_opt ark:- \
-#       ark,scp:$out_dir/raw_mfcc_pitch_$name.JOB.ark,$out_dir/raw_mfcc_pitch_$name.JOB.scp \
-#      || exit 1;
-
-# else
-#   echo "$0: [info]: no segments file exists: assuming wav.scp indexed by utterance."
-# fi
-
-
-# split_scps1=""
-# split_scps2=""
-# for n in $(seq $nj); do
-#   split_scps1="$split_scps1 $logdir/wav_${name}.$n.scp"
-# done
-# utils/split_scp.pl $scp $split_scps || exit 1;
-
 feats1="scp:$scp1"
 feats1="scp:$scp2"
-# pitch_feats="ark,s,cs:compute-kaldi-pitch-feats --verbose=2 --config=$pitch_config scp,p:$logdir/wav_${name}.JOB.scp ark:- | process-kaldi-pitch-feats $postprocess_config_opt ark:- ark:- |"
 
 $cmd JOB=1:$nj $logdir/${feature_name}_${name}.JOB.log \
   paste-feats --length-tolerance=$paste_length_tolerance scp:$scp1 scp:$scp2 ark:- \| \
@@ -157,15 +80,6 @@ fi
 for n in $(seq $nj); do
   cat $out_dir/${feature_name}_${name}.$n.scp || exit 1;   
 done > $out_dir/feats.scp
-
-# if $write_utt2num_frames; then
-#   for n in $(seq $nj); do
-#     cat $logdir/utt2num_frames.$n || exit 1;
-#   done > $data/utt2num_frames || exit 1
-#   rm $logdir/utt2num_frames.*
-# fi
-
-# rm $logdir/wav_${name}.*.scp  $logdir/segments.* 2>/dev/null
 
 for file in segments lang2utt spk2utt utt2lang utt2len utt2spk; do
   cp $in_dir1/$file $out_dir/
