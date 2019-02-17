@@ -583,6 +583,28 @@ if [ $stage -eq 7 ]; then
   remove_nonspeech="$use_vad"
 
   # X-vectors for training the classifier
+  # ./local/extract_xvectors.sh \
+  #   --cmd "$extract_cmd --mem 6G" \
+  #   --use-gpu $use_gpu \
+  #   --nj $MAXNUMJOBS \
+  #   --stage 0 \
+  #   --remove-nonspeech "$remove_nonspeech" \
+  #   $nnet_dir \
+  #   $enroll_data \
+  #   $exp_dir/xvectors_enroll &
+
+  # # X-vectors for end-to-end evaluation
+  # ./local/extract_xvectors.sh \
+  #   --cmd "$extract_cmd --mem 6G" \
+  #   --use-gpu $use_gpu \
+  #   --nj $MAXNUMJOBS \
+  #   --stage 0 \
+  #   --remove-nonspeech "$remove_nonspeech" \
+  #   $nnet_dir \
+  #   $eval_data \
+  #   $exp_dir/xvectors_eval &
+  
+  # X-vectors for end-to-end testing
   ./local/extract_xvectors.sh \
     --cmd "$extract_cmd --mem 6G" \
     --use-gpu $use_gpu \
@@ -590,30 +612,8 @@ if [ $stage -eq 7 ]; then
     --stage 0 \
     --remove-nonspeech "$remove_nonspeech" \
     $nnet_dir \
-    $enroll_data \
-    $exp_dir/xvectors_enroll &
-
-  # X-vectors for end-to-end evaluation
-  ./local/extract_xvectors.sh \
-    --cmd "$extract_cmd --mem 6G" \
-    --use-gpu $use_gpu \
-    --nj $MAXNUMJOBS \
-    --stage 0 \
-    --remove-nonspeech "$remove_nonspeech" \
-    $nnet_dir \
-    $eval_data \
-    $exp_dir/xvectors_eval &
-
-  # X-vectors for testing (final evaluation)
-#  ./local/extract_xvectors.sh \
-#    --cmd "$extract_cmd --mem 6G" \
-#    --use-gpu $use_gpu \
-#    --nj $MAXNUMJOBS \
-#    --stage 0 \
-#    --remove-nonspeech "$remove_nonspeech" \
-#    $nnet_dir \
-#    $test_data \
-#    $exp_dir/xvectors_test &
+    $test_data \
+    $exp_dir/xvectors_test &
 
   wait;
 

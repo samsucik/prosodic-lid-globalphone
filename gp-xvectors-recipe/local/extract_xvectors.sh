@@ -22,6 +22,7 @@ chunk_size=-1     # The chunk size over which the embedding is extracted.
 use_gpu=false
 stage=0
 remove_nonspeech=false
+min_len=100
 
 echo "$0 $@"  # Print the command line for logging
 
@@ -40,28 +41,29 @@ if [ $# != 3 ]; then
   echo "  --cache-capacity <n|64>                          # To speed-up xvector extraction"
   echo "  --chunk-size <n|-1>                              # If provided, extracts embeddings with specified"
   echo "                                                   # chunk size, and averages to produce final embedding"
+  echo "  --min-len <n|100>                                # Minimum speech segment length (in frames, before VAD) to consider"
   echo "  --remove-nonspeech <true|false>                  # If true, removes non-speech frames (requires vad.scp)"
 fi
 
-srcdir=$1
-data=$2
-dir=$3
+nnet_dir=$1
+feat_dir=$2
+xvector_dir=$3
 
-for f in $srcdir/final.raw $srcdir/min_chunk_size $srcdir/max_chunk_size $data/feats.scp; do
+for f in $nnet_dir/final.raw $nnet_dir/min_chunk_size $nnet_dir/max_chunk_size $feat_dir/feats.scp; do
   [ ! -f $f ] && echo "No such file $f" && exit 1;
 done
 
 if [ "$remove_nonspeech" = true ]; then
-  [ ! -f $data/vad.scp ] && echo "$0: No such file $data/vad.scp" && exit 1;
+  [ ! -f $feat_dir/vad.scp ] && echo "$0: No such file $feat_dir/vad.scp" && exit 1;
 fi
 
-min_chunk_size=`cat $srcdir/min_chunk_size 2>/dev/null`
-max_chunk_size=`cat $srcdir/max_chunk_size 2>/dev/null`
+min_chunk_size=`cat $nnet_dir/min_chunk_size 2>/dev/null`
+max_chunk_size=`cat $nnet_dir/max_chunk_size 2>/dev/null`
 
-nnet=$srcdir/final.raw
-if [ -f $srcdir/extract.config ] ; then
-  echo "$0: using $srcdir/extract.config to extract xvectors"
-  nnet="nnet3-copy --nnet-config=$srcdir/extract.config $srcdir/final.raw - |"
+nnet=$nnet_dir/final.raw
+if [ -f $nnet_dir/extract.config ] ; then
+  echo "$0: using $nnet_dir/extract.config to extract xvectors"
+  nnet="nnet3-copy --nnet-config=$nnet_dir/extract.config $nnet_dir/final.raw - |"
 fi
 
 if [ $chunk_size -le 0 ]; then
@@ -72,11 +74,22 @@ if [ $max_chunk_size -lt $chunk_size ]; then
   echo "$0: specified chunk size of $chunk_size is larger than the maximum chunk size, $max_chunk_size" && exit 1;
 fi
 
-mkdir -p $dir/log
+mkdir -p $xvector_dir/log
 
-utils/split_data.sh $data $nj
-echo "$0: extracting xvectors for $data"
-sdata=$data/split$nj/JOB
+
+# Copying list files into x-vector dir (so we don't mess with orignal files)
+for f in spk2utt utt2lang lang2utt vad.scp; do
+  cp $feat_dir/$f $xvector_dir/$f
+done
+
+echo "Removing features with less than ${min_len} frames..."
+awk -v min_len=${min_len} '$2 > min_len {print $1, $2}' $feat_dir/utt2num_frames > $xvector_dir/utt2num_frames
+utils/filter_scp.pl $xvector_dir/utt2num_frames $feat_dir/feats.scp > $xvector_dir/feats.scp
+utils/fix_data_dir.sh $xvector_dir
+
+utils/split_data.sh $xvector_dir $nj
+echo "$0: extracting xvectors for $feat_dir (taking lists of utts from ${xvector_dir})"
+sdata=$xvector_dir/split$nj/JOB
 
 # Set up the features
 if [ "$remove_nonspeech" = true ]; then
@@ -89,27 +102,27 @@ if [ $stage -le 0 ]; then
   echo "$0: extracting xvectors from nnet"
   if $use_gpu; then
     for g in $(seq $nj); do
-      $cmd --gpu 1 ${dir}/log/extract.$g.log \
+      $cmd --gpu 1 ${xvector_dir}/log/extract.$g.log \
         nnet3-xvector-compute --use-gpu=yes --min-chunk-size=$min_chunk_size --chunk-size=$chunk_size --cache-capacity=${cache_capacity} \
-        "$nnet" "`echo $feat | sed s/JOB/$g/g`" ark,scp:${dir}/xvector.$g.ark,${dir}/xvector.$g.scp || exit 1 &
+        "$nnet" "`echo $feat | sed s/JOB/$g/g`" ark,scp:${xvector_dir}/xvector.$g.ark,${xvector_dir}/xvector.$g.scp || exit 1 &
     done
     wait
   else
-    $cmd JOB=1:$nj ${dir}/log/extract.JOB.log \
+    $cmd JOB=1:$nj ${xvector_dir}/log/extract.JOB.log \
       nnet3-xvector-compute --use-gpu=no --min-chunk-size=$min_chunk_size --chunk-size=$chunk_size --cache-capacity=${cache_capacity} \
-      "$nnet" "$feat" ark,scp:${dir}/xvector.JOB.ark,${dir}/xvector.JOB.scp || exit 1;
+      "$nnet" "$feat" ark,scp:${xvector_dir}/xvector.JOB.ark,${xvector_dir}/xvector.JOB.scp || exit 1;
   fi
 fi
 
 if [ $stage -le 1 ]; then
   echo "$0: combining xvectors across jobs"
-  for j in $(seq $nj); do cat $dir/xvector.$j.scp; done >$dir/xvector.scp || exit 1;
+  for j in $(seq $nj); do cat $xvector_dir/xvector.$j.scp; done >$xvector_dir/xvector.scp || exit 1;
 fi
 
 if [ $stage -le 2 ]; then
   # Average the utterance-level xvectors to get language-level xvectors.
   echo "$0: computing mean of xvectors for each language"
-  $cmd $dir/log/language_mean.log \
-    ivector-mean ark:$data/lang2utt scp:$dir/xvector.scp \
-    ark,scp:$dir/lang_xvector.ark,$dir/lang_xvector.scp ark,t:$dir/num_utts.ark || exit 1;
+  $cmd $xvector_dir/log/language_mean.log \
+    ivector-mean ark:$xvector_dir/lang2utt scp:$xvector_dir/xvector.scp \
+    ark,scp:$xvector_dir/lang_xvector.ark,$xvector_dir/lang_xvector.scp ark,t:$xvector_dir/num_utts.ark || exit 1;
 fi
