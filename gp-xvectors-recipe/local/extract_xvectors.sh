@@ -78,7 +78,7 @@ mkdir -p $xvector_dir/log
 
 
 # Copying list files into x-vector dir (so we don't mess with orignal files)
-for f in spk2utt utt2lang lang2utt vad.scp; do
+for f in spk2utt utt2spk utt2lang lang2utt vad.scp; do
   cp $feat_dir/$f $xvector_dir/$f
 done
 
