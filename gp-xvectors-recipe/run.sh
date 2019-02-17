@@ -45,7 +45,7 @@ usage="+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \t       will be run (--run-all=true) or no stages at all.\n
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
-# Default option values
+# Default option values (see example exp config for explanation)
 exp_name="baseline"
 stage=-1
 run_all=false
@@ -54,6 +54,11 @@ num_epochs=3
 feature_type=mfcc
 use_vad=true
 recompute_vad=false
+mode=full
+nnet_exp_dir=
+eval_utt_len=10
+exp_dir_for_vad=mfcc
+use_test_set=false
 
 while [ $# -gt 0 ];
 do
@@ -128,6 +133,10 @@ fi
 
 . ./path.sh || { echo "Cannot source path.sh"; exit 1; }
 
+if [ "$mode" = test_only ]; then
+  use_test_set=true
+fi
+
 home_prefix=$DATADIR/$exp_name
 train_data=$home_prefix/train
 enroll_data=$home_prefix/enroll
@@ -156,15 +165,20 @@ if [ -z ${energy_dir+x} ]; then
 fi
 mfcc_sdc_dir=$home_prefix/mfcc_sdc           # MFCC for SDC (9D)
 vaddir=$home_prefix/vad                      # any feature type ultimately run through VAD
-vad_file_dir=$DATADIR/mfcc                   # The directory from which to take vad.scp (so 
+vad_file_dir=$DATADIR/$exp_dir_for_vad       # The directory from which to take vad.scp (so 
                                              # the same VAD filtering can be done on any features)
 
 feat_dir=$home_prefix/x_vector_features
 nnet_train_data=$home_prefix/nnet_train_data
-nnet_dir=$home_prefix/nnet
+if [ -z ${nnet_exp_dir+x} ]; then
+  nnet_dir=$home_prefix/nnet
+else
+  nnet_dir=$nnet_exp_dir/nnet # take trained TDNN from a different experiment
+fi
 exp_dir=$home_prefix/exp
 
-# If using existing preprocessed data for computing x-vectors
+# If using existing computed features from another directory.
+# This can save a lot of time because computing features is quite expensive.
 if [ ! -z "$use_dnn_egs_from" ]; then
   home_prefix=$DATADIR/$use_dnn_egs_from
   echo "Using preprocessed data	from: $home_prefix"
@@ -219,32 +233,26 @@ if [ $stage -eq 1 ]; then
     --data-dir=$DATADIR \
     || exit 1;
 
-  # Don't split training data into segments. It will be split anyway when
-  # preparing the training examples for the DNN. Note that the LID X-vector
-  # paper has training segments of 2-4s.
-  #  ./local/split_long_utts.sh \
-  #    --max-utt-len 4 \
-  #    $train_data \
-  #    ${train_data}
-
-  # Split enroll data into segments of < 30s.
-  # TO-DO: Split into segments of various lengths (LID X-vector paper has 3-60s)
-  ./local/split_long_utts.sh \
-    --max-utt-len 30 \
-    $enroll_data \
-    ${enroll_data}
-
-  # Split eval and testing utterances into segments of the same length (3s, 10s, 30s)
-  # TO-DO: Allow for some variation, or do strictly this length?
-  ./local/split_long_utts.sh \
-    --max-utt-len 10 \
-    $eval_data \
-    ${eval_data}
+  if [ "$mode" = full ]; then
+    # Split enroll data into segments of < 30s.
+    # TO-DO: Split into segments of various lengths (LID X-vector paper has 3-60s)
+    ./local/split_long_utts.sh \
+      --max-utt-len 30 \
+      $enroll_data \
+      $enroll_data
+  
+    # Split eval and testing utterances into segments of the same length (3s, 10s, 30s)
+    # TO-DO: Allow for some variation, or do strictly this length?
+    ./local/split_long_utts.sh \
+      --max-utt-len $eval_utt_len \
+      $eval_data \
+      $eval_data
+  fi
 
   ./local/split_long_utts.sh \
-    --max-utt-len 10 \
+    --max-utt-len $eval_utt_len \
     $test_data \
-    ${test_data}
+    $test_data
 
   echo "Finished stage 1."
 
@@ -260,7 +268,17 @@ fi
 if [ $stage -eq 2 ]; then
   echo "#### STAGE 2: features (MFCC, SDC, pitch, energy, etc) and VAD. ####"
 
-  for data_subset in train enroll eval test; do
+  if [ "$mode" = full ]; then
+    if [ "$use_test_set" = true ]; then
+      partitions='train enroll eval test'
+    else
+      partitions='train enroll eval'
+    fi
+  else
+    partitions='test'
+  fi
+
+  for data_subset in $partitions; do
   (         
     if [ "$feature_type" == "mfcc_deltas_pitch_energy" ]; then
       num_speakers=$(cat $mfcc_deltas_dir/${data_subset}/spk2utt | wc -l)
@@ -499,7 +517,7 @@ fi
 
 # Now we prepare the features to generate examples for xvector training.
 # Runtime: ~2 mins
-if [ $stage -eq 3 ]; then
+if [ $stage -eq 3 ] && [ "$mode" = full ]; then
   # NOTE silence not being removed
   echo "#### STAGE 3: Preprocessing for X-vector training examples. ####"
   
@@ -540,7 +558,7 @@ fi
 # NOTE main things we need to work on are the num-repeats and num-jobs parameters
 # Runtime: ~19.5 hours
 # TO-DO: Find out the runtime without using GPUs.
-if [ $stage -eq 4 ]; then
+if [ $stage -eq 4 ] && [ "$mode" = full ]; then
   echo "#### STAGE 4: Training the X-vector DNN. ####"
   if [ ! -z "$use_dnn_egs_from" ]; then
     ./local/run_xvector.sh \
@@ -582,38 +600,42 @@ if [ $stage -eq 7 ]; then
   fi
   remove_nonspeech="$use_vad"
 
-  # X-vectors for training the classifier
-  # ./local/extract_xvectors.sh \
-  #   --cmd "$extract_cmd --mem 6G" \
-  #   --use-gpu $use_gpu \
-  #   --nj $MAXNUMJOBS \
-  #   --stage 0 \
-  #   --remove-nonspeech "$remove_nonspeech" \
-  #   $nnet_dir \
-  #   $enroll_data \
-  #   $exp_dir/xvectors_enroll &
+  if [ "$mode" = full]; then
+    # X-vectors for training the classifier
+    ./local/extract_xvectors.sh \
+      --cmd "$extract_cmd --mem 6G" \
+      --use-gpu $use_gpu \
+      --nj $MAXNUMJOBS \
+      --stage 0 \
+      --remove-nonspeech "$remove_nonspeech" \
+      $nnet_dir \
+      $enroll_data \
+      $exp_dir/xvectors_enroll &
 
-  # # X-vectors for end-to-end evaluation
-  # ./local/extract_xvectors.sh \
-  #   --cmd "$extract_cmd --mem 6G" \
-  #   --use-gpu $use_gpu \
-  #   --nj $MAXNUMJOBS \
-  #   --stage 0 \
-  #   --remove-nonspeech "$remove_nonspeech" \
-  #   $nnet_dir \
-  #   $eval_data \
-  #   $exp_dir/xvectors_eval &
+    # # X-vectors for end-to-end evaluation
+    ./local/extract_xvectors.sh \
+      --cmd "$extract_cmd --mem 6G" \
+      --use-gpu $use_gpu \
+      --nj $MAXNUMJOBS \
+      --stage 0 \
+      --remove-nonspeech "$remove_nonspeech" \
+      $nnet_dir \
+      $eval_data \
+      $exp_dir/xvectors_eval &
+  fi
   
-  # X-vectors for end-to-end testing
-  ./local/extract_xvectors.sh \
-    --cmd "$extract_cmd --mem 6G" \
-    --use-gpu $use_gpu \
-    --nj $MAXNUMJOBS \
-    --stage 0 \
-    --remove-nonspeech "$remove_nonspeech" \
-    $nnet_dir \
-    $test_data \
-    $exp_dir/xvectors_test &
+  if [ "$use_test_set" = true ]; then
+    # X-vectors for end-to-end testing
+    ./local/extract_xvectors.sh \
+      --cmd "$extract_cmd --mem 6G" \
+      --use-gpu $use_gpu \
+      --nj $MAXNUMJOBS \
+      --stage 0 \
+      --remove-nonspeech "$remove_nonspeech" \
+      $nnet_dir \
+      $test_data \
+      $exp_dir/xvectors_test &
+  fi
 
   wait;
 
@@ -640,20 +662,52 @@ if [ $stage -eq 8 ]; then
   done > conf/test_languages.list
 
   mkdir -p $exp_dir/results
-  mkdir -p $exp_dir/classifier
 
-  # Training the log reg model and classifying test set samples
-  ./local/run_logistic_regression.sh \
-    --prior-scale 0.70 \
-    --conf conf/logistic-regression.conf \
-    --train-dir $exp_dir/xvectors_enroll \
-    --test-dir $exp_dir/xvectors_eval \
-    --model-dir $exp_dir/classifier \
-    --classification-file $exp_dir/results/classification \
-    --train-utt2lang $enroll_data/utt2lang \
-    --test-utt2lang $eval_data/utt2lang \
-    --languages conf/test_languages.list \
-    &> $exp_dir/classifier/logistic-regression.log
+  if [ "$mode" = full ]; then
+    echo "Training a classifier..."
+    classifier_dir=$exp_dir/classifier
+  else
+    echo "Taking a trained classifier from the '${nnet_exp_dir}' experiment..."
+    if [ -z ${nnet_exp_dir+x} ]; then
+      echo "The nnet_exp_dir variable has to be set!"
+      exit 1
+    else
+      classifier_dir=$nnet_exp_dir/exp/classifier
+    fi
+  fi
+
+  if [ "$mode" = full ]; then
+    mkdir -p $classifier_dir
+    # Training the log reg model
+    ./local/logistic_regression_train.sh \
+      --prior-scale 0.70 \
+      --conf conf/logistic-regression.conf \
+      --train-dir $exp_dir/xvectors_enroll \
+      --model-dir $classifier_dir \
+      --train-utt2lang $enroll_data/utt2lang \
+      --languages conf/test_languages.list \
+      &> $exp_dir/classifier/logistic-regression-train.log
+      
+    # Classifying eval set samples
+    ./local/logistic_regression_score.sh \
+      --languages conf/test_languages.list \
+      --model-dir $classifier_dir \
+      --test-utt2lang $eval_data/utt2lang \
+      --test-dir $exp_dir/xvectors_eval \
+      --classification-file $exp_dir/results/classification-eval \
+      &> $exp_dir/classifier/logistic-regression-score-eval.log
+  fi
+
+  if [ "$use_test_set" = true ]; then
+    # Classifying test set samples
+    ./local/logistic_regression_eval.sh \
+      --languages conf/test_languages.list \
+      --model-dir $classifier_dir \
+      --test-utt2lang $test_data/utt2lang \
+      --test-dir $exp_dir/xvectors_test \
+      --classification-file $exp_dir/results/classification-test \
+      &> $exp_dir/classifier/logistic-regression-score-test.log
+  fi
 
   echo "Finished stage 8."
 
@@ -667,13 +721,23 @@ fi
 # Runtime: < 10s
 if [ $stage -eq 9 ]; then
   echo "#### STAGE 9: Calculating results. ####"
+  if [ "$mode" = full ]; then
+    ./local/compute_results.py \
+      --classification-file $exp_dir/results/classification-eval \
+      --output-file $exp_dir/results/results-eval \
+      --conf-mtrx-file $exp_dir/results/conf_matrix-eval.csv \
+      --language-list "$GP_LANGUAGES" \
+      &>$exp_dir/results/compute_results-eval.log
+  fi
 
-  ./local/compute_results.py \
-    --classification-file $exp_dir/results/classification \
-    --output-file $exp_dir/results/results \
-    --conf-mtrx-file $exp_dir/results/conf_matrix.csv \
-    --language-list "$GP_LANGUAGES" \
-    &>$exp_dir/results/compute_results.log
-
+  if [ "$use_test_set" = true ]; then
+    ./local/compute_results.py \
+      --classification-file $exp_dir/results/classification-test \
+      --output-file $exp_dir/results/results-test \
+      --conf-mtrx-file $exp_dir/results/conf_matrix-test.csv \
+      --language-list "$GP_LANGUAGES" \
+      &>$exp_dir/results/compute_results-test.log
+  fi
+  
   echo "Finished stage 9."
 fi
