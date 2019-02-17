@@ -170,7 +170,7 @@ vad_file_dir=$DATADIR/$exp_dir_for_vad       # The directory from which to take 
 
 feat_dir=$home_prefix/x_vector_features
 nnet_train_data=$home_prefix/nnet_train_data
-if [ -z ${nnet_exp_dir+x} ]; then
+if [ -z "$nnet_exp_dir" ]; then
   nnet_dir=$home_prefix/nnet
 else
   nnet_dir=$nnet_exp_dir/nnet # take trained TDNN from a different experiment
@@ -600,7 +600,7 @@ if [ $stage -eq 7 ]; then
   fi
   remove_nonspeech="$use_vad"
 
-  if [ "$mode" = full]; then
+  if [ "$mode" = full ]; then
     # X-vectors for training the classifier
     ./local/extract_xvectors.sh \
       --cmd "$extract_cmd --mem 6G" \
@@ -612,7 +612,7 @@ if [ $stage -eq 7 ]; then
       $enroll_data \
       $exp_dir/xvectors_enroll &
 
-    # # X-vectors for end-to-end evaluation
+    # X-vectors for end-to-end evaluation
     ./local/extract_xvectors.sh \
       --cmd "$extract_cmd --mem 6G" \
       --use-gpu $use_gpu \
@@ -673,6 +673,7 @@ if [ $stage -eq 8 ]; then
       exit 1
     else
       classifier_dir=$nnet_exp_dir/exp/classifier
+      mkdir -p $exp_dir/classifier
     fi
   fi
 
@@ -700,7 +701,7 @@ if [ $stage -eq 8 ]; then
 
   if [ "$use_test_set" = true ]; then
     # Classifying test set samples
-    ./local/logistic_regression_eval.sh \
+    ./local/logistic_regression_score.sh \
       --languages conf/test_languages.list \
       --model-dir $classifier_dir \
       --test-utt2lang $test_data/utt2lang \
