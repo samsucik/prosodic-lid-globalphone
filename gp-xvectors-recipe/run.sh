@@ -179,7 +179,7 @@ exp_dir=$home_prefix/exp
 
 # If using existing computed features from another directory.
 # This can save a lot of time because computing features is quite expensive.
-if [ ! -z "$use_dnn_egs_from" ]; then
+if [ ! -z ${use_dnn_egs_from+x} ]; then
   home_prefix=$DATADIR/$use_dnn_egs_from
   echo "Using preprocessed data	from: $home_prefix"
 
