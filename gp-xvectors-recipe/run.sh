@@ -685,7 +685,7 @@ if [ $stage -eq 8 ]; then
       --conf conf/logistic-regression.conf \
       --train-dir $exp_dir/xvectors_enroll \
       --model-dir $classifier_dir \
-      --train-utt2lang $enroll_data/utt2lang \
+      --train-utt2lang $exp_dir/xvectors_enroll/utt2lang \
       --eval-utt2lang $exp_dir/xvectors_eval/utt2lang \
       --languages conf/test_languages.list \
       &> $exp_dir/classifier/logistic-regression-train.log
@@ -694,7 +694,6 @@ if [ $stage -eq 8 ]; then
     ./local/logistic_regression_score.sh \
       --languages conf/test_languages.list \
       --model-dir $classifier_dir \
-      --test-utt2lang $eval_data/utt2lang \
       --test-dir $exp_dir/xvectors_eval \
       --classification-file $exp_dir/results/classification-eval \
       &> $exp_dir/classifier/logistic-regression-score-eval.log
@@ -705,7 +704,6 @@ if [ $stage -eq 8 ]; then
     ./local/logistic_regression_score.sh \
       --languages conf/test_languages.list \
       --model-dir $classifier_dir \
-      --test-utt2lang $test_data/utt2lang \
       --test-dir $exp_dir/xvectors_test \
       --classification-file $exp_dir/results/classification-test \
       &> $exp_dir/classifier/logistic-regression-score-test.log

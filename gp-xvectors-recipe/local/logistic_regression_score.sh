@@ -3,7 +3,6 @@
 model_dir="NONE" # exp/ivectors_train
 languages="NONE" # conf/test_languages.list
 classification_file="NONE" # $train/test_dir/output
-test_utt2lang="NONE" # data/lre07/utt2lang
 test_dir="NONE" # exp/ivectors_lre07
 
 apply_log=true # If true, the output of the binary
