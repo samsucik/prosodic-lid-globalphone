@@ -686,6 +686,7 @@ if [ $stage -eq 8 ]; then
       --train-dir $exp_dir/xvectors_enroll \
       --model-dir $classifier_dir \
       --train-utt2lang $enroll_data/utt2lang \
+      --eval-utt2lang $exp_dir/xvectors_eval/utt2lang \
       --languages conf/test_languages.list \
       &> $exp_dir/classifier/logistic-regression-train.log
       

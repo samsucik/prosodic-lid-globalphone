@@ -15,6 +15,7 @@ conf="NONE" # conf/logistic-regression.conf
 train_dir="NONE" # exp/ivectors_train
 model_dir="NONE" # exp/ivectors_train
 train_utt2lang="NONE" # data/train_lr/utt2lang
+eval_utt2lang="NONE" # data/lre07/utt2lang
 languages="NONE" # conf/test_languages.list
 
 apply_log=true # If true, the output of the binary
@@ -35,7 +36,7 @@ echo "Re-balancing the model using non-uniform priors"
 ./local/balance_priors_to_test.pl \
     <(utils/filter_scp.pl -f 1 \
       $train_dir/xvector.scp $train_utt2lang) \
-    <(cat $test_utt2lang) \
+    <(cat $eval_utt2lang) \
     $languages \
     $prior_scale \
     $model_dir/priors.vec \
