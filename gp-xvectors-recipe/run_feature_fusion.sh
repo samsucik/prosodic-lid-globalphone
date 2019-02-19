@@ -17,12 +17,12 @@ else
   feat1=$1
   feat2=$2
 fi
-log_prefix="\n$0"
+log_prefix="\n$0: "
 
 echo -e "${log_prefix}Doing fusion of ${feat1} and ${feat2}."
 
 GP_LANGUAGES="AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN"
-exp_dir=exp/fusion_${feat1}_${feat2}
+exp_dir=exp/fusion_${feat1}+${feat2}
 classifier_dir=$exp_dir/classifier
 exp_base_dir=~/lid
 
@@ -37,9 +37,9 @@ mkdir -p $exp_dir/results
 mkdir -p $classifier_dir
 
 if [ "$use_test_set" = true ]; then
-  $datasets="enroll eval test"
+  datasets="enroll eval test"
 else
-  $datasets="enroll eval"
+  datasets="enroll eval"
 fi
 
 for dataset in $datasets; do
@@ -60,7 +60,7 @@ for dataset in $datasets; do
 
   copy-vector ark,t:$exp_dir/xvectors_${dataset}/xvector_tmp.ark \
     ark,scp:$exp_dir/xvectors_${dataset}/xvector.ark,$exp_dir/xvectors_${dataset}/xvector.scp
-  ) > $exp_dir/concat_xvectors_${dataset}.log
+  ) &> $exp_dir/concat_xvectors_${dataset}.log
 done
 
 
@@ -85,9 +85,9 @@ echo -e "${log_prefix} Training the log reg model..."
 
 
 if [ "$use_test_set" = true ]; then
-  $datasets="eval test"
+  datasets="eval test"
 else
-  $datasets="eval"
+  datasets="eval"
 fi
 
 for dataset in $datasets; do
@@ -106,4 +106,4 @@ for dataset in $datasets; do
     --conf-mtrx-file $exp_dir/results/conf_matrix-${dataset}.csv \
     --language-list "$GP_LANGUAGES" \
     &>$exp_dir/results/compute_results-${dataset}.log
-fi
+done
