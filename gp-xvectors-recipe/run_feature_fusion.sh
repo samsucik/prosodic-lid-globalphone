@@ -69,7 +69,7 @@ i=0
 for l in "${langs[@]}"; do
   echo $l $i
   i=$(expr $i + 1)
-done > conf/test_languages.list
+done > $exp_dir/test_languages.list
 
 echo -e "${log_prefix} Training the log reg model..."
 ./local/logistic_regression_train.sh \
@@ -79,7 +79,7 @@ echo -e "${log_prefix} Training the log reg model..."
   --model-dir $classifier_dir \
   --train-utt2lang $exp_dir/xvectors_enroll/utt2lang \
   --eval-utt2lang $exp_dir/xvectors_eval/utt2lang \
-  --languages conf/test_languages.list \
+  --languages $exp_dir/test_languages.list \
   &> $exp_dir/classifier/logistic-regression-train.log
 
 
@@ -93,7 +93,7 @@ fi
 for dataset in $datasets; do
   echo -e "${log_prefix}Scoring eval set samples..."
   ./local/logistic_regression_score.sh \
-    --languages conf/test_languages.list \
+    --languages $exp_dir/test_languages.list \
     --model-dir $classifier_dir \
     --test-dir $exp_dir/xvectors_${dataset} \
     --classification-file $exp_dir/results/classification-${dataset} \
