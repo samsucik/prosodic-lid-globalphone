@@ -60,6 +60,12 @@ feat1_dir=$exp_base_dir/$feat1
 feat2_dir=$exp_base_dir/$feat2
 feat3_dir=$exp_base_dir/$feat3
 
+if [ "$test_3s" = true ]; then
+  feat1_dir=${feat1_dir}-3s
+  feat2_dir=${feat2_dir}-3s
+  feat3_dir=${feat3_dir}-3s
+fi
+
 mkdir -p exp
 mkdir -p $exp_dir
 mkdir -p $exp_dir/results
