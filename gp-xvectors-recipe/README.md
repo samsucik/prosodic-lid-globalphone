@@ -20,7 +20,7 @@ pushd ~/lid
 backup_dir=/afs/inf.ed.ac.uk/user/s15/s1513472/lid-backup
 for d in ./*; do
   echo "Backing up $d ..."
-  rm -rf $backup_dir/$d
+  # rm -rf $backup_dir/$d
   mkdir -p $backup_dir/$d
 
   rsync -av --exclude='q/' --exclude='*.log' --exclude='.backup/' --exclude='log/' \
@@ -35,21 +35,23 @@ done
 results_dir=~/language-ident-from-speech/gp-xvectors-recipe/results
 pushd ~/lid
 for d in *; do
-  cp $d/exp/results/conf_matrix-eval.csv $results_dir/${d}_conf_matrix-eval.csv
-  cp $d/exp/results/conf_matrix-test.csv $results_dir/${d}_conf_matrix-test.csv
+  echo $d
+  rsync --no-R --no-implied-dirs $d/exp/results/conf_matrix-eval.csv $results_dir/${d}_conf_matrix-eval.csv
+  rsync --no-R --no-implied-dirs $d/exp/results/conf_matrix-test.csv $results_dir/${d}_conf_matrix-test.csv
 
-  cp $d/exp/results/results-eval $results_dir/${d}_results-eval
-  cp $d/exp/results/results-test $results_dir/${d}_results-test
+  rsync --no-R --no-implied-dirs $d/exp/results/results-eval $results_dir/${d}_results-eval
+  rsync --no-R --no-implied-dirs $d/exp/results/results-test $results_dir/${d}_results-test
 
-  cp $d/nnet/accuracy.output.report $results_dir/${d}_accuracy.output.report
+  rsync --no-R --no-implied-dirs $d/nnet/accuracy.output.report $results_dir/${d}_accuracy.output.report
 done
 
 pushd ~/language-ident-from-speech/gp-xvectors-recipe/exp
 for d in *; do
-  cp $d/results/conf_matrix-eval.csv $results_dir/${d}_conf_matrix-eval.csv
-  cp $d/results/conf_matrix-test.csv $results_dir/${d}_conf_matrix-test.csv
+  rsync --no-R --no-implied-dirs $d/results/conf_matrix-eval.csv $results_dir/${d}_conf_matrix-eval.csv
+  rsync --no-R --no-implied-dirs $d/results/conf_matrix-test.csv $results_dir/${d}_conf_matrix-test.csv
 
-  cp $d/results/results-eval $results_dir/${d}_results-eval
-  cp $d/results/results-test $results_dir/${d}_results-test
+  rsync --no-R --no-implied-dirs $d/results/results-eval $results_dir/${d}_results-eval
+  rsync --no-R --no-implied-dirs $d/results/results-test $results_dir/${d}_results-test
 done
+popd; popd
 ```
