@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+# Copyright 2019 Sam Sucik and Paul Moore
+# 
+# Apache 2.0
+
 """
 A very simple error calculator.
 Takes the scores file as input, prints the error rate for each language.

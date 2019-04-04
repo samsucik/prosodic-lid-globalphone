@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# Adapted from wsj/steps/make_mfcc.sh
-# Author: Sam Sucik
+# Adapted from steps/make_mfcc.sh by Sam Sucik
+# Copyright 2019 Sam Sucik
+# 
+# Apache 2.0
 
 # Begin configuration section.
 nj=4

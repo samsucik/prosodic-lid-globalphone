@@ -1,4 +1,7 @@
 #!/usr/bin/env perl
+#
+# From egs/lre07/v1/lid/balance_priors_to_test.pl
+#
 use warnings; #sed replacement for -w perl parameter
 # Copyright 2014 David Snyder
 # Apache 2.0.

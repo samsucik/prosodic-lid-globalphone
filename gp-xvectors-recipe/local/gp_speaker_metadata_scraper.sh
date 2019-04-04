@@ -1,5 +1,9 @@
 #!/bin/bash -u
 
+# Copyright 2019 Sam Sucik
+# 
+# Apache 2.0
+
 PROG=`basename $0`;
 usage="Usage: $PROG <arguments>\n
 Scrape the information on articles read by every speaker and save it in the output directory.\n

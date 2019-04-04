@@ -1,6 +1,9 @@
 #!/bin/bash
-#
-# Apache 2.0.
+
+# Adapted from sre16/v1/local/nnet3/xvector/prepare_feats_for_egs.sh by Sam Sucik
+# Copyright 2019 Sam Sucik
+# 
+# Apache 2.0
 
 # This script applies sliding window cmvn and removes silence frames.  This
 # is performed on the raw features prior to generating examples for training

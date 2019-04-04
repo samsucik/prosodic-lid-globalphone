@@ -1,5 +1,9 @@
 #!/bin/bash -u
 
+# Copyright 2019 Paul Moore
+# 
+# Apache 2.0
+
 # Use to investigae values for logistic regression.
 # Stores results in expname/results
 

@@ -1,5 +1,10 @@
 #!/bin/bash -u
 
+# Copyright 2019 Sam Sucik
+# 
+# Apache 2.0
+
+
 # Copies samples (N speakers per language) from /group/corpora/public/...
 # to specified directory. Skips languages Chinese-Shanghai, Tamil and Hausa
 # because the file structure of these is not the standard one (as for other

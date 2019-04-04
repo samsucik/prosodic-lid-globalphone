@@ -1,7 +1,11 @@
 #!/bin/bash
+#
+# Adapted from sre16/v1/local/nnet3/xvector/run_xvector.sh by Sam Sucik and Paul Moore
+#
 # Copyright      2017   David Snyder
 #                2017   Johns Hopkins University (Author: Daniel Garcia-Romero)
 #                2017   Johns Hopkins University (Author: Daniel Povey)
+#                2019   Sam Sucik and Paul Moore
 # Apache 2.0.
 
 # This script trains a DNN similar to the recipe described in

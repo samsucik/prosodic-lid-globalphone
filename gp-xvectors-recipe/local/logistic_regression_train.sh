@@ -1,9 +1,9 @@
 #!/bin/bash
-# Copyright  2014   David Snyder,  Daniel Povey
-# Apache 2.0.
-#
-# This script trains a logistic regression model on top of
-# X-vectors, and evaluates it on given set of test X-vectors.
+
+# Adapted from egs/lre07/v1/lid/run_logistic_regression.sh by Sam Sucik
+# Copyright 2019 Sam Sucik
+# 
+# Apache 2.0
 
 . ./cmd.sh
 . ./path.sh

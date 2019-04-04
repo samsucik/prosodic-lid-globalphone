@@ -1,7 +1,9 @@
 #!/bin/bash -u
 
-# Forked from egs/gp/s5/cmd.sh
-# Author: Sam Sucik
+# Adapted from egs/gp/s5/cmd.sh by Sam Sucik
+# Copyright 2019 Sam Sucik
+# 
+# Apache 2.0
 
 source ./helper_functions.sh
 

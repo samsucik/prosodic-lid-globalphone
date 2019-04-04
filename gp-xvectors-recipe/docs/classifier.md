@@ -1,5 +1,5 @@
 # Logit classifier
-*Notes by Sam.*
+*Notes by Sam Sucik.*
 
 The logistic regression in Kaldi is rather peculiar, definitely not the vanilla logit one would imagine.
 

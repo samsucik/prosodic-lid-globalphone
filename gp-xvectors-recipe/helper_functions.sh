@@ -1,5 +1,9 @@
 #!/bin/bash -u
 
+# Copyright 2019 Sam Sucik
+# 
+# Apache 2.0
+
 whichMachine() {
 	if [[ `echo ~` = "/home/samo" ]]; then
 		echo "sam"

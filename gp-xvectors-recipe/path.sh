@@ -1,5 +1,10 @@
 #!/bin/bash -u
 
+# Adapted from egs/gp/s5/path.sh by Sam Sucik and Paul Moore
+# Copyright 2019 Sam Sucik and Paul Moore
+# 
+# Apache 2.0
+
 # This contains the locations of the tools and data required for running
 # the GlobalPhone experiments.
 

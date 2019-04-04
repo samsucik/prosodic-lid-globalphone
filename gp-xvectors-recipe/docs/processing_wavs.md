@@ -1,4 +1,5 @@
 # Working with SHN and WAV files
+*Notes by Sam Sucik.*
 
 ## Turning SHNs into WAVs
 Run the first stage of `run.sh` like so:

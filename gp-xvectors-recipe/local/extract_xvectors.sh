@@ -3,6 +3,7 @@
 # Copyright     2017  David Snyder
 #               2017  Johns Hopkins University (Author: Daniel Povey)
 #               2017  Johns Hopkins University (Author: Daniel Garcia Romero)
+#               2019  Sam Sucik and Paul Moore
 # Apache 2.0.
 
 # This script extracts embeddings (called "xvectors" here) from a set of

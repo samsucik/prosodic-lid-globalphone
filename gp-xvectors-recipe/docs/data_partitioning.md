@@ -1,4 +1,5 @@
 # Partitioning the data
+*Notes by Sam Sucik.*
 
 ## Datasets we're after
 In essence, Global Phone comes with three datasets (train, dev, eval), but we need 4 separate datasets:

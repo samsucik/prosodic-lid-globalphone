@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# From egs/sre08/v1/sid/nnet3/xvector/allocate_egs.py
+
 # Copyright      2017 Johns Hopkins University (Author: Daniel Povey)
 #                2017 Johns Hopkins University (Author: Daniel Garcia-Romero)
 #                2017 David Snyder

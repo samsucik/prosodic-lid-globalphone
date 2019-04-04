@@ -1,5 +1,9 @@
 #!/bin/bash -u
 
+# Copyright 2019 Sam Sucik
+# 
+# Apache 2.0
+
 source path.sh
 
 f=LDC93S6A

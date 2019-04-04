@@ -1,5 +1,10 @@
 #!/bin/bash -u
 
+# Adapted from egs/lre07/v1/lid/run_logistic_regression.sh by Sam Sucik
+# Copyright 2019 Sam Sucik
+# 
+# Apache 2.0
+
 model_dir="NONE" # exp/ivectors_train
 languages="NONE" # conf/test_languages.list
 classification_file="NONE" # $train/test_dir/output

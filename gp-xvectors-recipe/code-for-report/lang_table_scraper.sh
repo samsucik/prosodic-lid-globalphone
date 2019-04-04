@@ -1,5 +1,9 @@
 #!/bin/bash -u
 
+# Copyright 2019 Sam Sucik
+# 
+# Apache 2.0
+
 # Scrapes the speaker list from each partition 
 # and compiles a LaTeX table summarising them.
 # Run from inside the conf/ directory of the project.

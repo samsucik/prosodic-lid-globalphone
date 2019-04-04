@@ -1,5 +1,9 @@
 #!/bin/bash -u
 
+# Copyright 2019 Sam Sucik
+# 
+# Apache 2.0
+
 partition=$1
 echo "Calculating data amounts for the $partition set."
 utt2len_file=mfcc/${partition}/utt2len

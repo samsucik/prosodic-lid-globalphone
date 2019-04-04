@@ -1,5 +1,7 @@
 #!/bin/bash 
 
+# From steps/compute_vad_decision.sh
+
 # Copyright    2013  Daniel Povey
 # Apache 2.0
 # To be run from .. (one directory up from here)

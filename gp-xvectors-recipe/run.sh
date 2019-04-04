@@ -1,32 +1,8 @@
 #!/bin/bash -u
 
-# Copyright 2012  Arnab Ghoshal
-#
-# Copyright 2016 by Idiap Research Institute, http://www.idiap.ch
-#
-# Copyright 2018/2019 by Sam Sucik and Paul Moore
-#
-# See the file COPYING for the licence associated with this software.
-#
-# Author(s):
-#   Bogdan Vlasenko, February 2016
-#   Sam Sucik and Paul Moore, 2018/2019
-#
-
-
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#  http://www.apache.org/licenses/LICENSE-2.0
-#
-# THIS CODE IS PROVIDED *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-# KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-# WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-# MERCHANTABLITY OR NON-INFRINGEMENT.
-# See the Apache 2 License for the specific language governing permissions and
-# limitations under the License.
-
+# Copyright 2019 Sam Sucik and Paul Moore
+# 
+# Apache 2.0
 
 usage="+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n
 \t       This shell script runs the GlobalPhone+X-vectors recipe.\n

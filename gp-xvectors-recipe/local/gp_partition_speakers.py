@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+# Copyright 2019 Sam Sucik
+# 
+# Apache 2.0
+
 import re
 from math import floor, ceil
 import random

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# From egs/gp/s5/local/gp_install.sh
+
 # Copyright 2012  Arnab Ghoshal
 
 # Licensed under the Apache License, Version 2.0 (the "License");

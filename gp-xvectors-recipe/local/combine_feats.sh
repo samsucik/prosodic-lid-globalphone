@@ -1,6 +1,9 @@
 #!/bin/bash
 
-# Note: This file is based on make_mfcc_pitch.sh
+# Adapted from steps/make_mfcc_pitch.sh by Sam Sucik
+# Copyright 2019 Sam Sucik
+# 
+# Apache 2.0
 
 # Begin configuration section.
 nj=1

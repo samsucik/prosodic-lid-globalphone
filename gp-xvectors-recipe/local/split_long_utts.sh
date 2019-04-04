@@ -1,7 +1,9 @@
 #!/bin/bash -u
 
 # Adapted from egs/lre07/v2/local/split_long_utts.sh
-# by Sam Sucik
+# Copyright 2019 Sam Sucik
+# 
+# Apache 2.0
 
 max_utt_len=60 # 60 seconds.
 stage=1

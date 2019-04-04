@@ -1,5 +1,10 @@
 #!/usr/bin/env perl
 
+# Adapted from utils/utt2spk_to_spk2utt.pl by Paul Moore
+# Copyright 2019 Paul Moore
+# 
+# Apache 2.0
+
 # The same as the utt2spk_to_spk2utt.pl script, just changed name for clarity
 # converts an utt2lang file to a spk2lang file.
 # Takes input from the stdin or from a file argument;
