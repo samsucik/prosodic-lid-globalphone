@@ -15,26 +15,15 @@ usage="+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \t       \t\t\tDefault: 'baseline'.\n
 \t       --exp-config=FILE\tConfig file with all kinds of options,\n
 \t       \t\t\tsee conf/exp_default.conf for an example.\n
-\t       \t\t\tNOTE: Where arguments are passed on the command line,\n
-\t       \t\t\tthe values overwrite those found in the config file.\n\n
+\t       \t\t\tNOTE: Where any of the run_all, stage, exp_name, \n
+\t       \t\t\targuments are passed on the command line,\n
+\t       \t\t\tthe values overwrite those from the config file.\n\n
 \t       If no stage number is provided, either all stages\n
 \t       will be run (--run-all=true) or no stages at all.\n
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
-# Default option values (see example exp config for explanation)
-exp_name="baseline"
-stage=-1
-run_all=false
-exp_config=NONE
-num_epochs=3
-feature_type=mfcc
-use_vad=true
-recompute_vad=false
-mode=full
-nnet_exp_dir=
-eval_utt_len=10
-exp_dir_for_vad=mfcc
-use_test_set=false
+# Get default option values from the default config if no config is specified.
+exp_config=conf/exp_default.conf
 
 while [ $# -gt 0 ];
 do
@@ -53,16 +42,17 @@ do
 done
 echo -e $usage
 
-if [ ! "$exp_config" == "NONE" ] && [ ! -f $exp_config ]; then
-  echo "Configuration file '${exp_config}' not found for this experiment."
+if [ ! -f $exp_config ]; then
+  echo -e "Config file for this experiment ('${exp_config}') not found. Trying to use the default 
+  config from conf/exp_default.conf."
   exit 1;
 fi
 
-# Source some variables from the experiment-specific config file
+# Source experiment options from the experiment-specific config file
 source $exp_config || echo "Problems sourcing the experiment config file: $exp_config"
 
-# Use arguments passed to this script on the command line 
-# to overwrite the values sourced from the experiment-specific config.
+# Use options passed to this script on the command line to overwrite the values sourced from the 
+# experiment config file.
 command_line_options="run_all stage exp_name"
 for cl_opt in $command_line_options; do
   var="${cl_opt}_cl"
