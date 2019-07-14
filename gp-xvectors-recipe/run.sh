@@ -49,7 +49,7 @@ if [ ! -f $exp_config ]; then
 fi
 
 # Source experiment options from the experiment-specific config file
-source $exp_config || echo "Problems sourcing the experiment config file: $exp_config"
+source $exp_config || {echo "Problems sourcing the experiment config file: ${exp_config}"; exit 1;}
 
 # Use options passed to this script on the command line to overwrite the values sourced from the 
 # experiment config file.
@@ -63,20 +63,20 @@ for cl_opt in $command_line_options; do
   fi
 done
 
-echo "Running experiment: '$exp_name'"
+echo "Running experiment: '${exp_name}'..."
 
 if [ $stage -eq -1 ]; then
-  if [ "$run_all" = true ]; then
+  if [ "${run_all}" = true ]; then
     echo "No stage specified and --run-all=true, running all stages."
     stage=0
   else
     echo "No stage specified and --run-all=false, not running any stages."
   fi
 else
-  if [ "$run_all" = true ]; then
-    echo "Running all stages starting with $stage."
+  if [ "${run_all}" = true ]; then
+    echo "Running all stages starting with stage ${stage}."
   else
-    echo "Running only stage $stage."
+    echo "Running only stage ${stage}."
   fi
 fi
 
@@ -87,98 +87,106 @@ fi
   || echo "conf/general_config.sh not found or contains errors!"
 
 [ -f conf/user_specific_config.sh ] && source ./conf/user_specific_config.sh \
-  || echo "conf/user_specific_config.sh not found, create it by cloning " + \
-          "conf/user_specific_config-example.sh"
+  || echo -e "conf/user_specific_config.sh not found, create it by cloning conf/user_specific_config-example.sh"
 
 [ -f cmd.sh ] && source ./cmd.sh || echo "cmd.sh not found. Jobs may not execute properly."
 
-# CHECKING FOR AND INSTALLING REQUIRED TOOLS:
-#  This recipe requires shorten (3.6.1) and sox (14.3.2).
-#  If they are not found, the local/gp_install.sh script will install them.
+# Checking for existing installations/installing required tools. This recipe requires shorten (3.6.1)
+# and sox (14.3.2). If they are not found, the local/gp_install.sh script will try install them.
 ./local/gp_check_tools.sh $PWD path.sh || exit 1;
 
 . ./path.sh || { echo "Cannot source path.sh"; exit 1; }
 
-if [ "$mode" = test_only ]; then
+if [ "${mode}" = test_only ]; then
   use_test_set=true
 fi
 
-home_prefix=$DATADIR/$exp_name
-train_data=$home_prefix/train
-enroll_data=$home_prefix/enroll
-eval_data=$home_prefix/eval
-test_data=$home_prefix/test
-log_dir=$home_prefix/log
+home_prefix="$DATADIR/$exp_name"
+train_data="$home_prefix/train"
+enroll_data="$home_prefix/enroll"
+eval_data="$home_prefix/eval"
+test_data="$home_prefix/test"
+log_dir="$home_prefix/log"
 
-# Only if not specified this in the config
+# If not specified in the experiment config file, all feature types will be taken from 
+# the current experiment.
 if [ -z ${mfcc_dir+x} ]; then
-  mfcc_dir=$home_prefix/mfcc                 # vanilla MFCC
+  mfcc_dir="$home_prefix/mfcc"                 # vanilla MFCC
 fi
 if [ -z ${sdc_dir+x} ]; then
-  sdc_dir=$home_prefix/mfcc_sdc              # SDC
+  sdc_dir="$home_prefix/mfcc_sdc"              # SDC
 fi
 if [ -z ${mfcc_deltas_dir+x} ]; then
-  mfcc_deltas_dir=$home_prefix/mfcc_deltas   # MFCC+deltas
+  mfcc_deltas_dir="$home_prefix/mfcc_deltas"   # MFCC+deltas
 fi
 if [ -z ${pitch_energy_dir+x} ]; then
-  pitch_energy_dir=$home_prefix/pitch_energy # Kaldi pitch + energy
+  pitch_energy_dir="$home_prefix/pitch_energy" # Kaldi pitch + energy
 fi
 if [ -z ${pitch_dir+x} ]; then
-  pitch_dir=$home_prefix/pitch               # Kaldi pitch
+  pitch_dir="$home_prefix/pitch"               # Kaldi pitch
 fi
 if [ -z ${energy_dir+x} ]; then
-  energy_dir=$home_prefix/energy             # Raw energy
+  energy_dir="$home_prefix/energy"             # (Raw) energy
 fi
-mfcc_sdc_dir=$home_prefix/mfcc_sdc           # MFCC for SDC (9D)
-vaddir=$home_prefix/vad                      # any feature type ultimately run through VAD
-vad_file_dir=$DATADIR/$exp_dir_for_vad       # The directory from which to take vad.scp (so 
-                                             # the same VAD filtering can be done on any features)
 
-feat_dir=$home_prefix/x_vector_features
-nnet_train_data=$home_prefix/nnet_train_data
-if [ -z "$nnet_exp_dir" ]; then
-  nnet_dir=$home_prefix/nnet
+mfcc_sdc_dir="$home_prefix/mfcc_sdc"           # MFCC for SDC computation
+vaddir="$home_prefix/vad"                      # Directory for storing computed features with VAD
+                                               # applied to them.
+vad_file_dir="$DATADIR/$exp_dir_for_vad"       # Directory from which to take vad.scp (so that the 
+                                               # same VAD filtering can be done on any features).
+
+feat_dir="$home_prefix/x_vector_features"      # Directory where computed features with CMVN and VAD
+                                               # applied will be stored (ready to be processed into 
+                                               # examples fed into the X-vector TDNN).
+nnet_train_data="$home_prefix/nnet_train_data" # Directory where the actual training data for the
+                                               # X-vector TDNN will be stored.
+
+# Set directory where the trained X-vector TDNN will be stored.
+if [ -z "${nnet_exp_dir}" ]; then
+  nnet_dir="$home_prefix/nnet"
 else
-  nnet_dir=$nnet_exp_dir/nnet # take trained TDNN from a different experiment
+  nnet_dir="$nnet_exp_dir/nnet" # take trained TDNN from a different experiment
 fi
-exp_dir=$home_prefix/exp
 
-# If using existing computed features from another directory.
-# This can save a lot of time because computing features is quite expensive.
+exp_dir="$home_prefix/exp"
+
+# If using existing computed features from another experiment (perhaps to save time by not 
+# re-computing those), set the paths slightly differently:
 if [ ! -z ${use_dnn_egs_from+x} ]; then
-  home_prefix=$DATADIR/$use_dnn_egs_from
-  echo "Using preprocessed data	from: $home_prefix"
+  home_prefix="$DATADIR/$use_dnn_egs_from"
+  echo "Using preprocessed data	from: '${home_prefix}'"
 
   if [ ! -d $home_prefix ]; then
-    echo "ERROR: directory containging preprocessed data not found: '$home_prefix'"
+    echo "ERROR: directory containging preprocessed data not found: '${home_prefix}'"
     exit 1
   fi
 
-  train_data=$home_prefix/train
-  enroll_data=$home_prefix/enroll
-  eval_data=$home_prefix/eval
-  test_data=$home_prefix/test
-  nnet_train_data=$home_prefix/nnet_train_data
-  preprocessed_data_dir=$DATADIR/$use_dnn_egs_from
+  train_data="$home_prefix/train"
+  enroll_data="$home_prefix/enroll"
+  eval_data="$home_prefix/eval"
+  test_data="$home_prefix/test"
+  nnet_train_data="$home_prefix/nnet_train_data"
+  preprocessed_data_dir="$DATADIR/$use_dnn_egs_from"
 fi
 
+# Create the experiment directory
 DATADIR="${DATADIR}/$exp_name"
-mkdir -p $DATADIR
-mkdir -p $DATADIR/log
-echo "The experiment directory is: $DATADIR"
+mkdir -p "${DATADIR}"
+mkdir -p "${DATADIR}/log"
+echo "The experiment directory is: '${DATADIR}'"
 
-# Set the languages that will actually be processed
+# Choose the languages that will actually be processed
 GP_LANGUAGES="AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN"
-echo "Running with languages: ${GP_LANGUAGES}"
+echo "Running with languages: ${GP_LANGUAGES}."
 
-# The most time-consuming stage: Converting SHNs to WAVs. Should be done only once;
-# then, this script can be run from stage 0 onwards.
+# The most time-consuming stage: Converting SHNs to WAVs. Should be done only once; then, this 
+# script can be run from stage 1 onwards.
 if [ $stage -eq 42 ]; then
   echo "#### SPECIAL STAGE 42: Converting all SHN files to WAV files. ####"
   ./local/make_wavs.sh \
-    --corpus-dir=$GP_CORPUS \
-    --wav-dir=$HOME/lid/wav \
-    --lang-map=$PWD/conf/lang_codes.txt \
+    --corpus-dir="$GP_CORPUS" \
+    --wav-dir="$HOME/lid/wav" \
+    --lang-map="$PWD/conf/lang_codes.txt" \
     --languages="$GP_LANGUAGES"
 
   echo "Finished stage 42."
