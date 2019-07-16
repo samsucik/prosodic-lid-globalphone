@@ -23,8 +23,10 @@ usage="Usage: $PROG <arguments>\n
 Prepare train, enroll, eval and test file lists for a language.\n
 e.g.: $PROG --config-dir=conf --corpus-dir=corpus --languages=\"GE PO SP\"\n\n
 Required arguments:\n
-  --config-dir=DIR\tDirecory containing the necessary config files\n
-  --corpus-dir=DIR\tDirectory for the GlobalPhone corpus\n
+  --wav-dir=DIR\tDirectory containing the raw WAV files to be used\n
+  --data-dir=DIR\tDirectory in which the data partition subdirectories will be created, containing \n
+    the various list files \n
+  --config-dir=DIR\tDirectory containing the necessary config files\n
   --languages=STR\tSpace separated list of two letter language codes\n
 ";
 
@@ -38,8 +40,6 @@ do
   --help) echo -e $usage; exit 0 ;;
   --config-dir=*)
   CONFDIR=`read_dirname $1`; shift ;;
-  --corpus-dir=*)
-  GPDIR=`read_dirname $1`; shift ;;
   --languages=*)
   LANGUAGES=`expr "X$1" : '[^=]*=\(.*\)'`; shift ;;
   --data-dir=*)
@@ -81,11 +81,6 @@ done
 
 tmpdir=$(mktemp -d /tmp/kaldi.XXXX);
 trap 'rm -rf "$tmpdir"' EXIT
-
-# Create directories to contain files needed in training and testing:
-echo "datadir is: $datadir"
-
-# bad_utts=(PO003_61 PO022_176 PO058_18 PO058_16 PO036_27 PO031_52 PO031_36 PO026_21 PO024_74 PO022_168 PO021_172 PO017_160 PO014_125)
 
 for L in $LANGUAGES; do
   (

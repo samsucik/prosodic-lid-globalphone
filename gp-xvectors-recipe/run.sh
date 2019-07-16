@@ -22,6 +22,11 @@ usage="+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \t       will be run (--run-all=true) or no stages at all.\n
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
+
+####################################################################################################
+## Setting configurable experiment options from configs and from the command line
+####################################################################################################
+
 # Get default option values from the default config if no config is specified.
 exp_config=conf/exp_default.conf
 
@@ -64,6 +69,7 @@ for cl_opt in $command_line_options; do
 done
 
 echo "Running experiment: '${exp_name}'..."
+echo "Using languages: ${GP_LANGUAGES}."
 
 if [ $stage -eq -1 ]; then
   if [ "${run_all}" = true ]; then
@@ -175,36 +181,40 @@ mkdir -p "${DATADIR}"
 mkdir -p "${DATADIR}/log"
 echo "The experiment directory is: '${DATADIR}'"
 
-# Choose the languages that will actually be processed
-GP_LANGUAGES="AR BG CH CR CZ FR GE JA KO PL PO RU SP SW TA TH TU WU VN"
-echo "Running with languages: ${GP_LANGUAGES}."
 
-# The most time-consuming stage: Converting SHNs to WAVs. Should be done only once; then, this 
-# script can be run from stage 1 onwards.
+####################################################################################################
+## Running the stages of an experiment
+####################################################################################################
+
+# The most time-consuming stage: Converting SHNs to WAVs. Should be done only once, not separately
+# for each experiment. Then, all experiments can skip this stage and start from stage 1 instead.
+# For each language, WAV files as well as spk, wav.scp, spk2utt, utt2spk, and utt2len lists are 
+# created.
+# Runtime: TODO
 if [ $stage -eq 42 ]; then
   echo "#### SPECIAL STAGE 42: Converting all SHN files to WAV files. ####"
   ./local/make_wavs.sh \
     --corpus-dir="$GP_CORPUS" \
-    --wav-dir="$HOME/lid/wav" \
+    --wav-dir="$wav_dir" \
     --lang-map="$PWD/conf/lang_codes.txt" \
     --languages="$GP_LANGUAGES"
 
   echo "Finished stage 42."
 fi
 
-# Preparing lists of utterances (and a couple other auxiliary lists) based
-# on the train/enroll/eval/test splitting. The lists refer to the WAVs
-# generated in the previous stage.
+# Preparing lists of utterances (+ some other auxiliary lists) based on the train/enroll/eval/test 
+# splitting. The lists point to the WAV files generated in the previous stage.
+# The lists created (separately for each data partition) are: wav.scp, spk2utt, utt2spk, utt2len,
+# utt2lang, lang2utt.
+#
 # Runtime: Under 2 mins
 if [ $stage -eq 1 ]; then
-  # NOTE: The wav-dir as it is right now only works in the cluster!
   echo "#### STAGE 1: Organising speakers into sets. ####"
   ./local/gp_data_organise.sh \
-    --config-dir=$PWD/conf \
-    --corpus-dir=$GP_CORPUS \
-    --wav-dir=/mnt/mscteach_home/s1513472/lid/wav \
+    --config-dir="$PWD/conf" \
+    --wav-dir="$wav_dir" \
     --languages="$GP_LANGUAGES" \
-    --data-dir=$DATADIR \
+    --data-dir="$DATADIR" \
     || exit 1;
 
   if [ "$mode" = full ]; then
@@ -212,21 +222,21 @@ if [ $stage -eq 1 ]; then
     # TO-DO: Split into segments of various lengths (LID X-vector paper has 3-60s)
     ./local/split_long_utts.sh \
       --max-utt-len 30 \
-      $enroll_data \
-      $enroll_data
+      "$enroll_data" \
+      "$enroll_data"
   
-    # Split eval and testing utterances into segments of the same length (3s, 10s, 30s)
+    # Split eval and testing utterances into segments of the same length (e.g. 3s, 10s, 30s)
     # TO-DO: Allow for some variation, or do strictly this length?
     ./local/split_long_utts.sh \
-      --max-utt-len $eval_utt_len \
-      $eval_data \
-      $eval_data
+      --max-utt-len "$eval_utt_len" \
+      "$eval_data" \
+      "$eval_data"
   fi
 
   ./local/split_long_utts.sh \
-    --max-utt-len $eval_utt_len \
-    $test_data \
-    $test_data
+    --max-utt-len "$eval_utt_len" \
+    "$test_data" \
+    "$test_data"
 
   echo "Finished stage 1."
 
@@ -237,11 +247,13 @@ if [ $stage -eq 1 ]; then
   fi
 fi
 
-# Make features and compute the energy-based VAD for each dataset
+# Compute features from WAVs and the energy-based VAD for each data partition.
 # Runtime: variable
+# TODO: Replace conf/ by a configurable confdir name?
 if [ $stage -eq 2 ]; then
   echo "#### STAGE 2: features (MFCC, SDC, pitch, energy, etc) and VAD. ####"
 
+  # determine which data partitions to handle
   if [ "$mode" = full ]; then
     if [ "$use_test_set" = true ]; then
       partitions='train enroll eval test'
@@ -254,16 +266,12 @@ if [ $stage -eq 2 ]; then
 
   for data_subset in $partitions; do
   (         
-    if [ "$feature_type" == "mfcc_deltas_pitch_energy" ]; then
-      num_speakers=$(cat $mfcc_deltas_dir/${data_subset}/spk2utt | wc -l)
-    else
-      num_speakers=$(cat $DATADIR/${data_subset}/spk2utt | wc -l)
-    fi    
-
+    num_speakers=$(cat $DATADIR/${data_subset}/spk2utt | wc -l)
+    
     if [ "$num_speakers" -gt "$MAXNUMJOBS" ]; then
-      num_jobs=$MAXNUMJOBS
+      num_jobs="$MAXNUMJOBS"
     else
-      num_jobs=$num_speakers
+      num_jobs="$num_speakers"
     fi
 
     # Runtime: ~12 mins
@@ -272,61 +280,61 @@ if [ $stage -eq 2 ]; then
       steps/make_mfcc.sh \
         --write-utt2num-frames false \
         --mfcc-config conf/mfcc.conf \
-        --nj $num_jobs \
+        --nj "$num_jobs" \
         --cmd "$preprocess_cmd" \
         --compress true \
-        $DATADIR/${data_subset} \
-        $log_dir/make_mfcc \
-        $mfcc_dir
+        "$DATADIR/${data_subset}" \
+        "$log_dir/make_mfcc" \
+        "$mfcc_dir"
+
     # Runtime: > 12 minutes
     elif [ "$feature_type" == "mfcc_deltas" ]; then
       echo "Creating 23D MFCC features for MFCC-delta features."
       steps/make_mfcc.sh \
         --write-utt2num-frames false \
         --mfcc-config conf/mfcc.conf \
-        --nj $num_jobs \
+        --nj "$num_jobs" \
         --cmd "$preprocess_cmd" \
         --compress true \
-        $DATADIR/${data_subset} \
-        $log_dir/make_mfcc \
-        $mfcc_deltas_dir
-
-      utils/fix_data_dir.sh $DATADIR/${data_subset}
+        "$DATADIR/${data_subset}" \
+        "$log_dir/make_mfcc" \
+        "$mfcc_deltas_dir"
+      utils/fix_data_dir.sh "$DATADIR/${data_subset}"
       echo "Creating 69D MFCC-delta features on top of 23D MFCC features."
       ./local/make_deltas.sh \
         --write-utt2num-frames false \
         --deltas-config conf/deltas.conf \
-        --nj $num_jobs \
+        --nj "$num_jobs" \
         --cmd "$preprocess_cmd" \
         --compress true \
-        $DATADIR/${data_subset} \
-        $log_dir/make_deltas \
-        $mfcc_deltas_dir
+        "$DATADIR/${data_subset}" \
+        "$log_dir/make_deltas" \
+        "$mfcc_deltas_dir"
+    
     # Runtime: ??
     elif [ "$feature_type" == "sdc" ]; then
       echo "Creating 9D MFCC features for SDC features."
       steps/make_mfcc.sh \
         --write-utt2num-frames false \
         --mfcc-config conf/mfcc_sdc.conf \
-        --nj $num_jobs \
+        --nj "$num_jobs" \
         --cmd "$preprocess_cmd" \
         --compress true \
-        $DATADIR/${data_subset} \
-        $log_dir/make_mfcc_sdc \
-        $mfcc_sdc_dir
-
-      utils/fix_data_dir.sh $DATADIR/${data_subset}
-
+        "$DATADIR/${data_subset}" \
+        "$log_dir/make_mfcc_sdc" \
+        "$mfcc_sdc_dir"
+      utils/fix_data_dir.sh "$DATADIR/${data_subset}"
       echo "Creating 72D SDC features on top of 7D MFCC features."
       ./local/make_sdc.sh \
         --write-utt2num-frames false \
         --sdc-config conf/sdc.conf \
-        --nj $num_jobs \
+        --nj "$num_jobs" \
         --cmd "$preprocess_cmd" \
         --compress true \
-        $DATADIR/${data_subset} \
-        $log_dir/make_sdc \
-        $sdc_dir
+        "$DATADIR/${data_subset}" \
+        "$log_dir/make_sdc" \
+        "$sdc_dir"
+
     # Runtime: ~20 minutes
     elif [ "$feature_type" == "pitch_energy" ]; then
       echo "Creating 5D KaldiPitch + energy features."
@@ -336,24 +344,26 @@ if [ $stage -eq 2 ]; then
         --pitch-config conf/kaldi_pitch.conf \
         --pitch-postprocess-config conf/kaldi_pitch_process.conf \
         --paste-length-tolerance 2 \
-        --nj $num_jobs \
+        --nj "$num_jobs" \
         --cmd "$preprocess_cmd" \
         --compress true \
-        $DATADIR/${data_subset} \
-        $log_dir/make_pitch_energy \
-        $pitch_energy_dir
+        "$DATADIR/${data_subset}" \
+        "$log_dir/make_pitch_energy" \
+        "$pitch_energy_dir"
+    
     # Runtime: ~10 minutes
     elif [ "$feature_type" == "energy" ]; then
       echo "Creating 1D raw energy features."
       steps/make_mfcc.sh \
         --write-utt2num-frames false \
         --mfcc-config conf/mfcc_energy.conf \
-        --nj $num_jobs \
+        --nj "$num_jobs" \
         --cmd "$preprocess_cmd" \
         --compress true \
-        $DATADIR/${data_subset} \
-        $log_dir/make_energy \
-        $energy_dir
+        "$DATADIR/${data_subset}" \
+        "$log_dir/make_energy" \
+        "$energy_dir"
+
     # Runtime: ~14 minutes
     elif [ "$feature_type" == "pitch" ]; then
       echo "Creating 4D KaldiPitch features."
@@ -361,123 +371,131 @@ if [ $stage -eq 2 ]; then
         --write-utt2num-frames false \
         --pitch-config conf/kaldi_pitch.conf \
         --pitch-postprocess-config conf/kaldi_pitch_process.conf \
-        --nj $num_jobs \
+        --nj "$num_jobs" \
         --cmd "$preprocess_cmd" \
         --compress true \
-        $DATADIR/${data_subset} \
-        $log_dir/make_pitch \
-        $pitch_dir
+        "$DATADIR/${data_subset}" \
+        "$log_dir/make_pitch" \
+        "$pitch_dir"
+
     # Runtime: ~40 minutes
     elif [ "$feature_type" == "mfcc_deltas_pitch_energy" ]; then
       echo "Creating 74D MFCC+deltas+delta-deltas+KaldiPitch+energy features."
       ./local/combine_feats.sh \
-        --feature-name $feature_type \
+        --feature-name "$feature_type" \
         --paste-length-tolerance 2 \
         --cmd "$preprocess_cmd" \
-        $mfcc_deltas_dir/${data_subset} \
-        $pitch_energy_dir/${data_subset} \
-        $DATADIR/${data_subset}
+        "$mfcc_deltas_dir/${data_subset}" \
+        "$pitch_energy_dir/${data_subset}" \
+        "$DATADIR/${data_subset}"
+
     elif [ "$feature_type" == "mfcc_deltas_pitch" ]; then
       echo "Creating 73D MFCC+deltas+delta-deltas+KaldiPitch features."
       ./local/combine_feats.sh \
-        --feature-name $feature_type \
+        --feature-name "$feature_type" \
         --paste-length-tolerance 2 \
         --cmd "$preprocess_cmd" \
-        $mfcc_deltas_dir/${data_subset} \
-        $pitch_dir/${data_subset} \
-        $DATADIR/${data_subset}
+        "$mfcc_deltas_dir/${data_subset}" \
+        "$pitch_dir/${data_subset}" \
+        "$DATADIR/${data_subset}"
+
     elif [ "$feature_type" == "mfcc_deltas_energy" ]; then
       echo "Creating 70D MFCC+deltas+delta-deltas+energy features."
       ./local/combine_feats.sh \
-        --feature-name $feature_type \
+        --feature-name "$feature_type" \
         --paste-length-tolerance 2 \
         --cmd "$preprocess_cmd" \
-        $mfcc_deltas_dir/${data_subset} \
-        $energy_dir/${data_subset} \
-        $DATADIR/${data_subset}
+        "$mfcc_deltas_dir/${data_subset}" \
+        "$energy_dir/${data_subset}" \
+        "$DATADIR/${data_subset}"
+
     elif [ "$feature_type" == "mfcc_pitch_energy" ]; then
       echo "Creating 28D MFCC+KaldiPitch+energy features."
       ./local/combine_feats.sh \
-        --feature-name $feature_type \
+        --feature-name "$feature_type" \
         --paste-length-tolerance 2 \
         --cmd "$preprocess_cmd" \
-        $mfcc_dir/${data_subset} \
-        $pitch_energy_dir/${data_subset} \
-        $DATADIR/${data_subset}
+        "$mfcc_dir/${data_subset}" \
+        "$pitch_energy_dir/${data_subset}" \
+        "$DATADIR/${data_subset}"
+
     elif [ "$feature_type" == "mfcc_pitch" ]; then
       echo "Creating 27D MFCC+KaldiPitch features."
       ./local/combine_feats.sh \
-        --feature-name $feature_type \
+        --feature-name "$feature_type" \
         --paste-length-tolerance 2 \
         --cmd "$preprocess_cmd" \
-        $mfcc_dir/${data_subset} \
-        $pitch_dir/${data_subset} \
-        $DATADIR/${data_subset}
+        "$mfcc_dir/${data_subset}" \
+        "$pitch_dir/${data_subset}" \
+        "$DATADIR/${data_subset}"
+
     elif [ "$feature_type" == "mfcc_energy" ]; then
       echo "Creating 24D MFCC+energy features."
       ./local/combine_feats.sh \
-        --feature-name $feature_type \
+        --feature-name "$feature_type" \
         --paste-length-tolerance 2 \
         --cmd "$preprocess_cmd" \
-        $mfcc_dir/${data_subset} \
-        $energy_dir/${data_subset} \
-        $DATADIR/${data_subset}
+        "$mfcc_dir/${data_subset}" \
+        "$energy_dir/${data_subset}" \
+        "$DATADIR/${data_subset}"
+
     elif [ "$feature_type" == "sdc_pitch_energy" ]; then
       echo "Creating 77D SDC+KaldiPitch+energy features."
       ./local/combine_feats.sh \
-        --feature-name $feature_type \
+        --feature-name "$feature_type" \
         --paste-length-tolerance 2 \
         --cmd "$preprocess_cmd" \
-        $sdc_dir/${data_subset} \
-        $pitch_energy_dir/${data_subset} \
-        $DATADIR/${data_subset}
+        "$sdc_dir/${data_subset}" \
+        "$pitch_energy_dir/${data_subset}" \
+        "$DATADIR/${data_subset}"
+
     elif [ "$feature_type" == "sdc_pitch" ]; then
       echo "Creating 76D SDC+KaldiPitch features."
       ./local/combine_feats.sh \
-        --feature-name $feature_type \
+        --feature-name "$feature_type" \
         --paste-length-tolerance 2 \
         --cmd "$preprocess_cmd" \
-        $sdc_dir/${data_subset} \
-        $pitch_dir/${data_subset} \
-        $DATADIR/${data_subset}
+        "$sdc_dir/${data_subset}" \
+        "$pitch_dir/${data_subset}" \
+        "$DATADIR/${data_subset}"
+
     elif [ "$feature_type" == "sdc_energy" ]; then
       echo "Creating 73D SDC+energy features."
       ./local/combine_feats.sh \
-        --feature-name $feature_type \
+        --feature-name "$feature_type" \
         --paste-length-tolerance 2 \
         --cmd "$preprocess_cmd" \
-        $sdc_dir/${data_subset} \
-        $energy_dir/${data_subset} \
-        $DATADIR/${data_subset}
+        "$sdc_dir/${data_subset}" \
+        "$energy_dir/${data_subset}" \
+        "$DATADIR/${data_subset}"
     fi
 
     echo "Computing utt2num_frames and fixing the directory."
-    
     # Have to calculate this separately, since make_mfcc.sh isn't writing properly
-    utils/data/get_utt2num_frames.sh $DATADIR/${data_subset}
-    utils/fix_data_dir.sh $DATADIR/${data_subset}
+    utils/data/get_utt2num_frames.sh "$DATADIR/${data_subset}"
+    utils/fix_data_dir.sh "$DATADIR/${data_subset}"
 
     if [[ $recompute_vad == true ]] || [ -z "$vad_file_dir" ] ; then
       echo "Re-computing VAD."
       ./local/compute_vad_decision.sh \
-        --nj $num_jobs \
+        --nj "$num_jobs" \
         --cmd "$preprocess_cmd" \
-        $DATADIR/${data_subset} \
-        $log_dir/make_vad \
-        $vaddir
+        "$DATADIR/${data_subset}" \
+        "$log_dir/make_vad" \
+        "$vaddir"
 
-      utils/fix_data_dir.sh $DATADIR/${data_subset}
+      utils/fix_data_dir.sh "$DATADIR/${data_subset}"
     else
-      vad_file=$vad_file_dir/${data_subset}/vad.scp
+      vad_file="$vad_file_dir/${data_subset}/vad.scp"
       if [ ! -f "$vad_file" ]; then
         echo "Couldn't find existing VAD file: '${vad_file}'. Make sure it exists."
         exit 1
       else
         echo "Using existing VAD file: ${vad_file}"
-        cp $vad_file $DATADIR/${data_subset}
+        cp "$vad_file" "$DATADIR/${data_subset}"
       fi        
     fi
-  ) &> $log_dir/${feature_type}_${data_subset}
+  ) &> "$log_dir/${feature_type}_${data_subset}"
   done
 
   echo "Finished stage 2."
