@@ -190,7 +190,7 @@ echo "The experiment directory is: '${DATADIR}'"
 # for each experiment. Then, all experiments can skip this stage and start from stage 1 instead.
 # For each language, WAV files as well as spk, wav.scp, spk2utt, utt2spk, and utt2len lists are 
 # created.
-# Runtime: TODO
+# Runtime: over 7 hours
 if [ $stage -eq 42 ]; then
   echo "#### SPECIAL STAGE 42: Converting all SHN files to WAV files. ####"
   ./local/make_wavs.sh \
@@ -209,7 +209,7 @@ fi
 #
 # Runtime: Under 2 mins
 if [ $stage -eq 1 ]; then
-  echo "#### STAGE 1: Organising speakers into sets. ####"
+  echo "#### STAGE 1: Creating speaker and utterance lists for each data partition. ####"
   ./local/gp_data_organise.sh \
     --config-dir="$PWD/conf" \
     --wav-dir="$wav_dir" \
@@ -249,9 +249,8 @@ fi
 
 # Compute features from WAVs and the energy-based VAD for each data partition.
 # Runtime: variable
-# TODO: Replace conf/ by a configurable confdir name?
 if [ $stage -eq 2 ]; then
-  echo "#### STAGE 2: features (MFCC, SDC, pitch, energy, etc) and VAD. ####"
+  echo "#### STAGE 2: computing features and VAD. ####"
 
   # determine which data partitions to handle
   if [ "$mode" = full ]; then
@@ -507,36 +506,36 @@ if [ $stage -eq 2 ]; then
   fi
 fi
 
-# Now we prepare the features to generate examples for xvector training.
+# Feature post-processing of training data to create training examples for the X-vector TDNN.
 # Runtime: ~2 mins
 if [ $stage -eq 3 ] && [ "$mode" = full ]; then
-  # NOTE silence not being removed
-  echo "#### STAGE 3: Preprocessing for X-vector training examples. ####"
+  echo "#### STAGE 3: Post-processing training data features to create TDNN training examples. ####"
   
-  # This script applies CMVN and removes nonspeech frames.  Note that this is somewhat
-  # wasteful, as it roughly doubles the amount of training data on disk.  After
+  # Apply CMN and maybe remove nonspeech frames based on the previously computed VAD. Note that 
+  # this is somewhat wasteful, as it roughly doubles the amount of training data on disk.  After
   # creating training examples, this can be removed.
   remove_nonspeech="$use_vad"
   ./local/prepare_feats_for_egs.sh \
-    --nj $MAXNUMJOBS \
+    --nj "$MAXNUMJOBS" \
     --cmd "$preprocess_cmd" \
     --remove-nonspeech "$remove_nonspeech" \
-    $train_data \
-    $nnet_train_data \
-    $feat_dir
+    "$train_data" \
+    "$nnet_train_data" \
+    "$feat_dir"
 
-	utils/data/get_utt2num_frames.sh $nnet_train_data
-  utils/fix_data_dir.sh $nnet_train_data
+	utils/data/get_utt2num_frames.sh "$nnet_train_data"
+  utils/fix_data_dir.sh "$nnet_train_data"
 
-  # Now, we need to remove features that are too short after removing silence
-  # frames.  We want atleast 5s (500 frames) per utterance.
+  # Remove from the training utterances any that are shorter than 5s (500 frames).
 	echo "Removing short features..."
   min_len=500
-  mv $nnet_train_data/utt2num_frames $nnet_train_data/utt2num_frames.bak
-  awk -v min_len=${min_len} '$2 > min_len {print $1, $2}' $nnet_train_data/utt2num_frames.bak > $nnet_train_data/utt2num_frames
-  utils/filter_scp.pl $nnet_train_data/utt2num_frames $nnet_train_data/utt2spk > $nnet_train_data/utt2spk.new
-  mv $nnet_train_data/utt2spk.new $nnet_train_data/utt2spk
-  utils/fix_data_dir.sh $nnet_train_data
+  mv "$nnet_train_data/utt2num_frames" "$nnet_train_data/utt2num_frames.bak"
+  awk -v min_len=${min_len} '$2 > min_len {print $1, $2}' \
+    "$nnet_train_data/utt2num_frames.bak" > "$nnet_train_data/utt2num_frames"
+  utils/filter_scp.pl "$nnet_train_data/utt2num_frames" "$nnet_train_data/utt2spk" \
+    > "$nnet_train_data/utt2spk.new"
+  mv "$nnet_train_data/utt2spk.new" "$nnet_train_data/utt2spk"
+  utils/fix_data_dir.sh "$nnet_train_data"
 
   echo "Finished stage 3."
 
@@ -547,29 +546,31 @@ if [ $stage -eq 3 ] && [ "$mode" = full ]; then
   fi
 fi
 
-# NOTE main things we need to work on are the num-repeats and num-jobs parameters
-# Runtime: ~19.5 hours
-# TO-DO: Find out the runtime without using GPUs.
+# Training the X-vector TDNN.
+# Runtime: ~19.5 hours (7 epochs, using 3 GeForce GTX 1060 6GB GPUs)
 if [ $stage -eq 4 ] && [ "$mode" = full ]; then
   echo "#### STAGE 4: Training the X-vector DNN. ####"
+  
+  # If taking training examples from another experiment, skip stage 4 in the script (creating 
+  # training archives -- effectively batches, including duplicating and shuffling the data).
   if [ ! -z "$use_dnn_egs_from" ]; then
     ./local/run_xvector.sh \
       --stage 5 \
       --train-stage -1 \
-      --num-epochs $num_epochs \
-      --max-num-jobs $MAXNUMJOBS \
-      --data $nnet_train_data \
-      --nnet-dir $nnet_dir \
-      --egs-dir $preprocessed_data_dir/nnet/egs
+      --num-epochs "$num_epochs" \
+      --max-num-jobs "$MAXNUMJOBS" \
+      --data "$nnet_train_data" \
+      --nnet-dir "$nnet_dir" \
+      --egs-dir "$preprocessed_data_dir/nnet/egs"
   else
     ./local/run_xvector.sh \
       --stage 4 \
       --train-stage -1 \
-      --num-epochs $num_epochs \
-      --max-num-jobs $MAXNUMJOBS \
-      --data $nnet_train_data \
-      --nnet-dir $nnet_dir \
-      --egs-dir $nnet_dir/egs
+      --num-epochs "$num_epochs" \
+      --max-num-jobs "$MAXNUMJOBS" \
+      --data "$nnet_train_data" \
+      --nnet-dir "$nnet_dir" \
+      --egs-dir "$nnet_dir/egs"
   fi
 
   echo "Finished stage 4."
@@ -581,9 +582,13 @@ if [ $stage -eq 4 ] && [ "$mode" = full ]; then
   fi
 fi
 
-# Runtime: ~1:05h. ~45min for MFCC+deltas+pitch+energy (because less data)
+# Extracting x-vectors for enrollment data (for training the classifier), and for evaluation and
+# testing data.
+# Runtime: variable. When running on 10 worker nodes in parallel, each with one GPU, takes ~1h to
+# extract enrollment, evaluation and testing portion x-vectors. The more you can parallelize this
+# stage (with many worker nodes available), the better.
 if [ $stage -eq 7 ]; then
-  echo "#### STAGE 7: Extracting X-vectors from the trained DNN. ####"
+  echo "#### STAGE 7: Extracting X-vectors from the trained TDNN. ####"
 
   if [[ $(whichMachine) == cluster* ]]; then
     use_gpu=true
@@ -596,40 +601,40 @@ if [ $stage -eq 7 ]; then
     # X-vectors for training the classifier
     ./local/extract_xvectors.sh \
       --cmd "$extract_cmd --mem 6G" \
-      --use-gpu $use_gpu \
-      --nj $MAXNUMJOBS \
+      --use-gpu "$use_gpu" \
+      --nj "$MAXNUMJOBS" \
       --stage 0 \
       --remove-nonspeech "$remove_nonspeech" \
-      $nnet_dir \
-      $enroll_data \
-      $exp_dir/xvectors_enroll &
+      "$nnet_dir" \
+      "$enroll_data" \
+      "$exp_dir/xvectors_enroll" &
 
     # X-vectors for end-to-end evaluation
     ./local/extract_xvectors.sh \
       --cmd "$extract_cmd --mem 6G" \
-      --use-gpu $use_gpu \
-      --nj $MAXNUMJOBS \
+      --use-gpu "$use_gpu" \
+      --nj "$MAXNUMJOBS" \
       --stage 0 \
       --remove-nonspeech "$remove_nonspeech" \
-      $nnet_dir \
-      $eval_data \
-      $exp_dir/xvectors_eval &
+      "$nnet_dir" \
+      "$eval_data" \
+      "$exp_dir/xvectors_eval" &
   fi
   
   if [ "$use_test_set" = true ]; then
     # X-vectors for end-to-end testing
     ./local/extract_xvectors.sh \
       --cmd "$extract_cmd --mem 6G" \
-      --use-gpu $use_gpu \
-      --nj $MAXNUMJOBS \
+      --use-gpu "$use_gpu" \
+      --nj "$MAXNUMJOBS" \
       --stage 0 \
       --remove-nonspeech "$remove_nonspeech" \
-      $nnet_dir \
-      $test_data \
-      $exp_dir/xvectors_test &
+      "$nnet_dir" \
+      "$test_data" \
+      "$exp_dir/xvectors_test" &
   fi
 
-  wait;
+  wait # wait for all the x-vector extracting processes running in the background
 
   echo "Finished stage 7."
 
@@ -640,65 +645,68 @@ if [ $stage -eq 7 ]; then
   fi
 fi
 
-# Using logistic regression as a classifier (adapted from egs/lre07/v2,
-# described in https://arxiv.org/pdf/1804.05000.pdf)
-# Runtime: ~ 3min
+# Training a mixture model classifier based on logistic regression (adapted from egs/lre07/v2,
+# described in https://arxiv.org/pdf/1804.05000.pdf), and classifying the evaluation and testing
+# utterances.
+# Runtime: ~3min
 if [ $stage -eq 8 ]; then
-  echo "#### STAGE 8: Training logistic regression classifier and classifying test utterances. ####"
+  echo "#### STAGE 8: Training logistic regression classifier & scoring eval/test utterances. ####"
   # Make language-int map (essentially just indexing the languages 0 to L)
   langs=($GP_LANGUAGES)
+  lang_map_file=conf/test_languages.list
   i=0
   for l in "${langs[@]}"; do
     echo $l $i
     i=$(expr $i + 1)
-  done > conf/test_languages.list
+  done > "$lang_map_file"
 
-  mkdir -p $exp_dir/results
+  mkdir -p "$exp_dir/results"
 
   if [ "$mode" = full ]; then
-    echo "Training a classifier..."
-    classifier_dir=$exp_dir/classifier
+    echo "The classifier will be trained..."
+    classifier_dir="$exp_dir/classifier"
   else
-    echo "Taking a trained classifier from the '${nnet_exp_dir}' experiment..."
+    echo "A trained classifier will be taken from the '${nnet_exp_dir}' experiment..."
     if [ -z ${nnet_exp_dir+x} ]; then
       echo "The nnet_exp_dir variable has to be set!"
       exit 1
     else
-      classifier_dir=$nnet_exp_dir/exp/classifier
-      mkdir -p $exp_dir/classifier
+      classifier_dir="$nnet_exp_dir/exp/classifier"
+      mkdir -p "$exp_dir/classifier"
     fi
   fi
 
   if [ "$mode" = full ]; then
-    mkdir -p $classifier_dir
+    mkdir -p "$classifier_dir"
+
     # Training the log reg model
     ./local/logistic_regression_train.sh \
       --prior-scale 0.70 \
       --conf conf/logistic-regression.conf \
-      --train-dir $exp_dir/xvectors_enroll \
-      --model-dir $classifier_dir \
-      --train-utt2lang $exp_dir/xvectors_enroll/utt2lang \
-      --eval-utt2lang $exp_dir/xvectors_eval/utt2lang \
-      --languages conf/test_languages.list \
-      &> $exp_dir/classifier/logistic-regression-train.log
+      --train-dir "$exp_dir/xvectors_enroll" \
+      --model-dir "$classifier_dir" \
+      --train-utt2lang "$exp_dir/xvectors_enroll/utt2lang" \
+      --eval-utt2lang "$exp_dir/xvectors_eval/utt2lang" \
+      --languages "$lang_map_file" \
+      &> "$exp_dir/classifier/logistic-regression-train.log"
       
     # Classifying eval set samples
     ./local/logistic_regression_score.sh \
-      --languages conf/test_languages.list \
-      --model-dir $classifier_dir \
-      --test-dir $exp_dir/xvectors_eval \
-      --classification-file $exp_dir/results/classification-eval \
-      &> $exp_dir/classifier/logistic-regression-score-eval.log
+      --languages "$lang_map_file" \
+      --model-dir "$classifier_dir" \
+      --test-dir "$exp_dir/xvectors_eval" \
+      --classification-file "$exp_dir/results/classification-eval" \
+      &> "$exp_dir/classifier/logistic-regression-score-eval.log"
   fi
 
   if [ "$use_test_set" = true ]; then
     # Classifying test set samples
     ./local/logistic_regression_score.sh \
-      --languages conf/test_languages.list \
-      --model-dir $classifier_dir \
-      --test-dir $exp_dir/xvectors_test \
-      --classification-file $exp_dir/results/classification-test \
-      &> $exp_dir/classifier/logistic-regression-score-test.log
+      --languages "$lang_map_file" \
+      --model-dir "$classifier_dir" \
+      --test-dir "$exp_dir/xvectors_test" \
+      --classification-file "$exp_dir/results/classification-test" \
+      &> "$exp_dir/classifier/logistic-regression-score-test.log"
   fi
 
   echo "Finished stage 8."
@@ -710,25 +718,26 @@ if [ $stage -eq 8 ]; then
   fi
 fi
 
+# Calculating results from the raw scores.
 # Runtime: < 10s
 if [ $stage -eq 9 ]; then
   echo "#### STAGE 9: Calculating results. ####"
   if [ "$mode" = full ]; then
     ./local/compute_results.py \
-      --classification-file $exp_dir/results/classification-eval \
-      --output-file $exp_dir/results/results-eval \
-      --conf-mtrx-file $exp_dir/results/conf_matrix-eval.csv \
+      --classification-file "$exp_dir/results/classification-eval" \
+      --output-file "$exp_dir/results/results-eval" \
+      --conf-mtrx-file "$exp_dir/results/conf_matrix-eval.csv" \
       --language-list "$GP_LANGUAGES" \
-      &>$exp_dir/results/compute_results-eval.log
+      &> "$exp_dir/results/compute_results-eval.log"
   fi
 
   if [ "$use_test_set" = true ]; then
     ./local/compute_results.py \
-      --classification-file $exp_dir/results/classification-test \
-      --output-file $exp_dir/results/results-test \
-      --conf-mtrx-file $exp_dir/results/conf_matrix-test.csv \
+      --classification-file "$exp_dir/results/classification-test" \
+      --output-file "$exp_dir/results/results-test" \
+      --conf-mtrx-file "$exp_dir/results/conf_matrix-test.csv" \
       --language-list "$GP_LANGUAGES" \
-      &>$exp_dir/results/compute_results-test.log
+      &> "$exp_dir/results/compute_results-test.log"
   fi
   
   echo "Finished stage 9."

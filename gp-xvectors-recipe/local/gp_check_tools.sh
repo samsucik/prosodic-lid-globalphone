@@ -68,7 +68,6 @@ if $install_shorten; then
   cp $path_file $d/old-${b}.sh
   sed -e "s?^SHORTEN_BIN=.*?SHORTEN_BIN=$WDIR/tools/shorten-3.6.1/bin?" \
     $d/old-${b}.sh > $tmp_file
-  # echo 'export PATH=$SHORTEN_BIN:$PATH' >> $tmp_file
 else
   cp $path_file $tmp_file
 fi
@@ -77,5 +76,4 @@ if $install_sox; then
   local/gp_install.sh --install-sox $install_sox $WDIR || exit 1
   cp $path_file $d/old-${b}.sh
   sed -e "s?^SOX_BIN=.*?SOX_BIN=$WDIR/tools/sox-14.3.2/bin?" $tmp_file > $path_file
-  # echo 'export PATH=$SOX_BIN:$PATH' >> $tmp_file
 fi

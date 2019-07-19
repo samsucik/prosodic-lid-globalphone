@@ -1,9 +1,11 @@
-#!/bin/bash
+#!/bin/bash -u
 
-# Directory where preprocessed data will be stored. Usually grows to a few GBs
-# as the preprocessing and feature extraction run.
+# Directory where preprocessed data will be stored. Usually grows to a few GBs as the preprocessing 
+# and feature extraction run. When you create an experiment, its directory will be created inside of
+# this directory.
 DATADIR=~/gp-data
 
+# Kaldi installation directory.
 KALDI_ROOT=~/kaldi
 
 [ -f $KALDI_ROOT/tools/env.sh ] && . $KALDI_ROOT/tools/env.sh

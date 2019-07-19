@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -u
 
 # Adapted from sre16/v1/local/nnet3/xvector/prepare_feats_for_egs.sh by Sam Sucik
 # Copyright 2019 Sam Sucik
@@ -35,7 +35,7 @@ fi
 
 data_in=$1
 data_out=$2
-dir=$3
+feat_dir=$3
 
 name=`basename $data_in`
 
@@ -48,9 +48,9 @@ if [ "$remove_nonspeech" = true ]; then
 fi
 
 # Set various variables.
-mkdir -p $dir/log
+mkdir -p $feat_dir/log
 mkdir -p $data_out
-featdir=$(utils/make_absolute.sh $dir)
+featdir=$(utils/make_absolute.sh $feat_dir)
 
 for n in $(seq $nj); do
   # the next command does nothing unless $featdir/storage/ exists, see
@@ -70,23 +70,19 @@ sdata_in=$data_in/split$nj;
 utils/split_data.sh $data_in $nj || exit 1;
 
 if [ "$remove_nonspeech" = true ]; then
-  $cmd JOB=1:$nj $dir/log/create_xvector_feats_${name}.JOB.log \
+  $cmd JOB=1:$nj $feat_dir/log/create_xvector_feats_${name}.JOB.log \
     apply-cmvn-sliding --norm-vars=false --center=true --cmn-window=$cmn_window \
     scp:${sdata_in}/JOB/feats.scp ark:- \| \
     select-voiced-frames ark:- scp,s,cs:${sdata_in}/JOB/vad.scp ark:- \| \
     copy-feats --compress=$compress $write_num_frames_opt ark:-\
     ark,scp:$featdir/xvector_feats_${name}.JOB.ark,$featdir/xvector_feats_${name}.JOB.scp || exit 1;
 else
-  $cmd JOB=1:$nj $dir/log/create_xvector_feats_${name}.JOB.log \
+  $cmd JOB=1:$nj $feat_dir/log/create_xvector_feats_${name}.JOB.log \
     apply-cmvn-sliding --norm-vars=false --center=true --cmn-window=$cmn_window \
     scp:${sdata_in}/JOB/feats.scp ark:- \| \
     copy-feats --compress=$compress $write_num_frames_opt ark:-\
     ark,scp:$featdir/xvector_feats_${name}.JOB.ark,$featdir/xvector_feats_${name}.JOB.scp || exit 1;
 fi
-
-
-# Replaced line 70 - originally was:
-# copy-feats --compress=$compress $write_num_frames_opt ark:- \
 
 for n in $(seq $nj); do
   cat $featdir/xvector_feats_${name}.$n.scp || exit 1;
@@ -95,6 +91,5 @@ done > ${data_out}/feats.scp || exit 1
 for n in $(seq $nj); do
   cat $featdir/log/utt2num_frames.$n || exit 1;
 done > $data_out/utt2num_frames || exit 1
-#rm $featdir/log/utt2num_frames.*
 
 echo "$0: Succeeded creating xvector features for $name"
