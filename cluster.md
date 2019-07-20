@@ -1,5 +1,5 @@
-# How to use the MSc GPU cluster
-Original docs [here](http://computing.help.inf.ed.ac.uk/msc-teaching-cluster).
+# How to use the UoE MSc GPU cluster
+Original docs [here](http://computing.help.inf.ed.ac.uk/teaching-cluster).
 
 
 ## Basics
